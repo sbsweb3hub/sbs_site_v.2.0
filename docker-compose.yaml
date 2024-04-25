@@ -1,0 +1,21 @@
+# @format
+
+version: '3.8'
+
+services:
+  nextjs-app:
+    container_name: nextjs-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    # environment:
+    #   - NEXT_PUBLIC_API_URL=http://localhost:3000
+    ports:
+      - '3010:3001'
+    command: npm run dev
+    env_file:
+      - ./.env
