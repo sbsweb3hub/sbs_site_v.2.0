@@ -3,6 +3,13 @@
  * @type {import('next').NextConfig}
  */
 
-module.exports = {
+const nextConfig = {
   output: 'standalone',
+  webpack: (config) => {
+    config.externals.push("pino-pretty", "lokijs", "encoding");
+    config.resolve.fallback = { fs: false };
+    return config;
+  },
 };
+
+module.exports = nextConfig;
