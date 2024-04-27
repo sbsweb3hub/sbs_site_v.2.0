@@ -1,6 +1,6 @@
 /** @format */
 
-import { apiInstance } from '@/api/api-instance';
+import { apiInstance } from '@/services/api-instance';
 
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { CreateProjectType, ProjectType } from '@/types';
@@ -8,13 +8,13 @@ import { CreateProjectType, ProjectType } from '@/types';
 //@todo - refactor to next fetch
 export default class DashboardService {
   static async createProject(
-    inputData: CreateProjectType,
-    cookies?: string
+    inputData: any
+    // cookies?: string
   ): Promise<any> {
     try {
-      const config = cookies ? { headers: { Cookie: cookies } } : undefined;
-      console.log('CONF', config);
-      const response = await apiInstance.post('/projects', inputData, config);
+      // const config = cookies ? { headers: { Cookie: cookies } } : undefined;
+      // console.log('CONF', config);
+      const response = await apiInstance.post('/projects', inputData);
       return response;
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {

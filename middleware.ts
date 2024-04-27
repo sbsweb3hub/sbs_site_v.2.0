@@ -1,15 +1,18 @@
 /** @format */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { getSession } from './auth/lib';
 
-const protectedRoutes = ['/private', '/private/create'];
-//@todo this is bull shit
-export default function middleware(req: NextRequest) {
-  // let token = req.cookies.get('token');
-  const resp = req.cookies.get('wagmi.store')?.value;
-  const isConnected = JSON.parse(resp!);
-  if (!isConnected && protectedRoutes.includes(req.nextUrl.pathname)) {
-    const newUrl = new URL('/', req.nextUrl.origin);
-    return NextResponse.redirect(newUrl.toString());
+//@todo - check expires and url path when redirect
+export default async function middleware(req: NextRequest) {
+  const session = await getSession();
+  if (session) {
+    return NextResponse.next();
   }
+
+  return NextResponse.redirect(new URL('/', req.url));
 }
+
+export const config = {
+  matcher: '/private/:path*',
+};
