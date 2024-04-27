@@ -9,7 +9,7 @@ const ProjectCard: React.FC<any> = ({ project }) => {
             <h3 className="text-lg font-bold">{project.projectName}</h3>
             <p className="text-sm">{project.projectName}</p>
             <Link href={`/projects/${project.id}`}>
-                I want to see this shit
+                I want to see this
             </Link>
 
         </div>

@@ -16,9 +16,12 @@ export const ProjectForm = () => {
     const { handleSubmit } = methods;
     //@todo make revalidateTag('project') and maybe server action form
     const onSubmit = async (data: any) => {
-        const inputData = { ...data, owner: address }
-        const response = await DashboardService.createProject(inputData);
-        if (response.status === 201) router.push('/private')
+        // const inputData = { ...data, owner: address }
+        const response = await DashboardService.createProject(data);
+        if (response.status === 201) {
+            router.push('/private')
+
+        }
     };
 
     return (
