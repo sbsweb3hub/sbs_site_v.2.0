@@ -1,18 +1,14 @@
 'use client'
-import { logout } from '@/auth/lib'
 import { useRouter } from 'next/navigation'
 import { useAccount, useDisconnect, useEnsAvatar, useEnsName } from 'wagmi'
 
-export function Account() {
+export function Account({ url }: { url: string }) {
     const { address } = useAccount()
     const { disconnectAsync } = useDisconnect()
     const router = useRouter()
-    // const { data: ensName } = useEnsName({ address })
-    // const { data: ensAvatar } = useEnsAvatar({ name: ensName! })
-
     const handleDisconnect = async () => {
         await disconnectAsync()
-        await fetch('http://localhost:3000/auth/logout')
+        await fetch(`${url}/api/v1/auth/logout`)
         router.refresh()
     }
 
