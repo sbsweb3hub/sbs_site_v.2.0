@@ -9,7 +9,6 @@ const Header = async () => {
     const protocol = headers().get('x-forwarded-proto') as string
     const host = headers().get('host') as string
     const url = protocol + "://" + host
-    console.log(url)
 
     return (
         <header className="bg-blue-500 text-white text-lg p-4 flex justify-between items-center">
