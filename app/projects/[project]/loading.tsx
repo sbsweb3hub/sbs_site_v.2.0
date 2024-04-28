@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function Loading() {
     return (
-        <div>LoadingMain....LoadingMain....LoadingMain</div>
+        <div>LoadingProject....LoadingProject....LoadingProject</div>
     )
 }
