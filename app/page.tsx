@@ -1,5 +1,11 @@
+'use client'
+import React from "react";
+import WelcomePage from "./components/WelcomePage/WelcomePage";
+
 export default function Home() {
   return (
-    <p>This is Main Page</p>
+    <div className="flex flex-col h-full flex flex-col items-center">
+      <WelcomePage />
+    </div>
   );
 }
