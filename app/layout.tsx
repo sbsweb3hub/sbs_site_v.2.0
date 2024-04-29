@@ -7,7 +7,13 @@ import Header from './components/header'
 import { config } from '@/auth/wagmi/config/config'
 import { Providers } from '@/auth/wagmi/providers'
 import { ReactNode } from 'react'
+import {NextUIProvider} from '@nextui-org/react'
+import { Montserrat } from "next/font/google";
+import Footer from './components/Footer'
 
+
+
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 
 export const metadata: Metadata = {
@@ -24,15 +30,19 @@ export default function RootLayout({
 }>) {
   const initialState = cookieToInitialState(config, headers().get('cookie'))
   return (
-    <html lang="en">
-      <body className="flex-1">
+    <html className='dark' lang="en">
+      <body className={montserrat.className}>
         <div className="flex flex-col min-h-screen">
           <Providers initialState={initialState}>
-            <Header />
-            {children}
+            <NextUIProvider>
+              <Header />
+              <main className='text-foreground'>
+                {children}
+              </main>
+              <Footer/>
+            </NextUIProvider>
           </Providers>
         </div>
-
       </body>
     </html>
   )
