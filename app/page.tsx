@@ -1,10 +1,11 @@
-import Link from "next/link";
+'use client'
+import React from "react";
+import WelcomePage from "./components/WelcomePage/WelcomePage";
 
 export default function Home() {
-  return (<>
-    <p>This is Landing</p>
-    <Link href='/app'>Launch App</Link>
-
-  </>
+  return (
+    <div className="flex flex-col h-full flex flex-col items-center">
+      <WelcomePage />
+    </div>
   );
 }
