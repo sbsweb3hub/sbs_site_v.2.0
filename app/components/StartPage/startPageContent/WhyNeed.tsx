@@ -26,7 +26,7 @@ export default function WhyNeed() {
         <Divider className="my-4" />
         <div className="flex flex-col">
             <p className="text-lg text-[#FFF]">
-              Project's creators
+              Projects creators
             </p>
             <p className="text-sm text-[#D3D3D3]">
               Fairness
