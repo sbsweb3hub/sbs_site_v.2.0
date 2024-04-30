@@ -47,6 +47,7 @@ const projectSchema = new Schema(
     founder: {
       type: String,
       required: true,
+      unique: true,
     },
     startDate: {
       type: Date,

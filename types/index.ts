@@ -5,8 +5,8 @@ import { z } from 'zod';
 /** Projects types */
 
 export const ProjectSchema = z.object({
-  id: z.number(),
-  // owner: z.string(),
+  id: z.string(),
+  founder: z.string(),
   title: z.string().min(1, 'Project name is required'),
   // contactName: z.string().min(1, 'Contact name is required'),
   // telegram: z.string().min(1, 'Telegram handle is required'),
@@ -22,8 +22,8 @@ export const ProjectSchema = z.object({
   // team: z.string().min(1, 'Team information is required'),
   // members: z.string().min(1, 'Member details are required'),
   // community: z.string().min(1, 'Community details are required'),
-  createdAt: z.coerce.date(),
-  updatedAt: z.coerce.date(),
+  createdAt: z.coerce.date().optional(),
+  updatedAt: z.coerce.date().optional(),
 });
 export type ProjectType = z.infer<typeof ProjectSchema>;
 
