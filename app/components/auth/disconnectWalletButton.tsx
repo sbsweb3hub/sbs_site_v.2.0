@@ -1,27 +1,25 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import { useAccount, useDisconnect, useEnsAvatar, useEnsName } from 'wagmi'
+import { useAccount, useDisconnect } from 'wagmi'
 
-export function Account({ url }: { url: string }) {
-    const { address } = useAccount()
+export function DisconnectWalletButton({ address }: { address: string }) {
     const { disconnectAsync } = useDisconnect()
     const router = useRouter()
     const handleDisconnect = async () => {
         await disconnectAsync()
-        await fetch(`${url}/api/v1/auth/logout`)
+        await fetch(`/api/v1/auth/logout`)
+        router.push('/app')
         router.refresh()
     }
 
     return (
         <div>
-            {/* {ensAvatar && <img alt="ENS Avatar" src={ensAvatar} />} */}
-            {/* {address && <div>{ensName ? `${ensName} (${address})` : address}</div>} */}
             {address && (
                 <span>
                     {address.slice(0, 4)}...{address.slice(-4)}
                 </span>
             )}
-            <button className="ml-4" onClick={handleDisconnect}>
+            <button onClick={handleDisconnect} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 rounded">
                 Disconnect
             </button>
         </div>

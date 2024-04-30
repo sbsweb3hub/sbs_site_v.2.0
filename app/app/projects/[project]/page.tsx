@@ -1,8 +1,9 @@
-import { fetchProjectById } from "@/services/project-service";
+import { findProjectById } from "@/services/project-service";
 import { notFound } from "next/navigation";
 
 export default async function Project({ params }: { params: { project: string } }) {
-    const { title, startDate } = await fetchProjectById(params.project)
+
+    const { title, startDate } = await findProjectById(params.project)
     // @todo - what is the best approach to handle errors(notFound or Error)
     if (!title) notFound()
     return (

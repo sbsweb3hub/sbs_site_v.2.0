@@ -1,10 +1,9 @@
 
 import './globals.css'
 import type { Metadata } from 'next'
-import { headers } from 'next/headers'
-import { cookieToInitialState } from 'wagmi'
-import Header from './components/header'
-import { config } from '@/auth/wagmi/config/config'
+// import { headers } from 'next/headers'
+// import { cookieToInitialState } from 'wagmi'
+// import { config } from '@/auth/wagmi/config/config'
 import { Providers } from '@/auth/wagmi/providers'
 import { ReactNode } from 'react'
 
@@ -22,13 +21,15 @@ export default function RootLayout({
 }: Readonly<{
   children: ReactNode,
 }>) {
-  const initialState = cookieToInitialState(config, headers().get('cookie'))
+  // const initialState = cookieToInitialState(config, headers().get('cookie'))
   return (
     <html lang="en">
       <body className="flex-1">
         <div className="flex flex-col min-h-screen">
-          <Providers initialState={initialState}>
-            <Header />
+          <Providers
+          // nitialState={initialState}
+          >
+
             {children}
           </Providers>
         </div>

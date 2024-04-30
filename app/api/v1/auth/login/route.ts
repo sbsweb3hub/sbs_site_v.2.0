@@ -1,11 +1,18 @@
 /** @format */
+
+import { login } from '@/services/auth-service';
 import { cookies } from 'next/headers';
-import { encrypt } from '@/auth/lib';
 
-export async function POST(request: Request) {
-  const req = await request.json();
-  const session = await encrypt({ req });
-  cookies().set('session', session, { httpOnly: true, secure: true });
+export async function POST(req: Request) {
+  try {
+    const credentials = await req.json();
+    const token = await login(credentials);
+    if (!token) throw new Error('Login failed');
+    cookies().set('session', token, { httpOnly: true, secure: true });
 
-  return Response.json({ message: session });
+    return Response.json({ message: 'User is logged in!' });
+  } catch (error) {
+    console.log(error);
+    return Response.json({ error: 'Authentication failed' });
+  }
 }

@@ -5,24 +5,20 @@ import mongoose, { Document } from 'mongoose';
 const { Schema } = mongoose;
 
 interface IUser extends Document {
-  username: string;
-  email: string;
-  password: string;
+  address: string;
+  nonce: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 const userSchema = new Schema(
   {
-    name: {
+    address: {
       type: String,
       unique: true,
       required: true,
     },
-    email: {
-      type: String,
-      unique: true,
-      required: true,
-    },
-    password: {
+    nonce: {
       type: String,
       required: true,
     },
@@ -35,8 +31,10 @@ export const User =
 
 export interface IProject extends Document {
   title: string;
-  // owner: number;
+  founder: string;
   startDate: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 const projectSchema = new Schema(
@@ -46,10 +44,10 @@ const projectSchema = new Schema(
       unique: true,
       required: true,
     },
-    // owner: {
-    //   type: String,
-    //   required: true,
-    // },
+    founder: {
+      type: String,
+      required: true,
+    },
     startDate: {
       type: Date,
       required: true,

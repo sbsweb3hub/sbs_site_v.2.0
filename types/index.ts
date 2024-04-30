@@ -2,6 +2,8 @@
 
 import { z } from 'zod';
 
+/** Projects types */
+
 export const ProjectSchema = z.object({
   id: z.number(),
   // owner: z.string(),
@@ -32,3 +34,10 @@ export const CreateProjectSchema = ProjectSchema.omit({
 });
 
 export type CreateProjectType = z.infer<typeof CreateProjectSchema>;
+
+/** Auth types */
+
+export interface IAuthCredentials {
+  address: string;
+  signature: string;
+}

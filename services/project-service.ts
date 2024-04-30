@@ -5,9 +5,10 @@
 import dbConnect from '@/db/dbConnect';
 import { Project } from '@/db/models';
 import { CreateProjectType, ProjectType } from '@/types';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag, unstable_cache } from 'next/cache';
 
 import { redirect } from 'next/navigation';
+import { getSession } from './auth-service';
 
 export const fetchAllProjects = async (): Promise<Array<ProjectType>> => {
   // q: string, page: number
@@ -32,10 +33,11 @@ export const fetchAllProjects = async (): Promise<Array<ProjectType>> => {
   }
 };
 
-export const fetchProjectById = async (id: string): Promise<ProjectType> => {
+export const findProjectById = async (id: string): Promise<ProjectType> => {
   try {
     await dbConnect();
     const project = await Project.findById(id);
+    if (!project) throw new Error('Project doesn`t exist');
     return project;
   } catch (err) {
     console.log(err);
@@ -45,16 +47,33 @@ export const fetchProjectById = async (id: string): Promise<ProjectType> => {
 
 //@todo - check if exist before create
 export const addProject = async (formData: FormData): Promise<void> => {
+  const { address: founder } = await getSession();
+  if (!founder)
+    throw new Error('You don`t have permission for add new Project');
   const { title, startDate } = Object.fromEntries(formData);
   try {
     await dbConnect();
-    await Project.create({ title, startDate });
+    await Project.create({ title, startDate, founder });
     // JSON.parse(JSON.stringify(await Book.create({ name, price })));
   } catch (err) {
     console.log(err);
     throw new Error('Failed to create project!');
   }
+  //@todo research about cache
+  // revalidateTag('projects');
+  //  revalidatePath('/app/private');
+  redirect('/app/founder');
+};
 
-  revalidatePath('/private');
-  //   redirect('/private');
+export const findProjectByFounder = async (
+  founder: string
+): Promise<ProjectType> => {
+  try {
+    await dbConnect();
+    const project = await Project.findOne({ founder });
+    return project;
+  } catch (err) {
+    console.log(err);
+    throw new Error('Failed to find project by founder!');
+  }
 };

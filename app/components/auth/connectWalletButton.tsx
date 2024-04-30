@@ -1,11 +1,15 @@
 'use client'
+import useWalletConnect from '@/services/hooks/useWalletConnect'
+import * as React from 'react'
 
-import { useAccount } from "wagmi"
-import { Account } from "./account"
-import { WalletOptions } from "./walletOptions"
+export function ConnectWalletButton() {
 
-export default function ConnectWallet({ url }: { url: string }) {
-    const { isConnected } = useAccount()
-    if (isConnected) return <Account url={url} />
-    return <WalletOptions url={url} />
-} 
+    const { handleConnectWallet } = useWalletConnect()
+    return (
+        <button onClick={handleConnectWallet} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 rounded">
+
+            Connect MetaMask
+        </button>
+    )
+
+}
