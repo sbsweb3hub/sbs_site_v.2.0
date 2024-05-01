@@ -1,30 +1,33 @@
 /** @format */
 
+import { AuthRolesEnum } from '@/types';
 import mongoose, { Document } from 'mongoose';
 
 const { Schema } = mongoose;
 
 interface IUser extends Document {
-  username: string;
-  email: string;
-  password: string;
+  address: string;
+  nonce: string;
+  role: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 const userSchema = new Schema(
   {
-    name: {
+    address: {
       type: String,
       unique: true,
       required: true,
     },
-    email: {
+    nonce: {
       type: String,
-      unique: true,
       required: true,
     },
-    password: {
+    role: {
       type: String,
       required: true,
+      default: AuthRolesEnum.VISITOR,
     },
   },
   { timestamps: true }
@@ -33,10 +36,12 @@ const userSchema = new Schema(
 export const User =
   mongoose.models.User || mongoose.model<IUser>('User', userSchema);
 
-export interface IProject extends Document {
+export interface IProjectModel extends Document {
   title: string;
-  // owner: number;
+  founder: string;
   startDate: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 const projectSchema = new Schema(
@@ -46,10 +51,11 @@ const projectSchema = new Schema(
       unique: true,
       required: true,
     },
-    // owner: {
-    //   type: String,
-    //   required: true,
-    // },
+    founder: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     startDate: {
       type: Date,
       required: true,
@@ -59,4 +65,5 @@ const projectSchema = new Schema(
 );
 
 export const Project =
-  mongoose.models.Project || mongoose.model<IProject>('Project', projectSchema);
+  mongoose.models.Project ||
+  mongoose.model<IProjectModel>('Project', projectSchema);

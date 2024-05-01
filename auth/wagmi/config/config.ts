@@ -2,7 +2,7 @@
 
 import { http, cookieStorage, createStorage, createConfig } from 'wagmi';
 import { base, mainnet, optimism } from 'wagmi/chains';
-import { injected, metaMask, safe, walletConnect } from 'wagmi/connectors';
+import { injected, safe, walletConnect } from 'wagmi/connectors';
 
 const projectId = '780aa46bb5aa77aacfdf8cdbe431c38f';
 
@@ -12,7 +12,7 @@ export const config = createConfig({
   storage: createStorage({
     storage: cookieStorage,
   }),
-  connectors: [injected(), walletConnect({ projectId }), metaMask(), safe()],
+  connectors: [injected(), walletConnect({ projectId }), safe()],
   transports: {
     [mainnet.id]: http(),
     [base.id]: http(),
