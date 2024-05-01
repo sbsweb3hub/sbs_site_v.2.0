@@ -17,6 +17,13 @@
     animation: colorChange 5s infinite;
   }
 
+  svg {
+    width: 100vw; 
+    height: auto; 
+    display: block;
+    max-width: 100%; 
+  }
+
   .svg-button {
     width: 309px;
     height: 83px;
