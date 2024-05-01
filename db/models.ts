@@ -29,7 +29,7 @@ const userSchema = new Schema(
 export const User =
   mongoose.models.User || mongoose.model<IUser>('User', userSchema);
 
-export interface IProject extends Document {
+export interface IProjectModel extends Document {
   title: string;
   founder: string;
   startDate: Date;
@@ -58,4 +58,5 @@ const projectSchema = new Schema(
 );
 
 export const Project =
-  mongoose.models.Project || mongoose.model<IProject>('Project', projectSchema);
+  mongoose.models.Project ||
+  mongoose.model<IProjectModel>('Project', projectSchema);

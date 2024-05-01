@@ -1,9 +1,11 @@
 /** @format */
 
-import { IProject } from '@/db/models';
+import { IProjectModel } from '@/db/models';
 import { ProjectType } from '@/types';
 
-export function fromMongoToPlainObject(mongoDocument: IProject): ProjectType {
+export function fromMongoToPlainObject(
+  mongoDocument: IProjectModel
+): ProjectType {
   const jsonObject = mongoDocument.toObject({
     getters: true,
     virtuals: false,

@@ -1,7 +1,8 @@
 /** @format */
 
-import { IAuthCredentials } from './../types/index';
-/** @format */
+'use server';
+//sever-only
+import { AuthCredentialsType } from './../types/index';
 
 import dbConnect from '@/db/dbConnect';
 import { User } from '@/db/models';
@@ -13,7 +14,8 @@ import { cookies } from 'next/headers';
 const secretKey = 'fuckingDinosaurs';
 const key = new TextEncoder().encode(secretKey);
 
-async function encrypt(payload: JWTPayload): Promise<string> {
+export async function encrypt(payload: JWTPayload): Promise<string> {
+  'use server';
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     // .setIssuedAt()
@@ -22,6 +24,7 @@ async function encrypt(payload: JWTPayload): Promise<string> {
 }
 
 export async function decrypt(input: string): Promise<any> {
+  'use server';
   const { payload } = await jwtVerify(input, key, {
     algorithms: ['HS256'],
   });
@@ -31,13 +34,14 @@ export async function decrypt(input: string): Promise<any> {
 export async function getNonce(
   address: string
 ): Promise<Record<string, string>> {
+  'use server';
   try {
     await dbConnect();
     const existedUser = await User.findOne({
       address,
     });
     if (!existedUser) {
-      const nonce = generateRandomString();
+      const nonce = await generateRandomString();
       const newUser = await User.create({ address, nonce });
       if (!newUser) {
         throw new Error('Failed to create new user');
@@ -51,19 +55,21 @@ export async function getNonce(
   }
 }
 
-function generateRandomString(size = 16) {
+async function generateRandomString(size = 16) {
+  'use server';
   const randomBytes = ethers.randomBytes(size);
   const randomString = ethers.hexlify(randomBytes);
   return randomString.substring(2);
 }
 
-function validateSignature({
+async function validateSignature({
   address,
   signature,
   message,
-}: IAuthCredentials & {
+}: Omit<AuthCredentialsType, 'isFounder'> & {
   message: string;
-}): boolean {
+}): Promise<boolean> {
+  'use server';
   try {
     const recoveredAddress = ethers.verifyMessage(message, signature);
     return recoveredAddress.toLowerCase() === address.toLowerCase();
@@ -76,7 +82,8 @@ function validateSignature({
 export async function login({
   address,
   signature,
-}: IAuthCredentials): Promise<string> {
+}: Omit<AuthCredentialsType, 'isFounder'>): Promise<string> {
+  'use server';
   try {
     await dbConnect();
 
@@ -87,16 +94,16 @@ export async function login({
     const message = `Welcome to Blast!\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nWallet address:\n${address.toLowerCase()}\n\nNonce:\n${
       user.nonce
     }`;
-    const isSignatureValid = validateSignature({
+    const isSignatureValid = await validateSignature({
       address,
       signature,
       message,
     });
     if (!isSignatureValid) throw new Error('Invalid credentials');
 
-    user.nonce = generateRandomString();
+    user.nonce = await generateRandomString();
     await user.save();
-    const payload = { address, sub: user.id };
+    const payload = { address, sub: user.id, isFounder: false };
     return await encrypt(payload);
   } catch (error) {
     console.log(error);
@@ -105,6 +112,7 @@ export async function login({
 }
 
 export async function getSession() {
+  'use server';
   try {
     const session = cookies().get('session')?.value;
     if (!session) return null;
@@ -114,4 +122,10 @@ export async function getSession() {
     console.log(error);
     throw new Error('Failed to get session');
   }
+}
+
+export async function changeRole(session: AuthCredentialsType) {
+  const payload = { ...session, isFounder: true };
+  const token = await encrypt(payload);
+  cookies().set('session', token, { httpOnly: true, secure: true });
 }

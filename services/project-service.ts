@@ -3,14 +3,17 @@
 'use server';
 
 import dbConnect from '@/db/dbConnect';
-import { IProject, Project } from '@/db/models';
-import { CreateProjectType, ProjectType } from '@/types';
+import { IProjectModel, Project } from '@/db/models';
+import { ProjectType } from '@/types';
 import { revalidatePath, revalidateTag, unstable_cache } from 'next/cache';
 
 import { redirect } from 'next/navigation';
-import { getSession } from './auth-service';
+import { changeRole, getSession } from './auth-service';
+import { fromMongoModelToSchema } from '@/utils/fromMongoModelToSchema';
+import { fromMongoToPlainObject } from '@/utils/fromMongoToPlainObject';
 
-export const fetchAllProjects = async (): Promise<Array<IProject>> => {
+export const fetchAllProjects = async (): Promise<Array<ProjectType>> => {
+  'use server';
   // q: string, page: number
   // const regex = new RegExp(q, 'i');
 
@@ -25,20 +28,23 @@ export const fetchAllProjects = async (): Promise<Array<IProject>> => {
     //   .limit(ITEM_PER_PAGE)
     //   .skip(ITEM_PER_PAGE * (page - 1));
     // return { count, projects };
-    const projects = await Project.find().lean<Array<IProject>>();
-    return projects;
+
+    return (await Project.find().lean<Array<IProjectModel>>()).map((item) =>
+      fromMongoModelToSchema(item)
+    );
   } catch (err) {
     console.log(err);
     throw new Error('Failed to fetch projects!');
   }
 };
 
-export const findProjectById = async (id: string): Promise<IProject | null> => {
+export const findProjectById = async (id: string): Promise<ProjectType> => {
+  'use server';
   try {
     await dbConnect();
-    const project = await Project.findById(id).lean<IProject>();
+    const project = await Project.findById(id).lean<IProjectModel>();
     if (!project) throw new Error('Project doesn`t exist');
-    return project;
+    return fromMongoModelToSchema(project);
   } catch (err) {
     console.log(err);
     throw new Error('Failed to fetch project!');
@@ -47,14 +53,19 @@ export const findProjectById = async (id: string): Promise<IProject | null> => {
 
 //@todo - check if exist before create
 export const addProject = async (formData: FormData): Promise<void> => {
-  const { address: founder } = await getSession();
-  if (!founder)
+  'use server';
+  const session = await getSession();
+  if (!session)
     throw new Error('You don`t have permission for add new Project');
   const { title, startDate } = Object.fromEntries(formData);
   try {
     await dbConnect();
-    await Project.create({ title, startDate, founder });
-    // JSON.parse(JSON.stringify(await Book.create({ name, price })));
+    const project = await Project.create({
+      title,
+      startDate,
+      founder: session.address,
+    });
+    if (project) await changeRole(session);
   } catch (err) {
     console.log(err);
     throw new Error('Failed to create project!');
@@ -66,13 +77,13 @@ export const addProject = async (formData: FormData): Promise<void> => {
 };
 
 export const patchProject = async (formData: FormData): Promise<void> => {
+  'use server';
   const { address: founder } = await getSession();
-  if (!founder)
-    throw new Error('You don`t have permission for add new Project');
+  if (!founder) throw new Error('You don`t have permission for patch Project');
   const { title, startDate } = Object.fromEntries(formData);
   try {
     await dbConnect();
-    await Project.findOneAndUpdate({ founder }, { title, startDate, founder });
+    await Project.findOneAndUpdate({ founder }, { title, startDate });
     // JSON.parse(JSON.stringify(await Book.create({ name, price })));
   } catch (err) {
     console.log(err);
@@ -86,11 +97,12 @@ export const patchProject = async (formData: FormData): Promise<void> => {
 
 export const findProjectByFounder = async (
   founder: string
-): Promise<IProject | null> => {
+): Promise<ProjectType> => {
+  'use server';
   try {
     await dbConnect();
     const project = await Project.findOne({ founder });
-    return project;
+    return fromMongoModelToSchema(project);
   } catch (err) {
     console.log(err);
     throw new Error('Failed to find project by founder!');

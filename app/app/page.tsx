@@ -1,6 +1,6 @@
 import { fetchAllProjects } from "@/services/project-service";
 import { notFound } from "next/navigation";
-import ProjectCard from "../components/projectCard";
+import ProjectCard from "../components/Projects/projectCard";
 import Link from "next/link";
 
 export default async function App() {
@@ -21,7 +21,7 @@ export default async function App() {
             </ul>
 
         </div>
-        <Link href='/app/projects' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded">
+        <Link href='/app/projects' className="mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded">
             Explore projects
         </Link>
     </>

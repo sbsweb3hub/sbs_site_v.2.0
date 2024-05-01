@@ -16,7 +16,7 @@ export default function Error({
 
     return (
         <div>
-            <h2>Something went wrong on PROJECT page: {error.message}</h2>
+            <h2>Something went wrong on PROJECTS page: {error.message}</h2>
             <button
                 onClick={
                     // Attempt to recover by trying to re-render the segment

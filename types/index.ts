@@ -16,7 +16,7 @@ export const ProjectSchema = z.object({
   // pitchdeck: z.string().optional(),
   // tokenomik: z.string().optional(),
   // links: z.string().optional(),
-  startDate: z.coerce.date(),
+  startDate: z.string(),
   // description: z.string().min(1, 'Description is required'),
   // ecosystem: z.string().min(1, 'Ecosystem is required'),
   // team: z.string().min(1, 'Team information is required'),
@@ -37,7 +37,10 @@ export type CreateProjectType = z.infer<typeof CreateProjectSchema>;
 
 /** Auth types */
 
-export interface IAuthCredentials {
-  address: string;
-  signature: string;
-}
+export const AuthCredentialsSchema = z.object({
+  address: z.string(),
+  signature: z.string(),
+  isFounder: z.boolean(),
+});
+
+export type AuthCredentialsType = z.infer<typeof AuthCredentialsSchema>;
