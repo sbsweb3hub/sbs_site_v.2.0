@@ -1,4 +1,5 @@
 'use client'
+import { logout } from '@/services/auth-service'
 import { useRouter } from 'next/navigation'
 import { useAccount, useDisconnect } from 'wagmi'
 
@@ -7,7 +8,7 @@ export function DisconnectWalletButton({ address }: { address: string }) {
     const router = useRouter()
     const handleDisconnect = async () => {
         await disconnectAsync()
-        await fetch(`/api/v1/auth/logout`)
+        await logout()
         router.push('/app')
         router.refresh()
     }

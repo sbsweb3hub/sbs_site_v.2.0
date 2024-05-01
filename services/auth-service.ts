@@ -86,7 +86,7 @@ async function validateSignature({
 export async function login({
   address,
   signature,
-}: AuthCredentialsType): Promise<string> {
+}: AuthCredentialsType): Promise<void> {
   'use server';
   try {
     await dbConnect();
@@ -108,10 +108,21 @@ export async function login({
     user.nonce = await generateRandomString();
     await user.save();
     const payload = { address, sub: user.id, role: user.role };
-    return await encrypt(payload);
+    const token = await encrypt(payload);
+    cookies().set('session', token, { httpOnly: true, secure: true });
   } catch (error) {
     console.log(error);
-    throw new Error('Authentication failed!');
+    throw new Error('Failed to login!');
+  }
+}
+
+export async function logout() {
+  'use server';
+  try {
+    cookies().delete('session');
+  } catch (error) {
+    console.log(error);
+    throw new Error('Failed to logout');
   }
 }
 
