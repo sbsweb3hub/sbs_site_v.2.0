@@ -1,11 +1,11 @@
 
 import React from 'react'
 // import { getSession } from '@/services/auth-service'
-import { ConnectWalletButton } from '@/app/components/Header/auth/connectWalletButton'
-import EditProjectForm from '@/app/components/Projects/editProjectForm'
+import { ConnectWalletButton } from '../../../components/header/auth/connectWalletButton'
 import { cookies } from 'next/headers';
 import { decrypt } from '@/services/auth-service';
 import { findProjectByFounder } from '@/services/project-service'
+import EditProjectForm from '@/app/components/projects/editProjectForm';
 // import { fromMongoToPlainObject } from '@/utils/fromMongoToPlainObject'
 // import { fromMongoModelToSchema } from '@/utils/fromMongoModelToSchema'
 

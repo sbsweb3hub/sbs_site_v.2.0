@@ -2,7 +2,11 @@
 
 'use server';
 //sever-only
-import { AuthCredentialsType } from './../types/index';
+import {
+  AuthCredentialsType,
+  AuthRolesEnum,
+  AuthSessionType,
+} from './../types/index';
 
 import dbConnect from '@/db/dbConnect';
 import { User } from '@/db/models';
@@ -66,7 +70,7 @@ async function validateSignature({
   address,
   signature,
   message,
-}: Omit<AuthCredentialsType, 'isFounder'> & {
+}: AuthCredentialsType & {
   message: string;
 }): Promise<boolean> {
   'use server';
@@ -82,7 +86,7 @@ async function validateSignature({
 export async function login({
   address,
   signature,
-}: Omit<AuthCredentialsType, 'isFounder'>): Promise<string> {
+}: AuthCredentialsType): Promise<string> {
   'use server';
   try {
     await dbConnect();
@@ -103,7 +107,7 @@ export async function login({
 
     user.nonce = await generateRandomString();
     await user.save();
-    const payload = { address, sub: user.id, isFounder: false };
+    const payload = { address, sub: user.id, role: user.role };
     return await encrypt(payload);
   } catch (error) {
     console.log(error);
@@ -124,8 +128,23 @@ export async function getSession() {
   }
 }
 
-export async function changeRole(session: AuthCredentialsType) {
-  const payload = { ...session, isFounder: true };
-  const token = await encrypt(payload);
-  cookies().set('session', token, { httpOnly: true, secure: true });
+export async function changeRole(
+  session: AuthSessionType,
+  role: AuthRolesEnum
+) {
+  'use server';
+  try {
+    const user = await User.findById(session.sub);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    user.role = role;
+    await user.save();
+    const payload = { ...session, role };
+    const token = await encrypt(payload);
+    cookies().set('session', token, { httpOnly: true, secure: true });
+  } catch (error) {
+    console.log(error);
+    throw new Error('Failed to change role');
+  }
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import ProjectCard from '../../components/Projects/projectCard'
+import ProjectCard from '../../components/projects/projectCard'
 import { notFound } from 'next/navigation'
 import { fetchAllProjects } from '@/services/project-service'
 

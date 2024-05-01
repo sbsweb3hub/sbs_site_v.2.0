@@ -1,11 +1,12 @@
 
 import React from 'react'
 import { findProjectByFounder } from '@/services/project-service'
-import { ConnectWalletButton } from '@/app/components/Header/auth/connectWalletButton'
+import { ConnectWalletButton } from '../../components/header/auth/connectWalletButton'
 import { cookies } from 'next/headers';
 import { decrypt } from '@/services/auth-service';
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
+import { AuthRolesEnum } from '@/types';
 
 
 export default async function Founder() {
@@ -15,9 +16,8 @@ export default async function Founder() {
     session = await decrypt(resp)
   }
   if (session) {
-    if (!session.isFounder) redirect('/app/founder/create')
+    if (session.role !== AuthRolesEnum.FOUNDER) redirect('/app/founder/create')
     const { title, startDate } = await findProjectByFounder(session.address)
-    console.log('TITLE', title, startDate)
     return (<>
       <h1>Your current project</h1>
       <h2>Title: {title}</h2>

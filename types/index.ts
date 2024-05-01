@@ -40,7 +40,21 @@ export type CreateProjectType = z.infer<typeof CreateProjectSchema>;
 export const AuthCredentialsSchema = z.object({
   address: z.string(),
   signature: z.string(),
-  isFounder: z.boolean(),
 });
 
 export type AuthCredentialsType = z.infer<typeof AuthCredentialsSchema>;
+
+export enum AuthRolesEnum {
+  VISITOR = 'VISITOR',
+  FOUNDER = 'FOUNDER',
+  MULTI = 'MULTI',
+  ADMIN = 'ADMIN',
+}
+
+export const AuthSessionSchema = z.object({
+  address: z.string(),
+  sub: z.string(),
+  role: z.string(),
+});
+
+export type AuthSessionType = z.infer<typeof AuthSessionSchema>;

@@ -4,7 +4,7 @@
 
 import dbConnect from '@/db/dbConnect';
 import { IProjectModel, Project } from '@/db/models';
-import { ProjectType } from '@/types';
+import { AuthRolesEnum, ProjectType } from '@/types';
 import { revalidatePath, revalidateTag, unstable_cache } from 'next/cache';
 
 import { redirect } from 'next/navigation';
@@ -65,7 +65,7 @@ export const addProject = async (formData: FormData): Promise<void> => {
       startDate,
       founder: session.address,
     });
-    if (project) await changeRole(session);
+    if (project) await changeRole(session, AuthRolesEnum.FOUNDER);
   } catch (err) {
     console.log(err);
     throw new Error('Failed to create project!');

@@ -2,9 +2,9 @@ import Link from "next/link";
 import { decrypt, getSession } from "@/services/auth-service";
 import { cookies } from "next/headers";
 import { ConnectWalletButton } from "./auth/connectWalletButton";
-import { DisconnectWalletButton } from "./auth/disconnectWalletButton";
-// import { findProjectByFounder } from "@/services/project-service";
 import ButtonCreateProject from "./buttonCreateProject";
+import { DisconnectWalletButton } from "./auth/disconnectWalletButton";
+import { AuthRolesEnum } from "@/types";
 
 
 const Header = async () => {
@@ -26,7 +26,7 @@ const Header = async () => {
             <Link href='/app'>MAIN</Link>
             {/* @todo make role for founder */}
             {session
-                ? (session.isFounder ? <Link href='/app/founder'>My project</Link> : <Link href='/app/founder/create'>Create project</Link>)
+                ? (session.role === AuthRolesEnum.FOUNDER ? <Link href='/app/founder'>My project</Link> : <Link href='/app/founder/create'>Create project</Link>)
                 : <ButtonCreateProject />
             }
             {session ? <DisconnectWalletButton address={session.address} /> : <ConnectWalletButton />}

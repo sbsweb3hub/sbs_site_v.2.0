@@ -1,5 +1,6 @@
 /** @format */
 
+import { AuthRolesEnum } from '@/types';
 import mongoose, { Document } from 'mongoose';
 
 const { Schema } = mongoose;
@@ -7,6 +8,7 @@ const { Schema } = mongoose;
 interface IUser extends Document {
   address: string;
   nonce: string;
+  role: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -21,6 +23,11 @@ const userSchema = new Schema(
     nonce: {
       type: String,
       required: true,
+    },
+    role: {
+      type: String,
+      required: true,
+      default: AuthRolesEnum.VISITOR,
     },
   },
   { timestamps: true }

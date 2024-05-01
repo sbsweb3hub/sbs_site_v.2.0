@@ -1,7 +1,7 @@
 import { fetchAllProjects } from "@/services/project-service";
 import { notFound } from "next/navigation";
-import ProjectCard from "../components/Projects/projectCard";
 import Link from "next/link";
+import ProjectCard from "../components/projects/projectCard";
 
 export default async function App() {
     const projects = await fetchAllProjects()
