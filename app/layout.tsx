@@ -44,6 +44,7 @@ export default function RootLayout({
               <main className='text-foreground'>
                 {children}
               </main>
+              <Footer />
 
             </NextUIProvider>
 
