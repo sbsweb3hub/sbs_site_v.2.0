@@ -10,7 +10,6 @@ import { revalidatePath, revalidateTag, unstable_cache } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { changeRole, getSession } from './auth-service';
 import { fromMongoModelToSchema } from '@/utils/fromMongoModelToSchema';
-import { fromMongoToPlainObject } from '@/utils/fromMongoToPlainObject';
 
 export const fetchAllProjects = async (): Promise<Array<ProjectType>> => {
   'use server';
