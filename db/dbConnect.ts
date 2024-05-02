@@ -1,8 +1,6 @@
 /** @format */
 
 import mongoose from 'mongoose';
-import { User } from './models';
-import { initModels } from './init';
 declare global {
   var mongoose: any; // This must be a `var` and not a `let / const`
 }
