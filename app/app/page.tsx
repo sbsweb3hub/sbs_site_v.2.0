@@ -7,8 +7,6 @@ export default async function App() {
     const projects = await fetchAllProjects()
     if (!projects) notFound()
     return (<>
-
-
         <div className="flex flex-col items-center mt-8">
             <h1>This is App</h1>
             <h1 className="text-2xl font-bold">Projects for MAIN</h1>

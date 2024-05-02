@@ -7,19 +7,15 @@ import { DisconnectWalletButton } from "./auth/disconnectWalletButton";
 import { AuthRolesEnum } from "@/types";
 
 
-const Header = async () => {
-    // const session = await getSession();
-    // console.log('HEADER session', session)
-    const resp = cookies().get('session')?.value;
-    let session = null
-    if (resp) {
-        session = await decrypt(resp)
-        console.log('session', session)
-    }
-    //@todo find user in DB and return OR refresh token?
 
-    // let isFounder = undefined;
-    // if (session) isFounder = await findProjectByFounder(session?.address)
+const Header = async () => {
+    const session = await getSession()
+    // const resp = cookies().get('session')?.value;
+    // let session = null
+    // if (resp) {
+    //     session = await decrypt(resp)
+    //     console.log('session', session)
+    // }
 
     return (
         <header className="bg-[#000] text-white text-lg p-4 flex justify-between items-center">

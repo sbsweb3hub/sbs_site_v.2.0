@@ -132,7 +132,8 @@ export async function getSession() {
     const session = cookies().get('session')?.value;
     if (!session) return null;
     //@todo find user in DB and return OR refresh token?
-    return await decrypt(session);
+    const res = await decrypt(session);
+    return res;
   } catch (error) {
     console.log(error);
     throw new Error('Failed to get session');

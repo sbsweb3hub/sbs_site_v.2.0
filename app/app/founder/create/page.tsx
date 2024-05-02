@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { cookies } from 'next/headers';
-import { decrypt } from '@/services/auth-service';
+import { decrypt, getSession } from '@/services/auth-service';
 import { redirect } from 'next/navigation'
 import AddProjectForm from '@/app/components/projects/addProjectForm';
 import { ConnectWalletButton } from '../../../components/header/auth/connectWalletButton';
@@ -9,11 +9,13 @@ import { AuthRolesEnum } from '@/types';
 
 
 export default async function CreateProject() {
-  const resp = cookies().get('session')?.value;
-  let session = null
-  if (resp) {
-    session = await decrypt(resp)
-  }
+  const session = await getSession()
+
+  // const resp = cookies().get('session')?.value;
+  // let session = null
+  // if (resp) {
+  //   session = await decrypt(resp)
+  // }
   if (session) {
     if (session.role === AuthRolesEnum.FOUNDER) {
       redirect('/app/founder')

@@ -3,7 +3,7 @@ import React from 'react'
 // import { getSession } from '@/services/auth-service'
 import { ConnectWalletButton } from '../../../components/header/auth/connectWalletButton'
 import { cookies } from 'next/headers';
-import { decrypt } from '@/services/auth-service';
+import { decrypt, getSession } from '@/services/auth-service';
 import { findProjectByFounder } from '@/services/project-service'
 import EditProjectForm from '@/app/components/projects/editProjectForm';
 // import { fromMongoToPlainObject } from '@/utils/fromMongoToPlainObject'
@@ -11,11 +11,13 @@ import EditProjectForm from '@/app/components/projects/editProjectForm';
 
 
 export default async function PatchProject() {
-  const resp = cookies().get('session')?.value;
-  let session = null
-  if (resp) {
-    session = await decrypt(resp)
-  }
+  const session = await getSession()
+
+  // const resp = cookies().get('session')?.value;
+  // let session = null
+  // if (resp) {
+  //   session = await decrypt(resp)
+  // }
   if (session) {
     const project = await findProjectByFounder(session.address)
     return (<>
