@@ -1,6 +1,8 @@
 /** @format */
 
 import mongoose from 'mongoose';
+import { User } from './models';
+import { initModels } from './init';
 declare global {
   var mongoose: any; // This must be a `var` and not a `let / const`
 }
@@ -29,6 +31,7 @@ async function dbConnect() {
     };
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
       console.log('MONGO Connected');
+
       return mongoose;
     });
   }
