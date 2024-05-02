@@ -30,7 +30,7 @@ const NewsLetter = () => {
 
 
     return (
-        <div className="flex max-[820px]:flex-col min-[820px]:justify-between  items-center w-[60%]
+        <div className="flex max-[820px]:flex-col min-[820px]:justify-between  items-center max-[434px]:w-[90%] w-[60%]
                  h-fit min-[600px]:h-[222px] rounded-[20px] bg-[#657276B2] max-[1028px]:gap-3 max-[1028px]:py-[20px] mt-[320px]">
             <div className="flex flex-col min-[820px]:ml-[39px] max-[540px]:mx-[10px]">
                 <div className="text-[#FFF] text-[24px] font-normal">
