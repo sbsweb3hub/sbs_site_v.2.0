@@ -9,14 +9,16 @@ import { config } from './config/config'
 
 type Props = {
   children: ReactNode,
-  initialState: State | undefined,
+  // initialState: State | undefined,
 }
 
 const queryClient = new QueryClient()
 
-export function Providers({ children, initialState }: Props) {
+export function Providers({ children }: Props) {
   return (
-    <WagmiProvider config={config} initialState={initialState}>
+    <WagmiProvider config={config}
+    // initialState={initialState}
+    >
       <QueryClientProvider client={queryClient}>
         {children}
       </QueryClientProvider>
