@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import LetterFadeInText from "../StartPage/startPageContent/FadedText";
 import { Chakra_Petch } from "next/font/google";
@@ -22,7 +23,7 @@ const WelcomePage = () => {
                     fontStyle: 'italic',
                 }}
             >
-                <LetterFadeInText text="Step-Blast-Step"  useWaypoint={false}/>
+                <LetterFadeInText text="Step-Blast-Step" useWaypoint={false} />
             </div>
             <div className="min-[1045px]:hidden flex flex-col">
                 <div
@@ -35,9 +36,9 @@ const WelcomePage = () => {
                         fontStyle: 'italic',
                     }}
                 >
-                    <LetterFadeInText text="Step-"  useWaypoint={false}/>
+                    <LetterFadeInText text="Step-" useWaypoint={false} />
                 </div>
-                <div 
+                <div
                     style={{
                         fontSize: '128px',
                         color: '#D6DA1D',
@@ -47,9 +48,9 @@ const WelcomePage = () => {
                         fontStyle: 'italic',
                     }}
                 >
-                    <LetterFadeInText text="Blast-"  useWaypoint={false}/>
+                    <LetterFadeInText text="Blast-" useWaypoint={false} />
                 </div>
-                <div 
+                <div
                     style={{
                         fontSize: '128px',
                         color: '#D6DA1D',
@@ -59,11 +60,11 @@ const WelcomePage = () => {
                         fontStyle: 'italic',
                     }}
                 >
-                    <LetterFadeInText text="Step"  useWaypoint={false}/>
+                    <LetterFadeInText text="Step" useWaypoint={false} />
                 </div>
             </div>
             <div className="min-[965px]:w-[959px] w-11/12 text-[32px] text-[#FFF] font-medium text-center mt-[16px]">
-               <p>Our unbelievable platform will send your project to the moon inevitable. Just create and participate and have fun.</p>
+                <p>Our unbelievable platform will send your project to the moon inevitable. Just create and participate and have fun.</p>
             </div>
             <Button
                 href="https://sbsweb3hubs-organization.gitbook.io/light-paper"
@@ -72,7 +73,7 @@ const WelcomePage = () => {
                 variant="bordered"
                 color="default"
                 className="w-[153px] h-[37px] text-[#D4D4D4] text-[16px] font-light mt-[20px]"
-                
+
             >
                 Learn more
             </Button>

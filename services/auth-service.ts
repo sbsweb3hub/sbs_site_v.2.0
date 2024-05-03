@@ -132,7 +132,8 @@ export async function getSession() {
     const session = cookies().get('session')?.value;
     if (!session) return null;
     //@todo find user in DB and return OR refresh token?
-    return await decrypt(session);
+    const res = await decrypt(session);
+    return res;
   } catch (error) {
     console.log(error);
     throw new Error('Failed to get session');
@@ -145,12 +146,10 @@ export async function changeRole(
 ) {
   'use server';
   try {
-    const user = await User.findById(session.sub);
-    if (!user) {
-      throw new Error('User not found');
+    const updatedUser = await User.findByIdAndUpdate(session.sub, { role });
+    if (!updatedUser) {
+      throw new Error('Changing role failed');
     }
-    user.role = role;
-    await user.save();
     const payload = { ...session, role };
     const token = await encrypt(payload);
     cookies().set('session', token, { httpOnly: true, secure: true });
