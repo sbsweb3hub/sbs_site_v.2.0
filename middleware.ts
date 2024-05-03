@@ -3,18 +3,29 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { getSession } from './services/auth-service';
-
-const protectedRoutes = ['/app/founder'];
+import { AuthRolesEnum, AuthRoutes } from './types';
 
 export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
-  const isProtectedRoute = protectedRoutes.includes(path);
   const session = await getSession();
-  if (isProtectedRoute && !session) {
-    return NextResponse.redirect(new URL('/', req.nextUrl));
+  console.log('Session middleware', session);
+  switch (path) {
+    case AuthRoutes.Founder:
+      if (!session) return NextResponse.redirect(new URL('/app', req.nextUrl));
+      break;
+    case AuthRoutes.FounderCreate:
+      if (!session || session.role === AuthRolesEnum.FOUNDER)
+        return NextResponse.redirect(new URL('/app', req.nextUrl));
+      break;
+    case AuthRoutes.FounderPatch:
+      if (!session || session.role !== AuthRolesEnum.FOUNDER)
+        return NextResponse.redirect(new URL('/app', req.nextUrl));
+      break;
+    default:
+      return NextResponse.next();
   }
-  return NextResponse.next();
 }
+
 // Routes Middleware should not run on
 export const config = {
   matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],

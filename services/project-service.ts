@@ -83,14 +83,10 @@ export const patchProject = async (formData: FormData): Promise<void> => {
   try {
     await dbConnect();
     await Project.findOneAndUpdate({ founder }, { title, startDate });
-    // JSON.parse(JSON.stringify(await Book.create({ name, price })));
   } catch (err) {
     console.log(err);
     throw new Error('Failed to create project!');
   }
-  //@todo research about cache
-  // revalidateTag('projects');
-  //  revalidatePath('/app/private');
   redirect('/app/founder');
 };
 
