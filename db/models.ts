@@ -5,7 +5,7 @@ import mongoose, { Document } from 'mongoose';
 
 const { Schema } = mongoose;
 
-interface IUser extends Document {
+interface IUserModel extends Document {
   address: string;
   nonce: string;
   role: string;
@@ -33,8 +33,12 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
+const models = mongoose.models || {};
+
 export const User =
-  mongoose.models.User || mongoose.model<IUser>('User', userSchema);
+  models.User || mongoose.model<IUserModel>('User', userSchema);
+// export const User =
+//   mongoose.models.User || mongoose.model<IUserModel>('User', userSchema);
 
 export interface IProjectModel extends Document {
   title: string;
@@ -64,6 +68,9 @@ const projectSchema = new Schema(
   { timestamps: true }
 );
 
+// export const Project =
+// mongoose.models.Project ||
+// mongoose.model<IProjectModel>('Project', projectSchema);
+
 export const Project =
-  mongoose.models.Project ||
-  mongoose.model<IProjectModel>('Project', projectSchema);
+  models.Project || mongoose.model<IProjectModel>('Project', projectSchema);

@@ -10,7 +10,6 @@ import { revalidatePath, revalidateTag, unstable_cache } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { changeRole, getSession } from './auth-service';
 import { fromMongoModelToSchema } from '@/utils/fromMongoModelToSchema';
-import { fromMongoToPlainObject } from '@/utils/fromMongoToPlainObject';
 
 export const fetchAllProjects = async (): Promise<Array<ProjectType>> => {
   'use server';
@@ -84,14 +83,10 @@ export const patchProject = async (formData: FormData): Promise<void> => {
   try {
     await dbConnect();
     await Project.findOneAndUpdate({ founder }, { title, startDate });
-    // JSON.parse(JSON.stringify(await Book.create({ name, price })));
   } catch (err) {
     console.log(err);
     throw new Error('Failed to create project!');
   }
-  //@todo research about cache
-  // revalidateTag('projects');
-  //  revalidatePath('/app/private');
   redirect('/app/founder');
 };
 
