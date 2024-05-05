@@ -4,29 +4,29 @@ import { Button, Input, Link } from "@nextui-org/react";
 
 const NewsLetter = () => {
     
-    const [email, setEmail] = useState<string>("");
-    const [isButtonDisabled, setButtonDisabled] = useState<boolean>(true);
+    // const [email, setEmail] = useState<string>("");
+    // const [isButtonDisabled, setButtonDisabled] = useState<boolean>(true);
 
-    const validateEmail = (email: string) => {
-        return String(email)
-            .toLowerCase()
-            .match(
-                /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            );
-    };
+    // const validateEmail = (email: string) => {
+    //     return String(email)
+    //         .toLowerCase()
+    //         .match(
+    //             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    //         );
+    // };
 
-    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>): void => { 
-        const emailInput = e.target.value;
-        setEmail(emailInput);
-        setButtonDisabled(!validateEmail(emailInput));
-    };
+    // const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>): void => { 
+    //     const emailInput = e.target.value;
+    //     setEmail(emailInput);
+    //     setButtonDisabled(!validateEmail(emailInput));
+    // };
 
-    const handleSubscribe = () => {
-        console.log(email)
-        alert("Thank you for subscribing! You will now receive the latest updates.")
-        setEmail("")
-        setButtonDisabled(true)
-    };
+    // const handleSubscribe = () => {
+    //     console.log(email)
+    //     alert("Thank you for subscribing! You will now receive the latest updates.")
+    //     setEmail("")
+    //     setButtonDisabled(true)
+    // };
 
 
     return (

@@ -12,7 +12,7 @@ export default function AppLayout({
             <Header />
 
             {children}
-            <Footer />
+            
 
         </section>
     )
