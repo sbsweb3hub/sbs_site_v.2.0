@@ -10,7 +10,7 @@ import {
 
 const Footer = () => {
     return (
-        <div className="relative flex flex-col w-[100%] justify-end h-[170px] bg-[#000] mt-[62px]">
+        <div className="relative flex flex-col w-[100%] justify-end h-[170px] bg-[#000] mt-[0px]">
             <div className="absolute flex gap-[6px] right-[31px] top-[21px]">
                 <Link isExternal href="https://twitter.com/SBSweb3Hub">
                     <Image 

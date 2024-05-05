@@ -1,0 +1,68 @@
+import '@/app/components/MainPage/MainPageContent/index.css'
+
+const YellowLineU = () => {
+    return (
+        <svg viewBox="0 0 1728 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="1831" y1="31.3245" x2="1094" y2="31.3245" stroke="url(#paint0_linear_323_3391)" stroke-width="2"/>
+            <line y1="-1" x2="737" y2="-1" transform="matrix(1 -8.74228e-08 -8.74228e-08 -1 -89 30.3246)" stroke="url(#paint1_linear_323_3391)" stroke-width="2"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1126 73.6756C1118.07 50.5495 1089.09 8.00009 1023.55 8.00009L871.554 8.00011L871.054 8.00011L719.054 8.00012C653.52 8.00013 624.542 50.5496 616.608 73.6756L618.5 74.3246C626.233 51.784 654.588 10.0001 719.054 10.0001L871.054 10.0001L871.554 10.0001L1023.55 10.0001C1088.02 10.0001 1116.38 51.784 1124.11 74.3246L1126 73.6756Z" fill="#FCFC03"/>
+            <g filter="url(#filter0_df_323_3391)">
+                <line x1="991" y1="8.82458" x2="719" y2="8.82461" stroke="url(#paint2_linear_323_3391)" shape-rendering="crispEdges"/>
+            </g>
+            <line x1="991" y1="8.82458" x2="719" y2="8.82461" stroke="url(#paint3_linear_323_3391)"/>
+            <g opacity="0.34">
+                <mask id="mask0_323_3391" style={{maskType: 'alpha'}} maskUnits="userSpaceOnUse" x="635" y="8" width="491" height="68">
+                    <path d="M1015.5 9.82459C1083.86 5.98423 1115.59 47.0036 1124.06 70.491C1124.57 71.8979 1123.5 73.3246 1122 73.3246L682.039 74.1993C641.008 74.2809 618.531 51.581 653.031 29.3718C655.116 28.0299 657.273 26.6799 659.5 25.3246C662.113 23.8455 664.831 22.47 667.615 21.1793C687.118 12.1383 708.959 9.82462 730.456 9.82462L1015.5 9.82459Z" fill="#232323" stroke="black" stroke-width="2"/>
+                </mask>
+                <g mask="url(#mask0_323_3391)">
+                    <rect x="1104" y="42.3246" width="466" height="34" transform="rotate(180 1104 42.3246)" fill="url(#paint4_linear_323_3391)"/>
+                </g>
+            </g>
+            <g opacity="0.77" filter="url(#filter1_f_323_3391)">
+                <ellipse cx="874.5" cy="9.8246" rx="120.5" ry="0.5" transform="rotate(180 874.5 9.8246)" fill="white"/>
+            </g>
+            <defs>
+                <filter id="filter0_df_323_3391" x="711" y="0.324585" width="288" height="17" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                    <feOffset/>
+                    <feGaussianBlur stdDeviation="4"/>
+                    <feComposite in2="hardAlpha" operator="out"/>
+                    <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 0.858824 0 0 0 0 0.6 0 0 0 1 0"/>
+                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_323_3391"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_323_3391" result="shape"/>
+                    <feGaussianBlur stdDeviation="2" result="effect2_foregroundBlur_323_3391"/>
+                </filter>
+                <filter id="filter1_f_323_3391" x="748" y="3.32458" width="253" height="13" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                    <feGaussianBlur stdDeviation="3" result="effect1_foregroundBlur_323_3391"/>
+                </filter>
+                <linearGradient id="paint0_linear_323_3391" x1="1094" y1="30.3245" x2="1831" y2="30.3245" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#FCFC03"/>
+                    <stop offset="1" stop-color="#FFA600" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="paint1_linear_323_3391" x1="737" y1="0" x2="0" y2="0" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#FCFC03"/>
+                    <stop offset="1" stop-color="#FFA600" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="paint2_linear_323_3391" x1="719" y1="8.32461" x2="991" y2="8.32458" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#FFE0A7" stop-opacity="0"/>
+                    <stop offset="0.498593" stop-color="#FFE0A7"/>
+                    <stop offset="1" stop-color="#FFE0A7" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="paint3_linear_323_3391" x1="719" y1="8.32461" x2="991" y2="8.32458" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#FFE0A7" stop-opacity="0"/>
+                    <stop offset="0.498593" stop-color="#FFE0A7"/>
+                    <stop offset="1" stop-color="#FFE0A7" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="paint4_linear_323_3391" x1="1324.29" y1="76.8246" x2="1324.29" y2="47.3246" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#FCFC03"/>
+                    <stop offset="1" stop-color="#FFD07A" stop-opacity="0"/>
+                </linearGradient>
+            </defs>
+        </svg>
+    )
+}
+
+export default YellowLineU
