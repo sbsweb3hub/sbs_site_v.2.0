@@ -9,7 +9,7 @@ import { ReactNode } from 'react'
 import { NextUIProvider } from '@nextui-org/react'
 import { Chakra_Petch } from "next/font/google";
 import Footer from './components/Footer'
-
+export const dynamic = 'force-dynamic'
 
 
 const chakraPetch = Chakra_Petch({

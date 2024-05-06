@@ -58,3 +58,9 @@ export const AuthSessionSchema = z.object({
 });
 
 export type AuthSessionType = z.infer<typeof AuthSessionSchema>;
+
+export enum AuthRoutes {
+  Founder = '/app/founder',
+  FounderCreate = '/app/founder/create',
+  FounderPatch = '/app/founder/patch',
+}

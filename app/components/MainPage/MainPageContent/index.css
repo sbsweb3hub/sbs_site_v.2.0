@@ -1,0 +1,6 @@
+svg {
+    width: 100vw; 
+    height: auto; 
+    display: block;
+    max-width: 100%; 
+  }
