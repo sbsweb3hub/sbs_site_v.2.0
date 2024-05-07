@@ -4,29 +4,21 @@
 
 import dbConnect from '@/db/dbConnect';
 import { IProjectModel, Project } from '@/db/models';
-import { AuthRolesEnum, ProjectType } from '@/types';
+import { AuthRolesEnum, CreateProjectSchema, ProjectType } from '@/types';
 import { revalidatePath, revalidateTag, unstable_cache } from 'next/cache';
 
 import { redirect } from 'next/navigation';
 import { changeRole, getSession } from './auth-service';
 import { fromMongoModelToSchema } from '@/utils/fromMongoModelToSchema';
+import { uploadImage } from './cloudinary-service';
+import { extractDataForValidation } from '@/utils/validationUtils';
 
+//@todo - make query builder & offset
 export const fetchAllProjects = async (): Promise<Array<ProjectType>> => {
   'use server';
-  // q: string, page: number
-  // const regex = new RegExp(q, 'i');
-
-  // const ITEM_PER_PAGE = 2;
 
   try {
     await dbConnect();
-    // const count = await Project.find({
-    //   title: { $regex: regex },
-    // }).count();
-    // const projects = await Project.find({ title: { $regex: regex } })
-    //   .limit(ITEM_PER_PAGE)
-    //   .skip(ITEM_PER_PAGE * (page - 1));
-    // return { count, projects };
 
     return (await Project.find().lean<Array<IProjectModel>>()).map((item) =>
       fromMongoModelToSchema(item)
@@ -50,28 +42,53 @@ export const findProjectById = async (id: string): Promise<ProjectType> => {
   }
 };
 
-//@todo - check if exist before create
-export const addProject = async (formData: FormData): Promise<void> => {
+export const addProject = async (_prevState: unknown, formData: FormData) => {
   'use server';
   const session = await getSession();
   if (!session)
     throw new Error('You don`t have permission for add new Project');
-  const { title, startDate } = Object.fromEntries(formData);
-  try {
-    await dbConnect();
-    const project = await Project.create({
-      title,
-      startDate,
-      founder: session.address,
-    });
-    if (project) await changeRole(session, AuthRolesEnum.FOUNDER);
-  } catch (err) {
-    console.log(err);
-    throw new Error('Failed to create project!');
+
+  const dataForValidation = extractDataForValidation(
+    CreateProjectSchema,
+    formData
+  );
+  const file = formData.get('image') as File;
+  if (file.size > 0) {
+    dataForValidation.image = file;
+  } else {
+    delete dataForValidation.image;
   }
+
+  const validation = CreateProjectSchema.safeParse(dataForValidation);
+
+  if (validation.success) {
+    const { title, startDate } = Object.fromEntries(formData);
+    let imageUrl = '';
+    try {
+      await dbConnect();
+      if (file.size > 0) {
+        imageUrl = await uploadImage(file);
+      }
+      const project = await Project.create({
+        title,
+        startDate,
+        founder: session.address,
+        imageUrl,
+      });
+      if (project) await changeRole(session, AuthRolesEnum.FOUNDER);
+    } catch (err) {
+      console.log(err);
+      throw new Error('Failed to create project!');
+    }
+  } else {
+    return {
+      errors: validation.error.issues,
+    };
+  }
+
   //@todo research about cache
   // revalidateTag('projects');
-  //  revalidatePath('/app/private');
+  revalidatePath('/app/founder');
   redirect('/app/founder');
 };
 

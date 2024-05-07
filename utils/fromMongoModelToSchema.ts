@@ -7,6 +7,7 @@ export function fromMongoModelToSchema(data: IProjectModel): ProjectType {
     id: data._id.toString(),
     founder: data.founder,
     title: data.title,
+    imageUrl: data.imageUrl,
     startDate: data.startDate.toISOString(),
   };
 }
