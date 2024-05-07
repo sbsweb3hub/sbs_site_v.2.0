@@ -1,8 +1,9 @@
+import CustomImage from "@/app/components/projects/customImage";
 import { findProjectById } from "@/services/project-service";
 import { notFound } from "next/navigation";
 
 export default async function Project({ params }: { params: { project: string } }) {
-    const { title, startDate } = await findProjectById(params.project)
+    const { title, startDate, imageUrl } = await findProjectById(params.project)
     // @todo - what is the best approach to handle errors(notFound or Error)
     if (!title) notFound()
     return (
@@ -12,6 +13,7 @@ export default async function Project({ params }: { params: { project: string } 
                 <p className=" mb-4 text-4xl">
                     Start at: {startDate}
                 </p>
+                {imageUrl && <CustomImage path={imageUrl!} />}
             </div>
         </div>
     );

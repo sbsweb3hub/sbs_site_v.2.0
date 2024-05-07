@@ -4,10 +4,20 @@ import { z } from 'zod';
 
 /** Projects types */
 
+const MAX_FILE_SIZE = 2000000;
+const ACCEPTED_IMAGE_TYPES = [
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/webp',
+];
+
 export const ProjectSchema = z.object({
   id: z.string(),
   founder: z.string(),
   title: z.string().min(1, 'Project name is required'),
+  imageUrl: z.string().optional(),
+  // fileSize: z.enum(['jpeg', 'png']).optional(),
   // contactName: z.string().min(1, 'Contact name is required'),
   // telegram: z.string().min(1, 'Telegram handle is required'),
   // email: z.string().email().min(1, 'Email is required'),
@@ -16,7 +26,7 @@ export const ProjectSchema = z.object({
   // pitchdeck: z.string().optional(),
   // tokenomik: z.string().optional(),
   // links: z.string().optional(),
-  startDate: z.string(),
+  startDate: z.string().min(1, 'Start date is required'),
   // description: z.string().min(1, 'Description is required'),
   // ecosystem: z.string().min(1, 'Ecosystem is required'),
   // team: z.string().min(1, 'Team information is required'),
@@ -31,6 +41,16 @@ export const CreateProjectSchema = ProjectSchema.omit({
   id: true,
   createdAt: true,
   updatedAt: true,
+  founder: true,
+}).extend({
+  image: z
+    .any()
+    .refine((file) => file?.size <= MAX_FILE_SIZE, `Max image size is 5MB.`)
+    .refine(
+      (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
+      'Only .jpg, .jpeg, .png and .webp formats are supported.'
+    )
+    .optional(),
 });
 
 export type CreateProjectType = z.infer<typeof CreateProjectSchema>;

@@ -44,6 +44,7 @@ export interface IProjectModel extends Document {
   title: string;
   founder: string;
   startDate: Date;
+  imageUrl: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -63,6 +64,9 @@ const projectSchema = new Schema(
     startDate: {
       type: Date,
       required: true,
+    },
+    imageUrl: {
+      type: String,
     },
   },
   { timestamps: true }

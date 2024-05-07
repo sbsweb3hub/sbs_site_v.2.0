@@ -9,8 +9,8 @@ export default function ButtonCreateProject() {
     const router = useRouter()
     const handler = async () => {
         await handleConnectWallet()
-        router.push('/app/founder')
-        router.refresh()
+        router.push('/app/founder/create')
+        // router.refresh()
     }
     return (
         <button onClick={handler}>Create project</button>
