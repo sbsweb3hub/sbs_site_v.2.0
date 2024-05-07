@@ -2,7 +2,7 @@ import '@/app/components/MainPage/MainPageContent/index.css'
 
 const DownLine = () => {
     return (
-        <div className="flex mt-[75px]">
+        <div className="flex min-[966px]:mt-[75px] mt-[-60px]">
            <svg  viewBox="0 0 1728 121" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g style={{mixBlendMode:'screen'}} clip-path="url(#clip0_323_3370)">
                     <path d="M1592 40C1592 39.4485 1619.76 39 1654 39C1688.24 39 1716 39.4485 1716 40C1716 40.5516 1688.24 41 1654 41C1619.76 41 1592 40.5516 1592 40Z" fill="url(#paint0_radial_323_3370)"/>

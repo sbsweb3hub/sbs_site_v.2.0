@@ -4,9 +4,9 @@ import YellowLineD from "./YellowLineD";
 
 const InfoBlock = () => {
     return (
-        <div className="flex flex-col items-center mt-[200px]">
+        <div className="flex flex-col items-center mt-[100px]">
             <YellowLineU />
-            <div className="flex flex-col items-center my-[40px]">
+            <div className="flex flex-col items-center my-[40px] mx-[50px]">
                 <p className="text-[28px] text-[#FFF] font-light text-center">
                     Some more interesting details and water for your attention. <br/>Sincerely your team.
                 </p>
