@@ -4,7 +4,6 @@ import { findProjectByFounder } from '@/services/project-service'
 import { getSession } from '@/services/auth-service';
 import Link from 'next/link'
 import CustomImage from '@/app/components/projects/customImage';
-import Image from 'next/image';
 
 
 export default async function Founder() {
@@ -12,7 +11,7 @@ export default async function Founder() {
   const project = await findProjectByFounder(session.address)
   return (<>
     <h1>Your current project</h1>
-    <h2>Title: {project.title}</h2>
+    <h2>Title: {project.projectName}</h2>
     <h2>StartAt: {project.startDate}</h2>
     {project.imageUrl && <CustomImage path={project.imageUrl!} />}
 

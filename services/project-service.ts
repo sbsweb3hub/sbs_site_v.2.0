@@ -62,7 +62,7 @@ export const addProject = async (_prevState: unknown, formData: FormData) => {
   const validation = CreateProjectSchema.safeParse(dataForValidation);
 
   if (validation.success) {
-    const { title, startDate } = Object.fromEntries(formData);
+    const input = Object.fromEntries(formData);
     let imageUrl = '';
     try {
       await dbConnect();
@@ -70,8 +70,7 @@ export const addProject = async (_prevState: unknown, formData: FormData) => {
         imageUrl = await uploadImage(file);
       }
       const project = await Project.create({
-        title,
-        startDate,
+        ...input,
         founder: session.address,
         imageUrl,
       });
