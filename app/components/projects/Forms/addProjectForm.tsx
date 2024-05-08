@@ -1,6 +1,6 @@
 'use client'
 import { addProject } from "@/services/project-service";
-import { ErrorMessages, findErrors } from "@/utils/formUtils";
+import { findErrors } from "@/utils/formUtils";
 import { useFormState } from "react-dom";
 import Submit from "./submit";
 import { CreateProjectSchema } from "@/types";

@@ -2,7 +2,7 @@
 import React from 'react'
 import { getSession } from '@/services/auth-service';
 import { findProjectByFounder } from '@/services/project-service'
-import EditProjectForm from '@/app/components/projects/editProjectForm';
+import EditProjectForm from '@/app/components/projects/Forms/editProjectForm';
 
 
 export default async function PatchProject() {
