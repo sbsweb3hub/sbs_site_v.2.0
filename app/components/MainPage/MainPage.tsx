@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import BlueBackgroud from "./MainPageContent/BlueBackground";
 import UpLine from "./MainPageContent/UpLine";
@@ -9,8 +10,9 @@ import ProjectCard from "../Common/ProjectCard";
 import InfoBlock from "./MainPageContent/InfoBlock/InfoBlock";
 import FundedProject from "./MainPageContent/FundedProject";
 import FooterLine from "./MainPageContent/FooterLine";
+import { ProjectType } from "@/types";
 
-const MainPage = () => {
+const MainPage = ({ projects }: { projects: Array<ProjectType> }) => {
 
     return (
         <div className="flex flex-col items-center w-full h-full">
@@ -18,9 +20,9 @@ const MainPage = () => {
             <UpLine />
             <Logo />
             <DownLine />
-            <ComingSoon />
+            <ComingSoon projects={projects} />
             <InfoBlock />
-            <FundedProject />
+            <FundedProject projects={projects} />
             <FooterLine />
         </div>
     )

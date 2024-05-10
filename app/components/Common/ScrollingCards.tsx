@@ -6,7 +6,7 @@ const ScrollingCards = () => {
         <div
             style={{
                 maxWidth: '100%',
-                overflowX: 'auto',               
+                overflowX: 'auto',
                 padding: '4px',
                 display: 'flex',
                 alignItems: 'flex-start',
@@ -17,12 +17,12 @@ const ScrollingCards = () => {
             }}
             className="gap-[0px]"
         >
+            {/* <ProjectCard isFunded={false}/>
            <ProjectCard isFunded={false}/>
            <ProjectCard isFunded={false}/>
            <ProjectCard isFunded={false}/>
            <ProjectCard isFunded={false}/>
-           <ProjectCard isFunded={false}/>
-           <ProjectCard isFunded={false}/>
+           <ProjectCard isFunded={false}/> */}
         </div>
     )
 }

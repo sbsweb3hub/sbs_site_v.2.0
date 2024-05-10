@@ -4,8 +4,9 @@ import { Button, Link } from "@nextui-org/react";
 import CardContainer from "../../Common/CardContainer";
 import WhiteArrow from "./WhiteArrow";
 import ProjectCard from "../../Common/ProjectCard";
+import { ProjectType } from "@/types";
 
-const FundedProject = () => {
+const FundedProject = ({ projects }: { projects: Array<ProjectType> }) => {
     return (
         <div className="flex flex-col w-full mt-[140px] mb-[200px]">
             <div className="flex max-[761px]:flex-col min-[762px]:justify-between 
@@ -18,7 +19,7 @@ const FundedProject = () => {
                     href="/app/projects"
                     as={Link}
                     variant="bordered"
-                    endContent={<WhiteArrow/>}
+                    endContent={<WhiteArrow />}
                     style={{
                         borderRadius: '13px',
                         width: '199px',
@@ -34,22 +35,22 @@ const FundedProject = () => {
             </div>
             <div className="flex justify-center items-center scale-85 max-[500px]:scale-[0.8] ml-[40px]">
                 <div className="">
-                    <ProjectCard isFunded={true} />
+                    <ProjectCard isFunded={true} project={projects[6]} />
                 </div>
                 <div className="max-[900px]:hidden">
-                    <ProjectCard isFunded={true} />
+                    <ProjectCard isFunded={true} project={projects[7]} />
                 </div>
                 <div className="max-[1400px]:hidden">
-                    <ProjectCard isFunded={true}/>
+                    <ProjectCard isFunded={true} project={projects[8]} />
                 </div>
                 <div className="max-[1850px]:hidden">
-                    <ProjectCard isFunded={true} />
+                    <ProjectCard isFunded={true} project={projects[9]} />
                 </div>
                 <div className="max-[2200px]:hidden">
-                    <ProjectCard isFunded={true} />
+                    <ProjectCard isFunded={true} project={projects[10]} />
                 </div>
                 <div className="max-[2800px]:hidden">
-                    <ProjectCard isFunded={true} />
+                    <ProjectCard isFunded={true} project={projects[11]} />
                 </div>
             </div>
         </div>

@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { getSession } from "@/services/auth-service";
 import { ConnectWalletButton } from "./auth/connectWalletButton";
 import ButtonCreateProject from "./buttonCreateProject";
 import { DisconnectWalletButton } from "./auth/disconnectWalletButton";
 import { AuthRolesEnum } from "@/types";
+import { getSession } from "@/services/auth-service";
+
+
 
 const Header = async () => {
     const session = await getSession()

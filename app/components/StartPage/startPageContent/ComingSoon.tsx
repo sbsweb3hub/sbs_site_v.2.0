@@ -3,8 +3,9 @@ import { Button, Link } from "@nextui-org/react";
 import ScrollingCards from "../../Common/ScrollingCards";
 import WhiteArrow from "../../MainPage/MainPageContent/WhiteArrow";
 import ProjectCard from "../../Common/ProjectCard";
+import { ProjectType } from "@/types";
 
-const ComingSoon = () => {
+const ComingSoon = ({ projects }: { projects: Array<ProjectType> }) => {
     return (
         <div className="flex flex-col w-full mt-[100px]">
             <div className="flex max-[761px]:flex-col min-[762px]:justify-between 
@@ -17,7 +18,7 @@ const ComingSoon = () => {
                     href="/app/projects"
                     as={Link}
                     variant="bordered"
-                    endContent={<WhiteArrow/>}
+                    endContent={<WhiteArrow />}
                     style={{
                         borderRadius: '13px',
                         width: '199px',
@@ -33,24 +34,26 @@ const ComingSoon = () => {
             </div>
             <div className="flex justify-center items-center scale-85 max-[500px]:scale-[0.8] ml-[40px]">
                 <div className="">
-                    <ProjectCard isFunded={false} />
+                    <ProjectCard isFunded={false} project={projects[0]} />
                 </div>
                 <div className="max-[900px]:hidden">
-                    <ProjectCard isFunded={false} />
+                    <ProjectCard isFunded={false} project={projects[1]} />
                 </div>
                 <div className="max-[1400px]:hidden">
-                    <ProjectCard isFunded={false} />
+                    <ProjectCard isFunded={false} project={projects[2]} />
                 </div>
                 <div className="max-[1850px]:hidden">
-                    <ProjectCard isFunded={false} />
+                    <ProjectCard isFunded={false} project={projects[3]} />
                 </div>
                 <div className="max-[2200px]:hidden">
-                    <ProjectCard isFunded={false} />
+                    <ProjectCard isFunded={false} project={projects[4]} />
                 </div>
                 <div className="max-[2800px]:hidden">
-                    <ProjectCard isFunded={false} />
+                    <ProjectCard isFunded={false} project={projects[5]} />
                 </div>
             </div>
+
+
         </div>
     )
 }

@@ -13,12 +13,12 @@ import {
 import { COLUMNS } from "./_constants";
 import { Project } from "./_types";
 import { SearchInput, renderCell } from "./_components";
+import { ProjectType } from "@/types";
 
-type Props = {
-  projects: Project[];
-};
 
-export default function ProjectsTable({ projects }: Props) {
+
+export default function ProjectsTable({ projects }: { projects: Array<ProjectType> }) {
+
   return (
     <Tabs
       aria-label="Projects"
@@ -54,7 +54,7 @@ export default function ProjectsTable({ projects }: Props) {
             )}
           </TableHeader>
           <TableBody emptyContent={"No projects found"} items={projects}>
-            {(item: Project) => (
+            {(item: ProjectType) => (
               <TableRow key={item.id}>
                 {(columnKey) => (
                   <TableCell>{renderCell(item, columnKey)}</TableCell>
