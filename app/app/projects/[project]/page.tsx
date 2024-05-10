@@ -1,5 +1,6 @@
 import CustomImage from "@/app/components/projects/customImage";
 import { findProjectById } from "@/services/project-service";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export default async function Project({ params }: { params: { project: string } }) {
@@ -13,7 +14,14 @@ export default async function Project({ params }: { params: { project: string } 
                 <p className=" mb-4 text-4xl">
                     Start at: {startDate}
                 </p>
-                {imageUrl && <CustomImage path={imageUrl!} />}
+                {/* {imageUrl && <CustomImage path={imageUrl!} />} */}
+                {imageUrl && <Image
+                    src={imageUrl!}
+                    width={500}
+                    height={500}
+                    alt="Picture of the author"
+                />}
+
             </div>
         </div>
     );

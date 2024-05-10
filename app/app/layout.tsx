@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
-import Footer from "../components/Footer"
 import Header from "../components/header/header"
+export const dynamic = 'force-dynamic'
 
 export default function AppLayout({
     children,

@@ -12,17 +12,38 @@ import { changeRole, getSession } from './auth-service';
 import { fromMongoModelToSchema } from '@/utils/fromMongoModelToSchema';
 import { uploadImage } from './cloudinary-service';
 import { extractDataForValidation } from '@/utils/validationUtils';
+import { cache } from 'react';
 
 //@todo - make query builder & offset
-export const fetchAllProjects = async (): Promise<Array<ProjectType>> => {
-  'use server';
 
+// export const fetchAllProjects = cache(async (): Promise<Array<ProjectType>> => {
+//   'use server';
+
+//   try {
+//     await dbConnect();
+
+//     return (await Project.find().lean<Array<IProjectModel>>()).map((item) =>
+//       fromMongoModelToSchema(item)
+//     );
+//   } catch (err) {
+//     console.log(err);
+//     throw new Error('Failed to fetch projects!');
+//   }
+// });
+export const fetchAllProjects = async (
+  pageNumber = 1,
+  pageSize = 12
+): Promise<Array<ProjectType>> => {
+  'use server';
   try {
     await dbConnect();
 
-    return (await Project.find().lean<Array<IProjectModel>>()).map((item) =>
-      fromMongoModelToSchema(item)
-    );
+    return (
+      await Project.find()
+        .lean<Array<IProjectModel>>()
+        .skip((pageNumber - 1) * pageSize)
+        .limit(pageSize)
+    ).map((item) => fromMongoModelToSchema(item));
   } catch (err) {
     console.log(err);
     throw new Error('Failed to fetch projects!');

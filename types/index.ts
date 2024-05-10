@@ -47,15 +47,15 @@ export const ProjectSchema = z.object({
     .max(1000, 'Token price is too big, it should be less than 1000 eth?'),
   // members: z.string().min(1, 'Member details are required'),
   // community: z.string().min(1, 'Community details are required'),
-  createdAt: z.coerce.date().optional(),
-  updatedAt: z.coerce.date().optional(),
+  // createdAt: z.coerce.date().optional(),
+  // updatedAt: z.coerce.date().optional(),
 });
 export type ProjectType = z.infer<typeof ProjectSchema>;
 
 export const CreateProjectSchema = ProjectSchema.omit({
   id: true,
-  createdAt: true,
-  updatedAt: true,
+  // createdAt: true,
+  // updatedAt: true,
   founder: true,
 }).extend({
   image: z

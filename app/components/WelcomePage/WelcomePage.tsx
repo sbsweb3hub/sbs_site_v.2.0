@@ -1,7 +1,6 @@
 'use client'
 import React from "react";
 import LetterFadeInText from "../StartPage/startPageContent/FadedText";
-import { Chakra_Petch } from "next/font/google";
 import Wave from "./WelcomePageContent/Wave";
 import EnterAppButton from "./WelcomePageContent/CustomButton";
 import NewsLetter from "../StartPage/startPageContent/NewsLetter";
