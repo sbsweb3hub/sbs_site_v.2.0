@@ -4,7 +4,12 @@
 
 import dbConnect from '@/db/dbConnect';
 import { IProjectModel, Project } from '@/db/models';
-import { AuthRolesEnum, CreateProjectSchema, ProjectType } from '@/types';
+import {
+  AuthRolesEnum,
+  CreateProjectSchema,
+  ProjectStatusEnum,
+  ProjectType,
+} from '@/types';
 import { revalidatePath, revalidateTag, unstable_cache } from 'next/cache';
 
 import { redirect } from 'next/navigation';
@@ -13,6 +18,7 @@ import { fromMongoModelToSchema } from '@/utils/fromMongoModelToSchema';
 import { uploadImage } from './cloudinary-service';
 import { extractDataForValidation } from '@/utils/validationUtils';
 import { cache } from 'react';
+import { sendTgNotification } from './tg-service';
 
 //@todo - make query builder & offset
 
@@ -112,17 +118,28 @@ export const addProject = async (_prevState: unknown, formData: FormData) => {
   redirect('/app/founder');
 };
 
-export const patchProject = async (formData: FormData): Promise<void> => {
+export const patchProject = async (_prevState: unknown, formData: FormData) => {
   'use server';
   const { address: founder } = await getSession();
   if (!founder) throw new Error('You don`t have permission for patch Project');
-  const { title, startDate } = Object.fromEntries(formData);
-  try {
-    await dbConnect();
-    await Project.findOneAndUpdate({ founder }, { title, startDate });
-  } catch (err) {
-    console.log(err);
-    throw new Error('Failed to create project!');
+  const dataForValidation = extractDataForValidation(
+    CreateProjectSchema,
+    formData
+  );
+  const validation = CreateProjectSchema.safeParse(dataForValidation);
+  if (validation.success) {
+    const input = Object.fromEntries(formData);
+    try {
+      await dbConnect();
+      await Project.findOneAndUpdate({ founder }, { ...input });
+    } catch (err) {
+      console.log(err);
+      throw new Error('Failed to update project!');
+    }
+  } else {
+    return {
+      errors: validation.error.issues,
+    };
   }
   redirect('/app/founder');
 };
@@ -139,4 +156,53 @@ export const findProjectByFounder = async (
     console.log(err);
     throw new Error('Failed to find project by founder!');
   }
+};
+
+export const deleteImageFromProject = async (
+  id: string,
+  imageUrl: string
+): Promise<any> => {
+  try {
+    await dbConnect();
+    const res = await Project.findByIdAndUpdate(id, { imageUrl });
+    // return res;
+  } catch (err) {
+    console.log(err);
+    throw new Error('Failed to delete image!');
+  }
+  redirect('/app/founder');
+};
+
+export const changeProjectStatus = async (
+  id: string,
+  status: ProjectStatusEnum
+) => {
+  try {
+    await dbConnect();
+    const projectWithChangedStatus = await Project.findByIdAndUpdate(id, {
+      status,
+    });
+    if (!projectWithChangedStatus) {
+      throw new Error('Changing project status failed');
+    }
+  } catch (err) {
+    console.log(err);
+    throw new Error('Failed to change project status!');
+  }
+};
+
+export const sendProjectToReview = async (id: string) => {
+  const session = await getSession();
+  if (!session)
+    throw new Error('You don`t have permission for sending for review Project');
+
+  try {
+    await changeProjectStatus(id, ProjectStatusEnum.REVIEWING);
+    await sendTgNotification(id);
+  } catch (err) {
+    console.log(err);
+    throw new Error('Failed to send project to review!');
+  }
+  //@todo  - try smth else
+  revalidatePath('/app/founder');
 };
