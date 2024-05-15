@@ -9,7 +9,7 @@ export function ConnectWalletButton() {
     return (
         <Button 
             onClick={handleConnectWallet} 
-            className="w-[154px] h-[42px] text-[#000] text-[16px] bg-[#D6DA1D] rounded-[8px]"
+            className="w-[154px] h-[42px] text-[#000] text-[16px] bg-[#D6DA1D] rounded-[8px] mr-[34px]"
         >
             Connect
         </Button>
