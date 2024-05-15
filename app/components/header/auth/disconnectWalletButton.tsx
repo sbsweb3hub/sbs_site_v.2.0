@@ -37,7 +37,7 @@ export function DisconnectWalletButton({ address }: { address: string }) {
             {address && (
                 <Button 
                     onClick={handleDisconnect} 
-                    className="w-[154px] h-[42px] text-[#000] text-[16px] bg-[#D6DA1D] rounded-[8px]"
+                    className="w-[154px] h-[42px] text-[#000] text-[16px] bg-[#D6DA1D] rounded-[8px] mr-[34px]"
                 >
                     <span>
                         {address.slice(0, 4)}...{address.slice(-4)}

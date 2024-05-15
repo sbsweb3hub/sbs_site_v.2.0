@@ -11,7 +11,6 @@ import InfoBlock from "./MainPageContent/InfoBlock/InfoBlock";
 import FundedProject from "./MainPageContent/FundedProject";
 import FooterLine from "./MainPageContent/FooterLine";
 import { ProjectType } from "@/types";
-import LoadCard from "../Common/LoadingCard";
 
 const MainPage = ({ projects }: { projects: Array<ProjectType> }) => {
 
@@ -25,7 +24,6 @@ const MainPage = ({ projects }: { projects: Array<ProjectType> }) => {
             <InfoBlock />
             <FundedProject projects={projects} />
             <FooterLine />
-            <LoadCard />
         </div>
     )
 
