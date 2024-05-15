@@ -1,10 +1,10 @@
 'use client'
 import { logout } from '@/services/auth-service'
 import { useRouter } from 'next/navigation'
-import { useAccount, useDisconnect } from 'wagmi'
-import { Button, Input } from '@nextui-org/react'
+import { useDisconnect } from 'wagmi'
+import { Button } from '@nextui-org/react'
 
-export function DisconnectWalletButton({ address }: { address: string }) {
+export function DisconnectWalletButton({ address, points }: { address: string, points: any }) {
     const { disconnectAsync } = useDisconnect()
     const router = useRouter()
     const handleDisconnect = async () => {
@@ -13,7 +13,6 @@ export function DisconnectWalletButton({ address }: { address: string }) {
         router.push('/app')
         router.refresh()
     }
-
     return (
         <div className='flex items-center  gap-[14px]'>
             <div className='flex items-center'>
@@ -22,7 +21,7 @@ export function DisconnectWalletButton({ address }: { address: string }) {
                 </p>
                 <div className='flex items-center justify-end w-[85px] 
                     h-[24px] text-[16px] font-bold text-[#FCFC03] rounded-[5px] border-[1px] border-[#FCFC03]'>
-
+                    {parseFloat(points.LIQUIDITY.available).toFixed(2)}
                 </div>
             </div>
             <div className='flex items-center'>
@@ -31,12 +30,11 @@ export function DisconnectWalletButton({ address }: { address: string }) {
                 </p>
                 <div className='flex items-center justify-end w-[65px] 
                     h-[24px] text-[16px] font-bold text-[#FFF] rounded-[5px] border-[1px] border-white'>
-
                 </div>
             </div>
             {address && (
-                <Button 
-                    onClick={handleDisconnect} 
+                <Button
+                    onClick={handleDisconnect}
                     className="w-[154px] h-[42px] text-[#000] text-[16px] bg-[#D6DA1D] rounded-[8px] mr-[34px]"
                 >
                     <span>

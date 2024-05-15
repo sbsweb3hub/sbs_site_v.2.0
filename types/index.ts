@@ -64,8 +64,8 @@ export type ProjectType = z.infer<typeof ProjectSchema>;
 
 export const CreateProjectSchema = ProjectSchema.omit({
   id: true,
-  // createdAt: true,
-  // updatedAt: true,
+  createdAt: true,
+  updatedAt: true,
   founder: true,
   status: true,
 }).extend({
