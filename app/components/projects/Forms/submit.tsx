@@ -1,7 +1,16 @@
+'use client'
 import { useFormStatus } from "react-dom";
+import { Button } from "@nextui-org/react";
 
 
 export default function Submit() {
     const status = useFormStatus();
-    return <button disabled={status.pending} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded"> {status.pending ? "Saving..." : "Save as draft"}</button>
+    return (
+        <Button 
+            disabled={status.pending}
+            className="w-[217px] h-[70px] bg-[#533A3ACC] text-[#FFF] text-[24px] rounded-[5px] font-medium ml-[117px]"
+        > 
+            {status.pending ? "Saving..." : "Save as draft"}
+        </Button>
+    )
 }
