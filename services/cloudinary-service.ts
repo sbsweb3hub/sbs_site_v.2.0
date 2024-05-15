@@ -1,6 +1,7 @@
 /** @format */
 
 import { v2 as cloudinary } from 'cloudinary';
+import { deleteImageFromProject } from './project-service';
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -18,29 +19,43 @@ interface CloudinaryResource {
 }
 
 export async function uploadImage(file: File): Promise<string> {
-  'use server';
   const arrayBuffer = await file.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
 
   const { secure_url } = await new Promise<CloudinaryResource>(
     (resolve, reject) => {
       cloudinary.uploader
-        .upload_stream(
-          // {
-          // tags: ['nextjs-server-actions-upload-sneakers'],
-          // upload_preset: 'nextjs-server-actions-upload'
-          // },
-          function (error: any, result: CloudinaryResource) {
-            if (error) {
-              reject(error);
-              return;
-            }
-            resolve(result);
+        .upload_stream(function (error: any, result: CloudinaryResource) {
+          if (error) {
+            reject(error);
+            return;
           }
-        )
+          resolve(result);
+        })
         .end(buffer);
     }
   );
 
   return secure_url;
+}
+
+const regex = /\/v\d+\/([^/]+)\.\w{3,4}$/;
+const getPublicIdFromUrl = (url: string) => {
+  const match = url.match(regex);
+  return match ? match[1] : null;
+};
+
+export async function deleteImage(
+  projectId: string,
+  url: string
+): Promise<void> {
+  try {
+    const publicId = getPublicIdFromUrl(url);
+    const { result } = await cloudinary.uploader.destroy(publicId!);
+    if (result == !'ok') throw new Error('Failed to delete image!');
+    await deleteImageFromProject(projectId, url);
+  } catch (error) {
+    console.log(error);
+    throw new Error('Failed to delete image!');
+  }
 }
