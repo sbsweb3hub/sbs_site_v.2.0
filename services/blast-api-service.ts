@@ -13,7 +13,7 @@ const fetchChallenge = async () => {
   };
   try {
     const res = await fetch(
-      'https://waitlist-api.develop.testblast.io/v1/dapp-auth/challenge',
+      `${process.env.BLAST_API_URL}/dapp-auth/challenge`,
       options
     );
     const data = await res.json();
@@ -46,7 +46,7 @@ const getToken = async (challengeData: string, signature: string) => {
   };
   try {
     const res = await fetch(
-      'https://waitlist-api.develop.testblast.io/v1/dapp-auth/solve',
+      `${process.env.BLAST_API_URL}/dapp-auth/solve`,
       options
     );
     const token = await res.json();
@@ -61,15 +61,13 @@ export const getPoints = async (token: string) => {
   const options = {
     method: 'GET',
     headers: { Authorization: `Bearer ${token}` },
-    next: { revalidate: 60 },
   };
   try {
     const res = await fetch(
-      `https://waitlist-api.develop.testblast.io/v1/contracts/${process.env.CONTRACT}/point-balances`,
+      `${process.env.BLAST_API_URL}/contracts/${process.env.CONTRACT}/point-balances`,
       options
     );
     const points = await res.json();
-    console.log(points);
     return points;
   } catch (err) {
     console.log(err);
