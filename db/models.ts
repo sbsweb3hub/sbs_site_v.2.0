@@ -1,6 +1,6 @@
 /** @format */
 
-import { AuthRolesEnum } from '@/types';
+import { AuthRolesEnum, ProjectStatusEnum } from '@/types';
 import mongoose, { Document } from 'mongoose';
 
 const { Schema } = mongoose;
@@ -9,6 +9,7 @@ interface IUserModel extends Document {
   address: string;
   nonce: string;
   role: string;
+  tgId: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -28,6 +29,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
       default: AuthRolesEnum.VISITOR,
+    },
+    tgId: {
+      type: String,
+      default: '',
     },
   },
   { timestamps: true }
@@ -59,6 +64,7 @@ export interface IProjectModel extends Document {
   tokenSymbol: string;
   tokenSupply: number;
   tokenPrice: number;
+  status: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -113,6 +119,11 @@ const projectSchema = new Schema(
       required: true,
       // min: 0.0000000001,
       // max: 1000,
+    },
+    status: {
+      type: String,
+      required: true,
+      default: ProjectStatusEnum.EDITING,
     },
   },
   { timestamps: true }

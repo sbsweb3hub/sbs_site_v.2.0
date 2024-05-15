@@ -1,6 +1,6 @@
 /** @format */
 
-import { ProjectType } from '@/types';
+import { ProjectStatusEnum, ProjectType } from '@/types';
 import { IProjectModel } from './../db/models';
 export function fromMongoModelToSchema(data: IProjectModel): ProjectType {
   return {
@@ -23,5 +23,8 @@ export function fromMongoModelToSchema(data: IProjectModel): ProjectType {
     tokenSymbol: data.tokenSymbol,
     tokenSupply: data.tokenSupply,
     tokenPrice: data.tokenPrice,
+    status: ProjectStatusEnum[data.status as keyof typeof ProjectStatusEnum],
+    createdAt: data.startDate.toISOString(),
+    updatedAt: data.startDate.toISOString(),
   };
 }
