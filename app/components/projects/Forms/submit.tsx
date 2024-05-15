@@ -10,7 +10,7 @@ export default function Submit() {
             disabled={status.pending}
             className="w-[217px] h-[70px] bg-[#533A3ACC] text-[#FFF] text-[24px] rounded-[5px] font-medium ml-[117px]"
         > 
-            {status.pending ? "Submitting..." : "Save draft"}
+            {status.pending ? "Saving..." : "Save as draft"}
         </Button>
     )
 }

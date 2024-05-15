@@ -9,7 +9,7 @@ import { ProjectFormInput } from "./projectFormInput";
 
 const AddProjectForm = () => {
   const [state, formAction] = useFormState(addProject, { errors: [] });
-  const fieldsToExclude = new Set(['imageUrl']);
+  const fieldsToExclude = new Set(['imageUrl',]);
 
   return (
     <div className="max-w-4xl mx-auto">
