@@ -17,6 +17,7 @@ export enum ProjectStatusEnum {
   EDITING = 'EDITING',
   REVIEWING = 'REVIEWING',
   APPROVED = 'APPROVED',
+  DECLINED = 'DECLINED',
   DEPLOYED = 'DEPLOYED',
 }
 
@@ -56,8 +57,8 @@ export const ProjectSchema = z.object({
   status: z.nativeEnum(ProjectStatusEnum),
   // members: z.string().min(1, 'Member details are required'),
   // community: z.string().min(1, 'Community details are required'),
-  // createdAt: z.coerce.date().optional(),
-  // updatedAt: z.coerce.date().optional(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
 });
 export type ProjectType = z.infer<typeof ProjectSchema>;
 
@@ -105,7 +106,8 @@ export const AuthSessionSchema = z.object({
 export type AuthSessionType = z.infer<typeof AuthSessionSchema>;
 
 export enum AuthRoutes {
-  Founder = '/app/founder',
-  FounderCreate = '/app/founder/create',
-  FounderPatch = '/app/founder/patch',
+  FOUNDER = '/app/founder',
+  FOUNDER_CREATE = '/app/founder/create',
+  FOUNDER_PATCH = '/app/founder/patch',
+  ADMIN = '/app/admin',
 }

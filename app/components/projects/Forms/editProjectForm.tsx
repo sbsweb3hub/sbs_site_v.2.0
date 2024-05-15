@@ -36,9 +36,19 @@ const EditProjectForm = ({ project }: { project: Partial<ProjectType> }) => {
                     } return null
                 })}
                 {/* <CustomImage path={project.imageUrl} /> */}
-                {project.status === ProjectStatusEnum.REVIEWING ? <p>Pls wait for review</p> : <Submit />}
+                {(() => {
+                    switch (project.status) {
+                        case ProjectStatusEnum.REVIEWING:
+                            return <p>Pls wait while your project is reviewing!</p>;
+                        case ProjectStatusEnum.APPROVED:
+                            return (
+                                <p>Your project is approved, U can deploy it</p>
+                            );
+                        default:
+                            return <Submit />;
+                    }
+                })()}
             </form>
-            {/* {project.imageUrl && <ChangeImage imageUrl={project.imageUrl} />} */}
 
         </div>
     );

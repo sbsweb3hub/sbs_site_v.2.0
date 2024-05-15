@@ -24,5 +24,7 @@ export function fromMongoModelToSchema(data: IProjectModel): ProjectType {
     tokenSupply: data.tokenSupply,
     tokenPrice: data.tokenPrice,
     status: ProjectStatusEnum[data.status as keyof typeof ProjectStatusEnum],
+    createdAt: data.startDate.toISOString(),
+    updatedAt: data.startDate.toISOString(),
   };
 }

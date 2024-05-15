@@ -17,39 +17,34 @@ import { changeRole, getSession } from './auth-service';
 import { fromMongoModelToSchema } from '@/utils/fromMongoModelToSchema';
 import { uploadImage } from './cloudinary-service';
 import { extractDataForValidation } from '@/utils/validationUtils';
-import { cache } from 'react';
 import { sendTgNotification } from './tg-service';
+import { FilterQuery } from 'mongoose';
 
-//@todo - make query builder & offset
+interface FetchProjectsOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  filter?: FilterQuery<IProjectModel>;
+}
 
-// export const fetchAllProjects = cache(async (): Promise<Array<ProjectType>> => {
-//   'use server';
-
-//   try {
-//     await dbConnect();
-
-//     return (await Project.find().lean<Array<IProjectModel>>()).map((item) =>
-//       fromMongoModelToSchema(item)
-//     );
-//   } catch (err) {
-//     console.log(err);
-//     throw new Error('Failed to fetch projects!');
-//   }
-// });
 export const fetchAllProjects = async (
-  pageNumber = 1,
-  pageSize = 12
+  options: FetchProjectsOptions = {}
 ): Promise<Array<ProjectType>> => {
   'use server';
   try {
+    const {
+      pageNumber = 1,
+      pageSize = 12,
+      filter = {} as FilterQuery<IProjectModel>,
+    } = options;
+
     await dbConnect();
 
-    return (
-      await Project.find()
-        .lean<Array<IProjectModel>>()
-        .skip((pageNumber - 1) * pageSize)
-        .limit(pageSize)
-    ).map((item) => fromMongoModelToSchema(item));
+    const projects = await Project.find(filter)
+      .lean<Array<IProjectModel>>()
+      .skip((pageNumber - 1) * pageSize)
+      .limit(pageSize);
+    const res = projects.map((item) => fromMongoModelToSchema(item));
+    return res;
   } catch (err) {
     console.log(err);
     throw new Error('Failed to fetch projects!');
@@ -198,11 +193,27 @@ export const sendProjectToReview = async (id: string) => {
 
   try {
     await changeProjectStatus(id, ProjectStatusEnum.REVIEWING);
-    await sendTgNotification(id);
+    await sendTgNotification(id, ProjectStatusEnum.REVIEWING);
   } catch (err) {
     console.log(err);
     throw new Error('Failed to send project to review!');
   }
   //@todo  - try smth else
   revalidatePath('/app/founder');
+};
+
+export const reviewProject = async (id: string, status: ProjectStatusEnum) => {
+  const session = await getSession();
+  if (!session || session.role == !AuthRolesEnum.ADMIN)
+    throw new Error('You arent Admin');
+
+  try {
+    await changeProjectStatus(id, status);
+    await sendTgNotification(id, status);
+  } catch (err) {
+    console.log(err);
+    throw new Error('Failed to approve project!');
+  }
+  //@todo  - try smth else
+  revalidatePath('/app/admin');
 };
