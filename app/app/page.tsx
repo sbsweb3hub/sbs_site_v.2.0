@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 export default async function App() {
     const projects = await fetchAllProjects()
     if (!projects) notFound()
-
     return (<>
         <MainPage projects={projects} />
     </>
