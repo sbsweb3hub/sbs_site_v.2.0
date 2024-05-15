@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import { 
     Card,
     CardBody,
-    CardHeader, 
-    DateRangePicker, 
+    CardHeader,
     Select, 
     SelectItem, 
-    Textarea 
+    Textarea,
+    Input 
 } from "@nextui-org/react";
 import {I18nProvider} from "@react-aria/i18n";
 
@@ -33,15 +33,14 @@ const StepCard: React.FC<CardProps> = ({ index, total }) => {
             </CardHeader>
             <CardBody>
                 <div className='flex flex-col ml-[27px] gap-[34px]'>
-                    <I18nProvider locale="en-GB">
-                        <DateRangePicker
-                            isRequired
-                            labelPlacement="outside"
-                            variant="faded"
-                            label="Time frame, duration"
-                            className="w-[401px] h-[43px] text-[#000]"
-                        />
-                    </I18nProvider>
+                    <Input 
+                        isRequired
+                        variant='faded'
+                        label='Duration [days]'
+                        labelPlacement='outside'
+                        placeholder='e.g 45 days'
+                        className='w-[401px] h-[43px] text-[#000]'
+                    />
                     <Textarea
                         maxRows={5}
                         isRequired
