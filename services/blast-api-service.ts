@@ -1,5 +1,5 @@
 /** @format */
-
+'use server';
 import { ethers } from 'ethers';
 
 const fetchChallenge = async () => {
