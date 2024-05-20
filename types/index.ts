@@ -21,23 +21,33 @@ export enum ProjectStatusEnum {
   DEPLOYED = 'DEPLOYED',
 }
 
+export const StepSchema = z.object({
+  duration: z.number(),
+  desc: z.string(),
+});
+export type StepType = z.infer<typeof StepSchema>;
+
 export const ProjectSchema = z.object({
   id: z.string(),
   founder: z.string(),
   projectName: z.string().min(1, 'Project name is required'),
   imageUrl: z.string().optional(),
+  backgroundImageUrl: z.string().optional(),
   contactName: z.string().optional(),
   contactTelegram: z.string().optional(),
-  contactEmail: z.string().optional(),
+  contactEmail: z.string(),
   web: z.string().optional(),
   twitter: z.string().optional(),
   pitchdeck: z.string().optional(),
   tokenomik: z.string().optional(),
-  // links: z.string().optional(),
+  discord: z.string().optional(),
+  projectTg: z.string().optional(),
   startDate: z.string().min(1, 'Start date is required'),
   description: z.string().optional(),
+  shortDescription: z.string().optional(),
   ecosystem: z.string().optional(),
   team: z.string().optional(),
+  teamDescription: z.string().optional(),
   tokenName: z
     .string()
     .min(1, 'Token name is required')
@@ -54,9 +64,13 @@ export const ProjectSchema = z.object({
     .number()
     .min(0.00001, 'Token price is required')
     .max(1000, 'Token price is too big, it should be less than 1000 eth?'),
+  maxTokenForSeed: z.coerce.number(),
+  minTokenForSeed: z.coerce.number(),
+  seedDuration: z.coerce.number(),
   status: z.nativeEnum(ProjectStatusEnum),
   // members: z.string().min(1, 'Member details are required'),
   // community: z.string().min(1, 'Community details are required'),
+  steps: z.array(StepSchema),
   createdAt: z.string(),
   updatedAt: z.string(),
 });

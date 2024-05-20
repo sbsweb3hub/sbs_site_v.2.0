@@ -6,9 +6,7 @@ import React from 'react'
 
 export default async function CreateProject() {
 
-  return (<>
-    {/* <h1>Create your project</h1> */}
-    {/* <AddProjectForm /> */}
+  return (
     <AddProject />
-  </>)
+  )
 }

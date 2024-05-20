@@ -45,15 +45,11 @@ const getPublicIdFromUrl = (url: string) => {
   return match ? match[1] : null;
 };
 
-export async function deleteImage(
-  projectId: string,
-  url: string
-): Promise<void> {
+export async function deleteImage(url: string): Promise<void> {
   try {
     const publicId = getPublicIdFromUrl(url);
     const { result } = await cloudinary.uploader.destroy(publicId!);
     if (result == !'ok') throw new Error('Failed to delete image!');
-    await deleteImageFromProject(projectId, url);
   } catch (error) {
     console.log(error);
     throw new Error('Failed to delete image!');

@@ -17,15 +17,15 @@ export async function sendTgNotification(
   event: ProjectStatusEnum
 ): Promise<void> {
   const adminChatIds = await findAdmin();
+
   if (adminChatIds.length > 0) {
     const sendPromises = adminChatIds.map((adminChatId) =>
       bot.sendMessage(adminChatId, `${event}: ${projectName}`)
     );
     try {
-      await Promise.all(sendPromises);
+      const res = await Promise.all(sendPromises);
     } catch (error) {
       console.error(error);
-      throw new Error('Failed to send some messages');
     }
   }
 }

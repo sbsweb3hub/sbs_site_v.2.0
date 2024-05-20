@@ -40,6 +40,8 @@ const EditProjectForm = ({ project }: { project: Partial<ProjectType> }) => {
                     switch (project.status) {
                         case ProjectStatusEnum.REVIEWING:
                             return <p>Pls wait while your project is reviewing!</p>;
+                        case ProjectStatusEnum.DECLINED:
+                            return <p>Your project has been declined, pls see details on your contact email</p>;
                         case ProjectStatusEnum.APPROVED:
                             return (
                                 <p>Your project is approved, U can deploy it</p>

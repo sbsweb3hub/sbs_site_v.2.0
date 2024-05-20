@@ -13,6 +13,9 @@ const SeedRound = () => {
                 label="Duration [days]"
                 placeholder="e. g. 45"
                 className="w-[190px] h-[43px] text-[#000]"
+                type='number'
+                name='seedDuration'
+                min='1'
             />
         </div>
     )

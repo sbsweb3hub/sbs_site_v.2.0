@@ -1,11 +1,11 @@
 'use client'
-import {DatePicker} from "@nextui-org/date-picker";
-import {now, getLocalTimeZone, parseZonedDateTime, toZoned} from "@internationalized/date";
-import {I18nProvider} from "@react-aria/i18n";
+import { DatePicker } from "@nextui-org/date-picker";
+import { now, getLocalTimeZone, parseZonedDateTime, toZoned } from "@internationalized/date";
+import { I18nProvider } from "@react-aria/i18n";
 
 
 const ProjectStartDate = () => {
-    
+
     const dateTime = now(getLocalTimeZone());
     const utcDateTime = toZoned(dateTime, 'UTC');
 
@@ -23,6 +23,8 @@ const ProjectStartDate = () => {
                     className="w-[278px] h-[43px] text-[#000]"
                     defaultValue={utcDateTime}
                     hourCycle={24}
+                    // type='string'
+                    name='startDate'
                 />
             </I18nProvider>
         </div>
