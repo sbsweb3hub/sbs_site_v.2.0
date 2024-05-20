@@ -7,7 +7,7 @@ export default function ChangeImage({ projectId, imageUrl }: { projectId: string
     return (
         <>
             <CustomImage path={imageUrl} />
-            <button onClick={() => deleteImage(projectId, imageUrl)}>Change image</button>
+            <button onClick={() => deleteImage(imageUrl)}>Change image</button>
         </>
 
     )
