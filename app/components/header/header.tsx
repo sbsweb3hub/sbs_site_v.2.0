@@ -23,7 +23,7 @@ const Header = async () => {
                     : <ButtonCreateProject />
                 }
             </div>
-            {session ? <DisconnectWalletButton points={balancesByPointType} address={session.address} /> : <ConnectWalletButton />}
+            {session ? <DisconnectWalletButton points={balancesByPointType ?? 'n/a'} address={session.address} /> : <ConnectWalletButton />}
         </header>
     );
 };
