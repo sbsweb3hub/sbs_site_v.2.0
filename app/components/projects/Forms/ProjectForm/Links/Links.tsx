@@ -1,8 +1,9 @@
+import { ProjectType } from '@/types';
 import { validateInput } from '@/utils/validationUtils';
 import { Input } from '@nextui-org/react'
 import { useMemo, useState } from 'react';
 
-const Links = () => {
+const Links = ({ disabled, project }: { disabled?: boolean, project?: ProjectType }) => {
     const [formData, setFormData] = useState({
         web: "",
         twitter: "",
@@ -44,6 +45,8 @@ const Links = () => {
                     color={isInvalid.web ? "danger" : "success"}
                     errorMessage={isInvalid.web && "URL should be less than 32 digits"}
                     onValueChange={handleChange("web")}
+                    {...(disabled && { isDisabled: true })}
+                    defaultValue={project?.web}
                 />
                 <Input
                     variant="faded"
@@ -57,6 +60,8 @@ const Links = () => {
                     color={isInvalid.twitter ? "danger" : "success"}
                     errorMessage={isInvalid.twitter && "Twitter name should be less than 15 digits"}
                     onValueChange={handleChange("projectName")}
+                    {...(disabled && { isDisabled: true })}
+                    defaultValue={project?.twitter}
                 />
                 <Input
                     variant="faded"
@@ -70,6 +75,8 @@ const Links = () => {
                     color={isInvalid.discord ? "danger" : "success"}
                     errorMessage={isInvalid.discord && "Project name should be less than 10 digits"}
                     onValueChange={handleChange("discord")}
+                    {...(disabled && { isDisabled: true })}
+                    defaultValue={project?.discord}
                 />
                 <Input
                     variant="faded"
@@ -83,7 +90,8 @@ const Links = () => {
                     color={isInvalid.projectTg ? "danger" : "success"}
                     errorMessage={isInvalid.projectTg && "project Telegram name should be less than 15 digits"}
                     onValueChange={handleChange("projectTg")}
-
+                    {...(disabled && { isDisabled: true })}
+                    defaultValue={project?.projectTg}
                 />
                 <Input
                     variant="faded"
@@ -97,7 +105,8 @@ const Links = () => {
                     color={isInvalid.pitchdeck ? "danger" : "success"}
                     errorMessage={isInvalid.pitchdeck && "Pitchdeck should be less than 232 digits"}
                     onValueChange={handleChange("Pitchdeck")}
-                />
+                    {...(disabled && { isDisabled: true })}
+                    defaultValue={project?.pitchdeck} />
             </div>
         </div>
     )

@@ -3,12 +3,12 @@ import './index.css'
 import React, { useState, useRef } from "react"
 import Image from 'next/image'
 
-const AddAvatar: React.FC = () => {
+const AddAvatar: React.FC<{ imageUrl?: string, disabled?: boolean }> = ({ imageUrl, disabled }) => {
   //@todo -  надо здесь вьебать валидацию типа файла и размера
-  const [image, setImage] = useState<string>('');
+  const [image, setImage] = useState<string>(imageUrl ?? '');
   const fileInputRef = useRef<HTMLInputElement>(null);
-  console.log('image', image)
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
     const file = e.target.files ? e.target.files[0] : null;
     if (file) {
       const reader = new FileReader();
@@ -23,7 +23,7 @@ const AddAvatar: React.FC = () => {
 
   return (
     <div className="avatar-uploader"
-      onClick={() => fileInputRef.current?.click()}
+      onClick={disabled ? undefined : () => fileInputRef.current?.click()}
     >
       {image ? (
         <div className="avatar-preview" style={{ backgroundImage: `url(${image})` }} />
@@ -38,6 +38,7 @@ const AddAvatar: React.FC = () => {
             alt=''
             src='/avatar.png'
             className='my-[20px]'
+
           />
           <div className='flex justify-around items-center'>
             <p className='text-[11px] text-[#00000080] mr-[10px]'>

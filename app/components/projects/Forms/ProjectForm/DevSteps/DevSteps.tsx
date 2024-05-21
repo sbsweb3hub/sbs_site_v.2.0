@@ -1,13 +1,16 @@
 'use client'
 import React from 'react';
 import { Card, CardBody, CardHeader, Input, Textarea } from "@nextui-org/react";
+import { ProjectType } from '@/types';
 
 interface CardProps {
     index: number;
     total: number;
+    disabled?: boolean;
+    project?: ProjectType
 }
 
-const StepCard: React.FC<CardProps> = ({ index, total }) => {
+const StepCard: React.FC<CardProps> = ({ index, total, disabled, project }) => {
     return (
         <Card className='w-[788px] h-[336px] mb-[27px] bg-[#D9D9D94D]'>
             <CardHeader>
@@ -32,6 +35,9 @@ const StepCard: React.FC<CardProps> = ({ index, total }) => {
                         min='1'
                         name={`steps[${index}].duration`}
                         className='w-[401px] h-[43px] text-[#000]'
+                        {...(disabled && { isDisabled: true })}
+                        defaultValue={project ? String(project.steps[index].duration) : undefined}
+
                     />
                     <Textarea
                         maxRows={5}
@@ -43,6 +49,8 @@ const StepCard: React.FC<CardProps> = ({ index, total }) => {
                         type='string'
                         name={`steps[${index}].desc`}
                         className='w-[401px] h-[140px] text-[#000]'
+                        {...(disabled && { isDisabled: true })}
+                        defaultValue={project?.steps[index].desc}
                     />
                 </div>
             </CardBody>
@@ -50,8 +58,8 @@ const StepCard: React.FC<CardProps> = ({ index, total }) => {
     );
 };
 
-const DevSteps = () => {
-    const [count, setCount] = React.useState<number>(3);
+const DevSteps = ({ disabled, project }: { disabled?: boolean, project?: ProjectType }) => {
+    const [count, setCount] = React.useState<number>(project?.steps.length ?? 3);
 
     return (
         <div className="flex flex-col ml-[117px]">
@@ -70,7 +78,7 @@ const DevSteps = () => {
             </select>
             <div className='flex flex-col mt-[55px]'>
                 {Array.from({ length: count }, (_, index) => (
-                    <StepCard key={index} index={index} total={count} />
+                    <StepCard key={index} index={index} total={count} disabled={disabled!} project={project!} />
                 ))}
             </div>
         </div>

@@ -23,7 +23,7 @@ export async function sendTgNotification(
       bot.sendMessage(adminChatId, `${event}: ${projectName}`)
     );
     try {
-      const res = await Promise.all(sendPromises);
+      await Promise.allSettled(sendPromises);
     } catch (error) {
       console.error(error);
     }

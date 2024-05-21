@@ -1,6 +1,7 @@
+import { ProjectType } from "@/types";
 import { Textarea, Input } from "@nextui-org/react";
 
-const ProjectDetails = () => {
+const ProjectDetails = ({ disabled, project }: { disabled?: boolean, project?: ProjectType }) => {
     return (
         <div className="flex flex-col ml-[117px]">
             <p className="text-[26px] text-[#000] font-semibold mb-[46px]">
@@ -17,6 +18,8 @@ const ProjectDetails = () => {
                     type='string'
                     name='description'
                     className="w-[719px] h-[109px] text-[#000]"
+                    {...(disabled && { isDisabled: true })}
+                    defaultValue={project?.description}
                 />
                 <Textarea
                     maxRows={3}
@@ -27,6 +30,8 @@ const ProjectDetails = () => {
                     className="w-[719px] h-[109px] text-[#000]"
                     type='string'
                     name='shortDescription'
+                    {...(disabled && { isDisabled: true })}
+                    defaultValue={project?.shortDescription}
                 />
                 <Input
                     labelPlacement="outside"
@@ -36,6 +41,8 @@ const ProjectDetails = () => {
                     className="w-[360px] h-[43px] text-[#000]"
                     type='string'
                     name='team'
+                    {...(disabled && { isDisabled: true })}
+                    defaultValue={project?.team}
                 />
                 <Textarea
                     maxRows={3}
@@ -47,6 +54,8 @@ const ProjectDetails = () => {
                     type='string'
                     name='teamDescription'
                     className="w-[719px] h-[109px] text-[#000]"
+                    {...(disabled && { isDisabled: true })}
+                    defaultValue={project?.teamDescription}
                 />
                 <Textarea
                     maxRows={3}
@@ -58,6 +67,8 @@ const ProjectDetails = () => {
                     type='string'
                     name='ecosystem'
                     className="w-[719px] h-[109px] text-[#000]"
+                    {...(disabled && { isDisabled: true })}
+                    defaultValue={project?.ecosystem}
                 />
             </div>
         </div>

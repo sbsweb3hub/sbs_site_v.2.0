@@ -4,6 +4,6 @@ import React from 'react'
 
 export default function SendReviewButton({ id }: { id: string }) {
     return (
-        <button onClick={() => sendProjectToReview(id)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded">Send for review</button>
+        <button onClick={() => sendProjectToReview(id)} className="w-[217px] h-[70px] bg-[#533A3ACC] text-[#FFF] text-[24px] rounded-[5px] font-medium ml-[117px]">Send for review</button>
     )
 }

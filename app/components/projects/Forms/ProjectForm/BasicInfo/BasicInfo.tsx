@@ -2,8 +2,9 @@
 import React, { useMemo, useState } from "react";
 import { Input } from "@nextui-org/react";
 import { validateInput } from "@/utils/validationUtils";
+import { ProjectType } from "@/types";
 
-const BasicInfo = () => {
+const BasicInfo = ({ disabled, project }: { disabled?: boolean, project?: ProjectType }) => {
 
     const [formData, setFormData] = useState({
         projectName: "",
@@ -44,6 +45,8 @@ const BasicInfo = () => {
                 color={isInvalid.projectName ? "danger" : "success"}
                 errorMessage={isInvalid.projectName && "Project name should be less than 10 digits"}
                 onValueChange={handleChange("projectName")}
+                {...(disabled && { isDisabled: true })}
+                defaultValue={project?.projectName}
             />
             <div className="flex items-center gap-[65px] mt-[27px]">
                 <Input
@@ -58,6 +61,9 @@ const BasicInfo = () => {
                     errorMessage={isInvalid.contactName && "Contact name should be less than 10 degits"}
                     onValueChange={handleChange("contactName")}
                     className="w-[256px] h-[41px] text-[#000]"
+                    {...(disabled && { isDisabled: true })}
+                    defaultValue={project?.contactName}
+
                 />
                 <Input
                     variant="faded"
@@ -71,6 +77,9 @@ const BasicInfo = () => {
                     errorMessage={isInvalid.contactTelegram && "Please enter a valid TG"}
                     onValueChange={handleChange("contactTelegram")}
                     className="w-[256px] h-[41px] text-[#000]"
+                    {...(disabled && { isDisabled: true })}
+                    defaultValue={project?.contactTelegram}
+
                 />
                 <Input
                     isRequired
@@ -85,6 +94,9 @@ const BasicInfo = () => {
                     errorMessage={isInvalid.contactEmail && "Please enter a valid email"}
                     onValueChange={handleChange("contactEmail")}
                     className="w-[256px] h-[41px] text-[#000]"
+                    {...(disabled && { isDisabled: true })}
+                    defaultValue={project?.contactEmail}
+
                 />
             </div>
         </div>
