@@ -1,6 +1,7 @@
+import { ProjectType } from "@/types";
 import { Input } from "@nextui-org/react";
 
-const TokenInfo = () => {
+const TokenInfo = ({ disabled, project }: { disabled?: boolean, project?: ProjectType }) => {
     return (
         <div className="flex flex-col ml-[117px]">
             <p className="text-[26px] text-[#000] font-semibold mb-[46px]">
@@ -17,6 +18,8 @@ const TokenInfo = () => {
                         type='string'
                         name='tokenName'
                         className="w-[360px] h-[43px] text-[#000]"
+                        {...(disabled && { isDisabled: true })}
+                        defaultValue={project?.tokenName}
                     />
                     <Input
                         isRequired
@@ -28,7 +31,8 @@ const TokenInfo = () => {
                         name='tokenSupply'
                         className="w-[360px] h-[43px] text-[#000]"
                         min="0"
-                    />
+                        {...(disabled && { isDisabled: true })}
+                        defaultValue={project ? String(project.tokenSupply) : undefined} />
                     <Input
                         isRequired
                         labelPlacement="outside"
@@ -39,7 +43,8 @@ const TokenInfo = () => {
                         type='number'
                         name='maxTokenForSeed'
                         min="0"
-                    />
+                        {...(disabled && { isDisabled: true })}
+                        defaultValue={project ? String(project.maxTokenForSeed) : undefined} />
                 </div>
                 <div className="flex flex-col gap-[33px]">
                     <Input
@@ -51,6 +56,8 @@ const TokenInfo = () => {
                         type='string'
                         name='tokenSymbol'
                         className="w-[360px] h-[43px] text-[#000]"
+                        {...(disabled && { isDisabled: true })}
+                        defaultValue={project?.tokenSymbol}
                     />
                     <Input
                         isRequired
@@ -62,7 +69,8 @@ const TokenInfo = () => {
                         name='tokenPrice'
                         className="w-[360px] h-[43px] text-[#000]"
                         min="0"
-                    />
+                        {...(disabled && { isDisabled: true })}
+                        defaultValue={project ? String(project.tokenPrice) : undefined} />
                     <Input
                         isRequired
                         labelPlacement="outside"
@@ -73,7 +81,8 @@ const TokenInfo = () => {
                         type='number'
                         name='minTokenForSeed'
                         min="0"
-                    />
+                        {...(disabled && { isDisabled: true })}
+                        defaultValue={project ? String(project.minTokenForSeed) : undefined} />
                 </div>
             </div>
         </div>

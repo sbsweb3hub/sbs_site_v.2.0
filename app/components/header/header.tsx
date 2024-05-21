@@ -12,7 +12,7 @@ const Header = async () => {
     const session = await getSession()
     //@todo - make revalidate SWR
     const { balancesByPointType } = await getDataFromBlastApi()
-
+    const points = parseFloat(balancesByPointType?.LIQUIDITY?.available)?.toFixed(2) ?? "n/a"
     return (
         <header className="bg-[#000] text-white text-[24px] flex justify-between items-center h-[81px]">
             <div className="flex items-center ml-[37px] gap-[43px]">
@@ -23,7 +23,7 @@ const Header = async () => {
                     : <ButtonCreateProject />
                 }
             </div>
-            {session ? <DisconnectWalletButton points={balancesByPointType ?? 'n/a'} address={session.address} /> : <ConnectWalletButton />}
+            {session ? <DisconnectWalletButton points={points} address={session.address} /> : <ConnectWalletButton />}
         </header>
     );
 };

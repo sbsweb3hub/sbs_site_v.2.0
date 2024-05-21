@@ -2,8 +2,10 @@
 import { deleteProject } from '@/services/project-service'
 import React from 'react'
 
+
 export default function DeleteProjectButton({ id }: { id: string }) {
+
     return (
-        <button onClick={() => deleteProject(id)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded">Delete project draft</button>
+        <button className="w-[217px] h-[70px] bg-[#533A3ACC] text-[#FFF] text-[24px] rounded-[5px] font-medium ml-[117px]" onClick={() => deleteProject(id)} >Delete project draft</button>
     )
 }

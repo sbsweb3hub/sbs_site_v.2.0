@@ -3,8 +3,10 @@ import './index.css'
 import React, { useState, useRef } from "react"
 import Image from 'next/image'
 
-const AddBackground: React.FC = () => {
-    const [image, setImage] = useState<string>('');
+const AddBackground: React.FC<{ backgroundImageUrl: string, disabled: boolean }> = ({ backgroundImageUrl, disabled }) => {
+    //@todo -  надо здесь вьебать валидацию типа файла и размера
+
+    const [image, setImage] = useState<string>(backgroundImageUrl ?? '');
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +23,7 @@ const AddBackground: React.FC = () => {
     };
 
     return (
-        <div className="background" onClick={() => fileInputRef.current?.click()}>
+        <div className="background" onClick={disabled ? undefined : () => fileInputRef.current?.click()}>
             {image ? (
                 <div className="background-preview" style={{ backgroundImage: `url(${image})` }} />
             ) : (

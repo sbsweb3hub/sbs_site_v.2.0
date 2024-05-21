@@ -84,6 +84,6 @@ export const getDataFromBlastApi = async () => {
     return points;
   } catch (err) {
     console.log(err);
-    throw new Error('Failed to get data from Blast API!');
+    return { balancesByPointType: null };
   }
 };
