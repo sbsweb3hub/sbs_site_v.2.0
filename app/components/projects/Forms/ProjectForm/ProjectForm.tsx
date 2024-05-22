@@ -17,6 +17,8 @@ import { ProjectStatusEnum, ProjectType } from "@/types";
 import DeleteProjectButton from "../DeleteProjectButton";
 import SendReviewButton from "../SendReviewButton";
 import Link from 'next/link'
+import Build from "./Modals/Build";
+import Delete from "./Modals/Delete";
 
 const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: ProjectType }) => {
     const [state, formAction] = useFormState(project ? patchProject : addProject, { errors: [] });
@@ -80,13 +82,17 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                 <div className="flex justify-start w-[100%] min-[1728px]:w-[1728px] mb-[48px]">
                     <DevSteps disabled={disabled!} project={project!} />
                 </div>
+              
+                  
+
 
                 {!project && <div className="flex justify-start w-[100%] min-[1728px]:w-[1728px] mb-[48px]">
-                    <Submit />
+  <Submit />
                 </div>}
 
+
             </form>
-            {(project && disabled) &&
+            {/* {(project && disabled) &&
                 (() => {
                     switch (project?.status) {
                         case ProjectStatusEnum.REVIEWING:
@@ -111,7 +117,7 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                             </>;
                     }
                 })()
-            }
+            } */}
         </div>
 
     )
