@@ -4,3 +4,19 @@
     font-style: normal;
     font-weight: 700;
 }
+
+@font-face {
+    font-family: 'Geom Graphic';
+    src: url('/asset/Geom_Graphic_W03_SemiBold.ttf')format('truetype');
+    font-style: normal;
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Geom Graphic';
+    src: url('/asset/Geom_Graphic_W03_Light.ttf')format('truetype');
+    font-style: normal;
+    font-weight: 300;
+}
+
+
