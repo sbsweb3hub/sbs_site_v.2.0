@@ -82,14 +82,14 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                 <div className="flex justify-start w-[100%] min-[1728px]:w-[1728px] mb-[48px]">
                     <DevSteps disabled={disabled!} project={project!} />
                 </div>
-                <div className="flex justify-start w-[100%] min-[1728px]:w-[1728px] mb-[48px]">
+                {/* <div className="flex justify-start w-[100%] min-[1728px]:w-[1728px] mb-[48px]">
                     <Submit />
 
-                </div>
-                {/* {!disabled && <div className="flex justify-start w-[100%] min-[1728px]:w-[1728px] mb-[48px]">
+                </div> */}
+                {!project && <div className="flex justify-start w-[100%] min-[1728px]:w-[1728px] mb-[48px]">
                     <Submit />
 
-                </div>} */}
+                </div>}
 
             </form>
             {/* {(project && disabled) &&
