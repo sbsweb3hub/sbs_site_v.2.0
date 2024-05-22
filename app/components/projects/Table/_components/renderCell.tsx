@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ProjectType } from "@/types";
 
 export const renderCell = (project: ProjectType, columnKey: React.Key) => {
-  const cellValue = project[columnKey as keyof ProjectType];
+  const cellValue = project[columnKey as keyof Omit<ProjectType, 'steps'>];
 
   switch (columnKey) {
     case "projectName":

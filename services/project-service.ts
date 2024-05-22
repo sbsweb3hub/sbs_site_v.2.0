@@ -1,7 +1,7 @@
 /** @format */
 
 'use server';
-
+import mongoose from 'mongoose';
 import dbConnect from '@/db/dbConnect';
 import { IProjectModel, Project } from '@/db/models';
 import {
@@ -15,7 +15,7 @@ import { revalidatePath, revalidateTag, unstable_cache } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { changeRole, getSession } from './auth-service';
 import { fromMongoModelToSchema } from '@/utils/fromMongoModelToSchema';
-import { uploadImage } from './cloudinary-service';
+import { deleteImage, uploadImage } from './cloudinary-service';
 import { extractDataForValidation } from '@/utils/validationUtils';
 import { sendTgNotification } from './tg-service';
 import { FilterQuery } from 'mongoose';
@@ -43,6 +43,7 @@ export const fetchAllProjects = async (
       .lean<Array<IProjectModel>>()
       .skip((pageNumber - 1) * pageSize)
       .limit(pageSize);
+
     const res = projects.map((item) => fromMongoModelToSchema(item));
     return res;
   } catch (err) {
@@ -64,47 +65,105 @@ export const findProjectById = async (id: string): Promise<ProjectType> => {
   }
 };
 
+// export const addProject = async (_prevState: unknown, formData: FormData) => {
+//   'use server';
+//   const session = await getSession();
+//   if (!session)
+//     throw new Error('You don`t have permission for add new Project');
+//   const dataForValidation = extractDataForValidation(
+//     CreateProjectSchema,
+//     formData
+//   );
+//   const file = formData.get('image') as File;
+//   if (file.size > 0) {
+//     dataForValidation.image = file;
+//   } else {
+//     delete dataForValidation.image;
+//   }
+
+//   const validation = CreateProjectSchema.safeParse(dataForValidation);
+
+//   if (validation.success) {
+//     const input = Object.fromEntries(formData);
+//     let imageUrl = '';
+//     try {
+//       await dbConnect();
+//       if (file.size > 0) {
+//         imageUrl = await uploadImage(file);
+//       }
+//       const project = await Project.create({
+//         ...input,
+//         founder: session.address,
+//         imageUrl,
+//       });
+//       if (project) await changeRole(session, AuthRolesEnum.FOUNDER);
+//     } catch (err) {
+//       console.log(err);
+//       throw new Error('Failed to create project!');
+//     }
+//   } else {
+//     return {
+//       errors: validation.error.issues,
+//     };
+//   }
+
+//   //@todo research about cache
+//   // revalidateTag('projects');
+//   revalidatePath('/app/founder');
+//   redirect('/app/founder');
+// };
+
+//@todo - refactor add and patch into one
 export const addProject = async (_prevState: unknown, formData: FormData) => {
   'use server';
   const session = await getSession();
   if (!session)
     throw new Error('You don`t have permission for add new Project');
 
-  const dataForValidation = extractDataForValidation(
-    CreateProjectSchema,
-    formData
-  );
   const file = formData.get('image') as File;
-  if (file.size > 0) {
-    dataForValidation.image = file;
-  } else {
-    delete dataForValidation.image;
-  }
-
-  const validation = CreateProjectSchema.safeParse(dataForValidation);
-
-  if (validation.success) {
-    const input = Object.fromEntries(formData);
-    let imageUrl = '';
-    try {
-      await dbConnect();
-      if (file.size > 0) {
-        imageUrl = await uploadImage(file);
-      }
-      const project = await Project.create({
-        ...input,
-        founder: session.address,
-        imageUrl,
-      });
-      if (project) await changeRole(session, AuthRolesEnum.FOUNDER);
-    } catch (err) {
-      console.log(err);
-      throw new Error('Failed to create project!');
+  const backgroundFile = formData.get('backgroundImage') as File;
+  const input = Object.fromEntries(formData);
+  const steps: Array<Record<string, unknown>> = [];
+  Object.keys(input).forEach((key) => {
+    const match = key.match(/steps\[(\d+)\]\.(.+)/);
+    if (match) {
+      const index = parseInt(match[1], 10);
+      const field = match[2];
+      steps[index] = steps[index] || {};
+      steps[index][field] = input[key];
     }
-  } else {
-    return {
-      errors: validation.error.issues,
-    };
+  });
+
+  const formattedSteps = steps.map((step) => ({
+    duration: Number(step.duration),
+    desc: step.desc,
+  }));
+
+  const { startDate } = input;
+
+  try {
+    await dbConnect();
+
+    const uploadFiles = [
+      file && file.size > 0 ? uploadImage(file) : Promise.resolve(null),
+      backgroundFile && backgroundFile.size > 0
+        ? uploadImage(backgroundFile)
+        : Promise.resolve(null),
+    ];
+
+    const [imageUrl, backgroundImageUrl] = await Promise.all(uploadFiles);
+    const project = await Project.create({
+      ...input,
+      startDate: new Date((startDate as string).replace('[UTC]', '')),
+      founder: session.address,
+      imageUrl,
+      backgroundImageUrl,
+      steps: formattedSteps,
+    });
+    if (project) changeRole(session, AuthRolesEnum.FOUNDER);
+  } catch (err) {
+    console.log(err);
+    throw new Error('Failed to create project!');
   }
 
   //@todo research about cache
@@ -115,28 +174,87 @@ export const addProject = async (_prevState: unknown, formData: FormData) => {
 
 export const patchProject = async (_prevState: unknown, formData: FormData) => {
   'use server';
-  const { address: founder } = await getSession();
-  if (!founder) throw new Error('You don`t have permission for patch Project');
-  const dataForValidation = extractDataForValidation(
-    CreateProjectSchema,
-    formData
-  );
-  const validation = CreateProjectSchema.safeParse(dataForValidation);
-  if (validation.success) {
-    const input = Object.fromEntries(formData);
-    try {
-      await dbConnect();
-      await Project.findOneAndUpdate({ founder }, { ...input });
-    } catch (err) {
-      console.log(err);
-      throw new Error('Failed to update project!');
+  const session = await getSession();
+  if (!session) throw new Error('You don`t have permission for patch Project');
+  const currentProject = await findProjectByFounder(session.address);
+  const input = Object.fromEntries(formData);
+  const file = formData.get('image') as File;
+  const backgroundFile = formData.get('backgroundImage') as File;
+  const steps: Array<Record<string, unknown>> = [];
+  Object.keys(input).forEach((key) => {
+    const match = key.match(/steps\[(\d+)\]\.(.+)/);
+    if (match) {
+      const index = parseInt(match[1], 10);
+      const field = match[2];
+      steps[index] = steps[index] || {};
+      steps[index][field] = input[key];
     }
-  } else {
-    return {
-      errors: validation.error.issues,
-    };
+  });
+
+  const formattedSteps = steps.map((step) => ({
+    duration: Number(step.duration),
+    desc: step.desc,
+  }));
+
+  const { startDate } = input;
+
+  try {
+    await dbConnect();
+    const uploadFiles = [
+      file && file.size > 0 ? uploadImage(file) : Promise.resolve(null),
+      backgroundFile && backgroundFile.size > 0
+        ? uploadImage(backgroundFile)
+        : Promise.resolve(null),
+    ];
+
+    const [imageUrl, backgroundImageUrl] = await Promise.all(uploadFiles);
+
+    await Project.findOneAndUpdate(
+      { founder: session.address },
+      {
+        ...input,
+        startDate: new Date((startDate as string).replace('[UTC]', '')),
+        imageUrl: imageUrl ?? currentProject.imageUrl,
+        backgroundImageUrl:
+          backgroundImageUrl ?? currentProject.backgroundImageUrl,
+        steps: formattedSteps,
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    throw new Error('Failed to update project!');
   }
+
   redirect('/app/founder');
+};
+
+export const deleteProject = async (id: string) => {
+  'use server';
+  const session = await getSession();
+  if (!session) throw new Error('You don`t have permission for delete Project');
+  const sessionDb = await mongoose.startSession();
+  sessionDb.startTransaction();
+  try {
+    const project = await findProjectById(id);
+    const deleteOperations = [
+      project.imageUrl ? deleteImage(project.imageUrl) : Promise.resolve(null),
+      project.backgroundImageUrl
+        ? deleteImage(project.backgroundImageUrl)
+        : Promise.resolve(null),
+      Project.findByIdAndDelete(id).session(sessionDb),
+      changeRole(session, AuthRolesEnum.VISITOR, sessionDb),
+    ];
+    await Promise.all(deleteOperations);
+
+    await sessionDb.commitTransaction();
+  } catch (err) {
+    await sessionDb.abortTransaction();
+    console.log(err);
+    throw new Error('Failed to delete project!');
+  } finally {
+    sessionDb.endSession();
+  }
+  redirect('/app');
 };
 
 export const findProjectByFounder = async (
@@ -193,7 +311,7 @@ export const sendProjectToReview = async (id: string) => {
 
   try {
     await changeProjectStatus(id, ProjectStatusEnum.REVIEWING);
-    await sendTgNotification(id, ProjectStatusEnum.REVIEWING);
+    sendTgNotification(id, ProjectStatusEnum.REVIEWING);
   } catch (err) {
     console.log(err);
     throw new Error('Failed to send project to review!');
@@ -212,7 +330,7 @@ export const reviewProject = async (id: string, status: ProjectStatusEnum) => {
     await sendTgNotification(id, status);
   } catch (err) {
     console.log(err);
-    throw new Error('Failed to approve project!');
+    throw new Error('Failed to review project!');
   }
   //@todo  - try smth else
   revalidatePath('/app/admin');

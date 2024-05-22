@@ -12,6 +12,7 @@ import dbConnect from '@/db/dbConnect';
 import { User } from '@/db/models';
 import { ethers } from 'ethers';
 import { JWTPayload, SignJWT, jwtVerify } from 'jose';
+import mongoose from 'mongoose';
 import { cookies } from 'next/headers';
 
 //@todo put secret into secret
@@ -142,11 +143,16 @@ export async function getSession() {
 
 export async function changeRole(
   session: AuthSessionType,
-  role: AuthRolesEnum
+  role: AuthRolesEnum,
+  sessionDb?: mongoose.ClientSession
 ) {
   'use server';
   try {
-    const updatedUser = await User.findByIdAndUpdate(session.sub, { role });
+    const updatedUser = await User.findByIdAndUpdate(
+      session.sub,
+      { role },
+      { session: sessionDb }
+    );
     if (!updatedUser) {
       throw new Error('Changing role failed');
     }
