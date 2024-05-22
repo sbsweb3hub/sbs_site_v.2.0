@@ -1,12 +1,11 @@
 
-import AddProjectForm from '@/app/components/projects/Forms/addProjectForm'
+import ProjectForm from '@/app/components/projects/Forms/ProjectForm/ProjectForm'
 import React from 'react'
 
 
 export default async function CreateProject() {
 
-  return (<>
-    <h1>Create your project</h1>
-    <AddProjectForm />
-  </>)
+  return (
+    <ProjectForm />
+  )
 }

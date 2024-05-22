@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@internationalized/date": "^3.5.3",
     "@nextui-org/react": "^2.3.6",
+    "@react-aria/i18n": "^3.11.0",
     "@tanstack/react-query": "^5.31.0",
     "classnames": "^2.5.1",
     "cloudinary": "^2.2.0",
@@ -19,6 +21,7 @@
     "mongoose": "^8.3.2",
     "next": "14.2.2",
     "next-cloudinary": "^6.5.1",
+    "node-telegram-bot-api": "^0.65.1",
     "react": "^18",
     "react-dom": "^18",
     "react-intersection-observer": "^9.10.2",
@@ -32,6 +35,7 @@
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/node-telegram-bot-api": "^0.64.6",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/react-scroll": "^1.8.10",

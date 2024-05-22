@@ -19,14 +19,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ isFunded = false, project }) 
             style={{
                 width: "464px",
                 height: "663px",
-                background: "url(/fcard.svg) no-repeat",
+                background: `url(${project?.backgroundImageUrl}) no-repeat`,
                 minWidth: "464px",
                 minHeight: "663px"
             }}
             className="relative flex flex-col items-start"
         >
             <Avatar
-                src={project.imageUrl}
+                src={project?.imageUrl}
                 className="absolute w-[84px] h-[75px] border-black border-[5px] top-[128px] left-[32px] rounded-[20px]"
             />
 
@@ -43,7 +43,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ isFunded = false, project }) 
                         className='text-[24px] text-[#000] font-bold'
                         style={{ fontFamily: 'Geom Graphic' }}
                     >
-                        {project.projectName}
+                        {project?.projectName}
                     </p>
                     <p className="text-[15px] text-[#000] font-normal">
                         Built on
@@ -70,7 +70,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ isFunded = false, project }) 
                         Launch date
                     </p>
                     <p className="text-[15px] text-[#FFFFFF] font-medium">
-                        {project.startDate}
+                        {project?.startDate}
                     </p>
                     <p className="text-[14px] text-[#FFFFFF] font-medium">
                         {/* 16:00 UTC */}
@@ -100,16 +100,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ isFunded = false, project }) 
                             </div>
                             <div className="flex flex-col items-start gap-[10px] mr-[52px]">
                                 <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                    {project.tokenPrice}
+                                    {project?.tokenPrice}
                                 </p>
                                 <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                    {project.tokenSupply}
+                                    {project?.tokenSupply}
                                 </p>
                                 <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                    {project.tokenName}
+                                    {project?.tokenName}
                                 </p>
                                 <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                    {project.tokenSymbol}
+                                    {project?.tokenSymbol}
                                 </p>
                             </div>
                         </div>
@@ -117,21 +117,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ isFunded = false, project }) 
                     <Tab key='description' title='Description'>
                         <div className="flex flex-col items-start ml-[10px] mt-[25px]">
                             <p>
-                                {project.description}
+                                {project?.description}
                             </p>
                         </div>
                     </Tab>
                     <Tab key='other-info' title='Other info'>
                         <div className="flex flex-col items-start ml-[10px] mt-[25px]">
                             <p>
-                                {project.tokenomik}
+                                {project?.tokenomik}
                             </p>
                         </div>
                     </Tab>
                 </Tabs>
             </div>
             <div className='absolute left-[38px] bottom-[36px]'>
-                <Link href={`/app/projects/${project.id}`}>
+                <Link href={`/app/projects/${project?.id}`}>
                     <Button
                         className="custom-button"
                         radius='none'
@@ -148,14 +148,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ isFunded = false, project }) 
             style={{
                 width: "464px",
                 height: "663px",
-                background: "url(/ucard.svg) no-repeat",
+                // background: "url(/ucard.svg) no-repeat",
+                background: `url(${project?.backgroundImageUrl}) no-repeat`,
                 minWidth: "464px",
                 minHeight: "663px"
             }}
             className="relative flex flex-col items-start"
         >
             <Avatar
-                src={project.imageUrl}
+                src={project?.imageUrl}
                 className="absolute w-[84px] h-[75px] border-black border-[5px] top-[128px] left-[32px] rounded-[20px]"
             />
 
@@ -172,7 +173,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ isFunded = false, project }) 
                         style={{ fontFamily: 'Geom Graphic' }}
                         className="text-[24px] text-[#000] font-bold"
                     >
-                        {project.projectName}
+                        {project?.projectName}
                     </p>
                     <p className="text-[15px] text-[#000] font-normal">
                         Built on
@@ -199,7 +200,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ isFunded = false, project }) 
                         Launch date
                     </p>
                     <p className="text-[15px] text-[#FFFFFF] font-medium">
-                        {project.startDate}
+                        {project?.startDate}
                     </p>
                     <p className="text-[14px] text-[#FFFFFF] font-medium">
                         {/* 16:00 UTC */}
@@ -229,16 +230,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ isFunded = false, project }) 
                             </div>
                             <div className="flex flex-col items-start gap-[10px] mr-[52px]">
                                 <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                    {project.tokenPrice}
+                                    {project?.tokenPrice}
                                 </p>
                                 <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                    {project.tokenSupply}
+                                    {project?.tokenSupply}
                                 </p>
                                 <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                    {project.tokenName}
+                                    {project?.tokenName}
                                 </p>
                                 <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                    {project.tokenSymbol}
+                                    {project?.tokenSymbol}
                                 </p>
                             </div>
                         </div>
@@ -246,21 +247,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ isFunded = false, project }) 
                     <Tab key='description' title='Description'>
                         <div className="flex flex-col items-start ml-[10px] mt-[25px]">
                             <p>
-                                {project.description}
+                                {project?.description}
                             </p>
                         </div>
                     </Tab>
                     <Tab key='other-info' title='Other info'>
                         <div className="flex flex-col items-start ml-[10px] mt-[25px]">
                             <p>
-                                {project.tokenomik}
+                                {project?.tokenomik}
                             </p>
                         </div>
                     </Tab>
                 </Tabs>
             </div>
             <div className='absolute left-[38px] bottom-[36px]'>
-                <Link href={`/app/projects/${project.id}`}>
+                <Link href={`/app/projects/${project?.id}`}>
                     <Button
                         className="custom-button"
                         radius='none'

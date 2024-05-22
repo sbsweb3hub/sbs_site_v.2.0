@@ -1,15 +1,18 @@
 'use client'
 import useWalletConnect from '@/services/hooks/useWalletConnect'
 import * as React from 'react'
+import { Button } from '@nextui-org/react'
 
 export function ConnectWalletButton() {
 
     const { handleConnectWallet } = useWalletConnect()
     return (
-        <button onClick={handleConnectWallet} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 rounded">
-
-            Connect MetaMask
-        </button>
+        <Button 
+            onClick={handleConnectWallet} 
+            className="w-[154px] h-[42px] text-[#000] text-[16px] bg-[#D6DA1D] rounded-[8px] mr-[34px]"
+        >
+            Connect
+        </Button>
     )
 
 }
