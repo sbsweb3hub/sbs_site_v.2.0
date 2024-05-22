@@ -86,7 +86,7 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
 
 
 
-                {!project && <div className="flex justify-start w-[100%] min-[1728px]:w-[1728px] mb-[48px]">
+                {!disabled && <div className="flex justify-start w-[100%] min-[1728px]:w-[1728px] mb-[48px]">
                     <Submit />
                 </div>}
 
