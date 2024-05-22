@@ -21,7 +21,9 @@ export function DisconnectWalletButton({ address, points }: { address: string, p
                 </p>
                 <div className='flex items-center justify-end w-[85px] 
                     h-[24px] text-[16px] font-bold text-[#FCFC03] rounded-[5px] border-[1px] border-[#FCFC03]'>
-                    {parseFloat(points.LIQUIDITY.available).toFixed(2)}
+                    <div className='mr-[5px]'>
+                        {parseFloat(points.LIQUIDITY.available).toFixed(2)}
+                    </div>
                 </div>
             </div>
             <div className='flex items-center'>
