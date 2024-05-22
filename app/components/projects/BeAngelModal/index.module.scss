@@ -1,0 +1,47 @@
+.modal {
+  width: 800px;
+  height: 500px;
+  background: #272726;
+  border: 5px solid #FCFC03;
+
+  .title {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 41.6px;
+    color: #EDE4B5;
+  }
+
+  .labelEth {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 46.8px;
+    text-align: center;
+  }
+
+  .inputEth {
+    width: 261px;
+    height: 70px;
+    margin-right: 36px;
+    border: 2px solid #EDE4B5;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 41.6px;
+  }
+
+  .inputFrst {
+    width: 264px;
+    height: 41px;
+    margin-right: 36px;
+    border: 1px solid #D7CFA5;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 31.2px;
+  }
+
+  .labelFrst {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 31.2px;
+    text-align: center;
+  }
+}

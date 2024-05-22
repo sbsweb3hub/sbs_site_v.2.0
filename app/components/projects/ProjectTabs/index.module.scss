@@ -1,0 +1,16 @@
+@import '../../../../styles/';
+
+.button-icon {
+  position: absolute;
+  @include absoluteVerticalCenter();
+  right: 20px;
+  outline: none;
+  background: none;
+  cursor: pointer;
+
+  &:active,
+  &:focus {
+    border: none;
+    outline: none;
+  }
+}

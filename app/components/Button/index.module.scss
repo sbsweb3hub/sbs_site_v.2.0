@@ -1,0 +1,44 @@
+@import '../../../styles';
+
+.btn {
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  background-color: $bg-primary-btn;
+  border-radius: $borderRadiusM;
+  color: $text_primary_btn;
+  clip-path: path('M1 26.3399C1 25.2972 1.40716 24.2957 2.13475 23.5488L22.9225 2.20889C23.6754 1.43595 24.7087 1 25.7877 1H304C306.209 1 308 2.79086 308 5V55.9295C308 57.0372 307.541 58.0952 306.732 58.8516L283.121 80.9221C282.38 81.6147 281.403 82 280.389 82H5C2.79086 82 1 80.2091 1 78V26.3399Z');
+}
+
+.btn-size {
+  &_s {
+    padding: 4px 16px;
+    line-height: map-get($line-height, S);
+    font-size: map-get($font-size, S);
+    font-weight: map-get($font-weight, M);
+  }
+
+  &_m {
+    width: 300px;
+    height: 80px;
+    padding: 20px;
+    font-size: map-get($font-size, M);
+    font-weight: map-get($font-weight, B);
+    line-height: map-get($line-height, M);
+  }
+
+  &_l {
+    padding: 12px 24px;
+    line-height: map-get($line-height, M);
+    font-size: map-get($font-size, L);
+    font-weight: map-get($font-weight, B);
+  }
+}
+
+.btn-disabled {
+  background-color: $bg_primary-disabled;
+
+  &:hover {
+    cursor: default;
+  }
+}

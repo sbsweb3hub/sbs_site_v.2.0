@@ -1,0 +1,76 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f6f6f6;
+}
+
+.line {
+  background-color: #000;
+  clip-path: polygon(0 0, 100% 0, 100% 20%, 100% 100%, 56% 100%, 50% 83%, 0 83%, 0% 20%);
+}
+
+.main {
+  padding: 110px 80px 0 80px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.start {
+  position: absolute;
+  top: -22px;
+  right: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20.8px;
+  color: #716868;
+}
+
+.miniTitle {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20.8px;
+  color: #716868;
+}
+
+.subTitle {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 62.4px;
+  text-align: left;
+}
+
+.raised {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 41.6px;
+  text-align: left;
+}
+
+.day {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 26px;
+  text-align: left;
+}
+
+.date {
+  font-size: 48px;
+}
+
+.tabs {
+  height: 100vh;
+  padding: 0 64px;
+  background-color: #f6f6f6;
+  color: #000;
+}
+
+.title {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.btn {
+  text-align: right;
+  padding: 54px 200px 26px 0;
+}

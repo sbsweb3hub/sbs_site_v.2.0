@@ -1,9 +1,9 @@
 import React, { Suspense, cache } from "react";
 import { notFound } from 'next/navigation'
 import { fetchAllProjects } from '@/services/project-service'
-import ProjectsTable from "@/app/components/projects/Table/ProjectsTable";
+import {ProjectsTable} from "@/app/components/projects/ProjectsTable"; 
 import Image from "next/image";
-import InfiniteScroll from "@/app/components/projects/Table/InfiniteScroll";
+import InfiniteScroll from "@/app/components/projects/ProjectsTable/InfiniteScroll";
 
 // const items = [
 //   {
