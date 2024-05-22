@@ -144,14 +144,21 @@ export const addProject = async (_prevState: unknown, formData: FormData) => {
   try {
     await dbConnect();
 
-    const uploadFiles = [
-      file && file.size > 0 ? uploadImage(file) : Promise.resolve(null),
-      backgroundFile && backgroundFile.size > 0
-        ? uploadImage(backgroundFile)
-        : Promise.resolve(null),
-    ];
-
-    const [imageUrl, backgroundImageUrl] = await Promise.all(uploadFiles);
+    // const uploadFiles = [
+    //   file && file.size > 0 ? uploadImage(file) : Promise.resolve(null),
+    //   backgroundFile && backgroundFile.size > 0
+    //     ? uploadImage(backgroundFile)
+    //     : Promise.resolve(null),
+    // ];
+    // const [imageUrl, backgroundImageUrl] = await Promise.all(uploadFiles);
+    let imageUrl = '';
+    if (file.size > 0) {
+      imageUrl = await uploadImage(file);
+    }
+    let backgroundImageUrl = '';
+    if (backgroundFile.size > 0) {
+      backgroundImageUrl = await uploadImage(backgroundFile);
+    }
     const project = await Project.create({
       ...input,
       startDate: new Date((startDate as string).replace('[UTC]', '')),
