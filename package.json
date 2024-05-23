@@ -19,7 +19,6 @@
     "jose": "^5.2.4",
     "mongoose": "^8.3.2",
     "next": "14.2.2",
-    "next-cloudinary": "^6.5.1",
     "node-telegram-bot-api": "^0.65.1",
     "react": "^18",
     "react-dom": "^18",
