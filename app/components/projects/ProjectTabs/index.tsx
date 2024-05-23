@@ -1,21 +1,26 @@
 "use client";
-import { Tab, Tabs } from "@nextui-org/react";
+import { Divider, Tab, Tabs } from "@nextui-org/react";
 import { Input } from "../../Input";
+import { useProjectStore } from "../_store/store";
 
 export const ProjectTabs = () => {
+  const { setIsMainTab } = useProjectStore();
+
   return (
     <>
       <Tabs
         className="mt-28"
         classNames={{
-          tabList: "gap-28 p-0 border-divider",
+          tabList: "gap-28 w-full relative rounded-none p-0 border-b-1 border-[#000]",
           cursor: " group-data-[selected=true]:bg-[#DCDCDC]",
           tabContent: "group-data-[selected=true]:text-[#000]",
         }}
+        size="lg"
         variant="light"
         aria-label="Tabs variants"
-        // TODO:
-        // onSelectionChange={(key) =>  console.log(key)}
+        onSelectionChange={(key) => {
+          key === "main" ? setIsMainTab(true) : setIsMainTab(false);
+        }}
       >
         <Tab key="main" title="Main">
           <div className="flex w-full flex-wrap mb-6 gap-56">
@@ -73,9 +78,14 @@ export const ProjectTabs = () => {
             </div>
           </div>
         </Tab>
-        <Tab key="steps" title="Steps" />
-        <Tab key="voting" title="Voting" />
+        <Tab key="steps" title="Steps">
+          <div>TODO - отрисовать Steps</div>
+        </Tab>
+        <Tab key="voting" title="Voting">
+          <div>TODO - отрисовать Voting</div>
+        </Tab>
       </Tabs>
+      <Divider/>
     </>
   );
 };

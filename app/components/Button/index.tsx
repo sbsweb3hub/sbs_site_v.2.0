@@ -4,7 +4,7 @@ import css from "./index.module.scss";
 
 interface Props {
   children: ReactNode;
-  size?: "s" | "m" | "l";
+  size?: "xs" | "s" | "m" | "l";
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
   className?: string;
