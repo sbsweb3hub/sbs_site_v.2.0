@@ -1,3 +1,4 @@
+'use client'
 import AddAvatar from './AddAvatar/AddAvatar'
 import AddBackground from './AddBackground/AddBackground';
 

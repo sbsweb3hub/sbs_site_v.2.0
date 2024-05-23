@@ -17,8 +17,6 @@ import { ProjectStatusEnum, ProjectType } from "@/types";
 import DeleteProjectButton from "../DeleteProjectButton";
 import SendReviewButton from "../SendReviewButton";
 import Link from 'next/link'
-import Build from "./Modals/Build";
-import Delete from "./Modals/Delete";
 
 const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: ProjectType }) => {
     const [state, formAction] = useFormState(project ? patchProject : addProject, { errors: [] });
