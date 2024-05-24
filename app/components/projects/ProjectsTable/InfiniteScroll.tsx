@@ -16,9 +16,9 @@ export default function InfiniteScroll({
   const [items, setItems] = useState<ProjectType[]>(projects);
   const { ref, inView } = useInView();
   const loadMoreProjects = async () => {
-    const fetchedProjects = await fetchAllProjects(page);
+    const fetchedProjects = await fetchAllProjects({ pageNumber: page });
     setItems([...items, ...fetchedProjects]);
-    setPage(page + 1);
+    setPage(page + 1); 
   };
 
   useEffect(() => {
