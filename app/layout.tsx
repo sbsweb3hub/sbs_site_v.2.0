@@ -1,4 +1,4 @@
-import './globals.css'
+import '../styles/global.scss'
 import type { Metadata } from 'next'
 import { Providers } from '@/auth/wagmi/providers'
 import { ReactNode } from 'react'

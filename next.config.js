@@ -2,6 +2,7 @@
  * @format
  * @type {import('next').NextConfig}
  */
+const path = require('path')
 
 const nextConfig = {
   output: 'standalone',
@@ -13,6 +14,9 @@ const nextConfig = {
         port: '',
       },
     ],
+  },
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
   },
   webpack: (config) => {
     config.externals.push('pino-pretty', 'lokijs', 'encoding');

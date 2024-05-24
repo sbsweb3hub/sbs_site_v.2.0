@@ -11,14 +11,14 @@ import {
   Tab,
 } from "@nextui-org/react";
 import { COLUMNS } from "./_constants";
-import { Project } from "./_types";
 import { SearchInput, renderCell } from "./_components";
 import { ProjectType } from "@/types";
 
-
-
-export default function ProjectsTable({ projects }: { projects: Array<ProjectType> }) {
-
+export const ProjectsTable = ({
+  projects,
+}: {
+  projects: Array<ProjectType>;
+}) => {
   return (
     <Tabs
       aria-label="Projects"
@@ -57,7 +57,11 @@ export default function ProjectsTable({ projects }: { projects: Array<ProjectTyp
             {(item: ProjectType) => (
               <TableRow key={item.id}>
                 {(columnKey) => (
-                  <TableCell>{renderCell(item, columnKey)}</TableCell>
+                  <TableCell>
+                    <Link href={`/app/projects/${item.id}`}>
+                      {renderCell(item, columnKey)}
+                    </Link>
+                  </TableCell>
                 )}
               </TableRow>
             )}

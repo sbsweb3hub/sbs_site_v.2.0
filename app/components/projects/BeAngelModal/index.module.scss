@@ -1,0 +1,53 @@
+@import '../../../../styles';
+
+.modal {
+  display: flex;
+  justify-content: flex-end;
+  height: 115px;
+}
+
+.modalHeader {
+  color: $text_modal;
+  font-weight: map-get($font-family, CH);
+  font-size: map-get($font-size, M);
+  font-weight: map-get($font-weight, B);
+}
+
+.modalBody {
+  padding: 0;
+  font-size: map-get($font-size, M);
+  font-weight: map-get($font-weight, SB);
+  line-height: map-get($line-height, L);
+
+  input {
+    width: 265px;
+    margin-right: 36px;
+  }
+
+  .labelEth {
+    font-size: map-get($font-size, L);
+    line-height: map-get($line-height, XXL);
+  }
+
+  .inputEth {
+    height: 50px;
+    border: 2px solid #EDE4B5;
+    line-height: map-get($line-height, XL);
+  }
+
+  .inputFrst {
+    height: 40px;
+    padding: 0 20px 0 0;
+    border: 1px solid #D7CFA5;
+    text-align: right;
+  }
+
+  .labelFrst {}
+}
+
+.modalFooter {
+  display: flex;
+  align-items: center;
+  margin: 0 128px 60px 0;
+  padding: 0;
+}

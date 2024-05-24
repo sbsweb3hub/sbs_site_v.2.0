@@ -1,0 +1,61 @@
+@import '../../../styles';
+
+.label {
+  font-size: map-get($font-size, M);
+  font-weight: map-get($font-weight, SB);
+}
+
+
+.input {
+  height: 41px;
+  color: $text_input;
+  font-size: map-get($font-size, S);
+  font-weight: map-get($font-weight, SB);
+  line-height: map-get($line-height, S);
+  letter-spacing: 0.1em;
+  padding: 10px 5px 10px 23px;
+  border-radius: $borderRadiusS;
+  border: 1px solid #938C8C;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: black;
+  }
+}
+
+.input-size {
+
+  &_s {
+    width: 113px;
+  }
+
+  &_m {
+    width: 205px;
+  }
+
+  &_l {
+    width: 358px;
+  }
+}
+
+.input-disable {
+  background: #F4F4F4
+}
+
+.button-icon {
+  position: absolute;
+  @include absoluteVerticalCenter();
+  right: 20px;
+  outline: none;
+  background: none;
+  cursor: pointer;
+
+  &:active,
+  &:focus {
+    border: none;
+    outline: none;
+  }
+}

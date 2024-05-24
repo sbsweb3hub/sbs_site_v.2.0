@@ -1,0 +1,17 @@
+@import '../../../../styles/';
+
+// TODO: для иконки копирования в инпутах
+.button-icon {
+  position: absolute;
+  @include absoluteVerticalCenter();
+  right: 20px;
+  outline: none;
+  background: none;
+  cursor: pointer;
+
+  &:active,
+  &:focus {
+    border: none;
+    outline: none;
+  }
+}

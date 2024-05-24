@@ -1,0 +1,64 @@
+@import '../../../../styles';
+
+.main {
+  padding: 110px 80px 100px 80px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: map-get($font-family, CH);
+  font-weight: map-get($font-weight, SB);
+
+  .content {
+    min-width: 500px;
+    position: relative;
+    display: flex;
+
+    .title,
+    .subTitle  {
+      font-size: map-get($font-size, XXL);
+      line-height: map-get($line-height, XXXL);
+    }
+
+    .start {
+      position: absolute;
+      top: -22px;
+      right: 0;
+    }
+
+    .miniTitle,
+    .start {
+      font-size: map-get($font-size, S);
+      line-height: map-get($line-height, S);
+      color: $text_mini_header
+    }
+
+    .raised {
+      font-size: map-get($font-size, L);
+      line-height: map-get($line-height, XL);
+    }
+
+    .day {
+      font-size: map-get($font-size, M);
+      line-height: map-get($line-height, M);
+    }
+
+    .tokenHeader {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      border-collapse: collapse;
+      font-size: map-get($font-size, M);
+      line-height: map-get($line-height, M);
+      color: $text_token_header;
+      letter-spacing: 0.05em;
+
+      td {
+        text-align: right;
+      }
+
+      tr {
+        height: 40px;
+      }
+    }
+  }
+}

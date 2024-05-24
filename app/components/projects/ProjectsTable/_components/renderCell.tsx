@@ -1,7 +1,5 @@
 import React from "react";
 import { User } from "@nextui-org/react";
-import { Project } from "../_types";
-import Link from "next/link";
 import { ProjectType } from "@/types";
 
 export const renderCell = (project: ProjectType, columnKey: React.Key) => {
@@ -21,9 +19,7 @@ export const renderCell = (project: ProjectType, columnKey: React.Key) => {
             wrapper: "ml-10",
           }}
           description={
-            <Link href={`/app/projects/${project.id}`}>
-              <div className="text-[#7D7D7D]">{project.projectName}</div>
-            </Link>
+            <div className="text-[#7D7D7D]">{project.projectName}</div>
           }
           name={cellValue}
         />
