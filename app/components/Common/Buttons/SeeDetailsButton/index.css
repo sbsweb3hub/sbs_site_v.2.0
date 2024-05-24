@@ -1,7 +1,7 @@
 .custom-button {
     width: 146px;
     height: 40px; 
-    background-color: #D3D300;
+    background-color: #CCCCCC;
     clip-path: path('M0 5C0 2.23858 2.23858 0 5 0H93H113H141C143.761 0 146 2.23858 146 5V29.5C146 32.2614 143.761 34.5 141 34.5H102.977C102.013 34.5 101.069 34.7786 100.26 35.3022L94.2397 39.1979C93.4305 39.7214 92.4872 40 91.5234 40H5C2.23858 40 0 37.7614 0 35V5Z');
     color: #000;
   
@@ -12,4 +12,19 @@ svg {
     height: auto; 
     display: block;
     max-width: 100%; 
-  }
+}
+
+.clip-path-svg {
+    width: 370.5px;
+    height: 165px;
+    background-color: #050505;
+    -webkit-clip-path: path('M0 21.3158H66.3067L123.141 0H386V165H0V21.3158Z');
+    clip-path: path('M0 21.3158H66.3067L123.141 0H386V165H0V21.3158Z');
+}
+
+.lcard {
+    width: 391px;
+    height: 171px;
+    -webkit-clip-path: path('M0 21.3158H66.3067L123.141 0H386V165H0V21.3158Z');
+    clip-path: path('M0 21.3158H66.3067L123.141 0H386V165H0V21.3158Z');
+}

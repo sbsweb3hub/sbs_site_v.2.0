@@ -7,11 +7,11 @@ import { ProjectType } from "@/types";
 
 const ComingSoon = ({ projects }: { projects: Array<ProjectType> }) => {
     return (
-        <div className="flex flex-col w-full mt-[100px]">
+        <div className="flex flex-col w-full mt-[30px]">
             <div className="flex max-[761px]:flex-col min-[762px]:justify-between 
-                    min-[762px]:items-center items-start w-11/12 min-[762px]:w-[723px] max-[761px]:gap-3
-                    mb-[70px] min-[1040px]:ml-[170px] min-[851px]:ml-[100px] ml-[50px]">
-                <span className="text-[36px] text-[#FFF] font-bold">
+                    min-[762px]:items-center items-start w-11/12 min-[762px]:w-[623px] max-[761px]:gap-3
+                    mb-[0px] min-[1040px]:ml-[170px] min-[851px]:ml-[100px] ml-[50px]">
+                <span className="text-[32px] text-[#FFF] font-bold">
                     Upcoming on Launchpad
                 </span>
                 <Button
@@ -28,32 +28,31 @@ const ComingSoon = ({ projects }: { projects: Array<ProjectType> }) => {
                         fontWeight: '300',
                         color: '#FFF',
                     }}
+                    className="scale-85"
                 >
                     Explore projects
                 </Button>
             </div>
             <div className="flex justify-center items-center scale-85 max-[500px]:scale-[0.8] ml-[40px]">
                 <div className="">
-                    <ProjectCard isFunded={false} project={projects[0]} />
+                    <ProjectCard status="coming" project={projects[0]} />
                 </div>
                 <div className="max-[900px]:hidden">
-                    <ProjectCard isFunded={false} project={projects[1]} />
+                    <ProjectCard status="coming" project={projects[1]} />
                 </div>
                 <div className="max-[1400px]:hidden">
-                    <ProjectCard isFunded={false} project={projects[2]} />
+                    <ProjectCard status="coming" project={projects[2]} />
                 </div>
                 <div className="max-[1850px]:hidden">
-                    <ProjectCard isFunded={false} project={projects[3]} />
+                    <ProjectCard status="coming" project={projects[3]} />
                 </div>
                 <div className="max-[2200px]:hidden">
-                    <ProjectCard isFunded={false} project={projects[4]} />
+                    <ProjectCard status="coming" project={projects[4]} />
                 </div>
                 <div className="max-[2800px]:hidden">
-                    <ProjectCard isFunded={false} project={projects[5]} />
+                    <ProjectCard status="coming" project={projects[5]} />
                 </div>
             </div>
-
-
         </div>
     )
 }
