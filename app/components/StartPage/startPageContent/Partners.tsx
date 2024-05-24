@@ -23,14 +23,14 @@ export default function Partners() {
     { title: "Nomis", img: "/nomis.jpeg", price: "Score" },
     { title: "Gitcoin", img: "/gitcoin.jpeg", price: "Score" },
     { title: "0xScore", img: "/0xScore.png", price: "Score" },
-    { title: "Chainalysis", img: "/Chainanalisis.png", price: "AML" },
+    { title: "Chainalysis", img: "/chainalysis.svg", price: "AML" },
   ];
 
   return (
     <>
-      <div className="text-[36px] text-[#FFF] font-bold mt-[80px] mb-[40px]">
+      <div className="text-[36px] text-[#FFF] font-bold mt-[80px] mb-[40px] max-[650px]:scale-[0.85]">
             <LetterFadeInText text="Our Scoring System"  useWaypoint={true} />
-        </div>
+      </div>
       <Waypoint onEnter={onEnter}>
       <div className="gap-2 grid grid-cols-2 sm:grid-cols-4">
         {list.map((item, index) => (

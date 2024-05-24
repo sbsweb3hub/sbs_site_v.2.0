@@ -1,69 +1,51 @@
 'use client'
 import React from "react";
+import { Element } from 'react-scroll'
 import LetterFadeInText from "../StartPage/startPageContent/FadedText";
 import Wave from "./WelcomePageContent/Wave";
 import EnterAppButton from "./WelcomePageContent/CustomButton";
 import NewsLetter from "../StartPage/startPageContent/NewsLetter";
 import { Button, Link } from "@nextui-org/react";
-
-
+import Header from "./WelcomePageContent/Header";
+import UpLine from "../MainPage/MainPageContent/UpLine";
+import MainVision from "./WelcomePageContent/MainVision";
+import KeyBenefits from "./WelcomePageContent/KeyBenefits";
+import OurUsers from "./WelcomePageContent/OurUsers";
+import Partners from "../StartPage/startPageContent/Partners";
+import FooterLine from "../MainPage/MainPageContent/FooterLine";
+import LearnMore from "./WelcomePageContent/LearmMore";
+import WhiteArrow from "../MainPage/MainPageContent/WhiteArrow";
 
 
 const WelcomePage = () => {
     return (
-        <div className="relative flex flex-col items-center w-full  h-full">
-            <div className="max-[1044px]:hidden"
+        <div className="flex flex-col items-center w-full  h-full">
+            <Header />
+            <div className="flex mt-[85px]">
+                <UpLine />
+            </div>
+            <div className="scale-85 max-[650px]:scale-[0.5]"
                 style={{
                     fontSize: '128px',
                     color: '#D6DA1D',
                     fontWeight: '600',
-                    marginTop: '400px',
+                    marginTop: '60px',
                     marginBottom: '35px',
                     fontStyle: 'italic',
                 }}
             >
-                <LetterFadeInText text="Step-Blast-Step" useWaypoint={false} />
+                <LetterFadeInText text="AngelForge" useWaypoint={false} />
             </div>
-            <div className="min-[1045px]:hidden flex flex-col">
-                <div
-                    style={{
-                        fontSize: '128px',
-                        color: '#D6DA1D',
-                        fontWeight: '600',
-                        marginTop: '400px',
-                        marginBottom: '0px',
-                        fontStyle: 'italic',
-                    }}
-                >
-                    <LetterFadeInText text="Step-" useWaypoint={false} />
-                </div>
-                <div
-                    style={{
-                        fontSize: '128px',
-                        color: '#D6DA1D',
-                        fontWeight: '600',
-                        marginTop: '0',
-                        marginBottom: '0',
-                        fontStyle: 'italic',
-                    }}
-                >
-                    <LetterFadeInText text="Blast-" useWaypoint={false} />
-                </div>
-                <div
-                    style={{
-                        fontSize: '128px',
-                        color: '#D6DA1D',
-                        fontWeight: '600',
-                        marginTop: '0',
-                        marginBottom: '35px',
-                        fontStyle: 'italic',
-                    }}
-                >
-                    <LetterFadeInText text="Step" useWaypoint={false} />
-                </div>
-            </div>
-            <div className="min-[965px]:w-[959px] w-11/12 text-[32px] text-[#FFF] font-medium text-center mt-[16px]">
+            <div className="min-[965px]:w-[959px] w-11/12 text-[32px] text-[#FFF] font-medium text-center scale-85 max-[650px]:scale-[0.7]">
                 <p>Our unbelievable platform will send your project to the moon inevitable. Just create and participate and have fun.</p>
+            </div>
+            <LearnMore />
+            <div className="">
+                <Wave />
+            </div>
+            <Element name="info" className="element"></Element>
+            <div className="flex mt-[100px]">
+                <MainVision/>
             </div>
             <Button
                 href="https://sbsweb3hubs-organization.gitbook.io/light-paper"
@@ -71,23 +53,23 @@ const WelcomePage = () => {
                 as={Link}
                 variant="bordered"
                 color="default"
-                className="w-[153px] h-[37px] text-[#D4D4D4] text-[16px] font-light mt-[20px]"
+                endContent={<WhiteArrow/>}
+                className="w-[310px] h-[66px] text-[#D4D4D4] text-[20px] font-light max-[650px]:scale-[0.8]"
 
             >
-                Learn more
+                Explore more on GitBook
             </Button>
-            <div className="absolute z-[-1] top-[680px] max-[1045px]:top-[1100px] 
-                    max-[930px]:top-[1160px] max-[645px]:top-[1210px] max-[471px]:top-[1260px] max-[434px]:top-[1320px]">
-                <Wave />
+            <div className="flex mt-[50px]">
+                <KeyBenefits/>
             </div>
-            <div className="min-[965px]:w-[959px] w-11/12 text-[32px] text-[#FFF] font-medium text-center 
-                    min-[1111px]:mt-[548px] mt-[300px] min-[1850px]:mt-[680px] min-[2145px]:mt-[1150px] min-[3140px]:mt-[1350px]">
-                Some more interesting details will reveal soon.
+            <div className="flex mt-[100px]">
+                <OurUsers/>
             </div>
-            <div className="mt-[68px]">
-                <EnterAppButton />
-            </div>
+            <Partners/>
             <NewsLetter />
+            <div className="flex mt-[40px]">
+                <FooterLine/>
+            </div>
         </div>
     )
 }
