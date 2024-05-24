@@ -37,9 +37,24 @@ const Footer = () => {
                     />
                 </Link>
             </div>
+            <div className="absolute top-[10px] left-0 sm:top-[50px] sm:left-[20px] z-50">
+                <div className="relative flex items-center">
+                    <div className="absolute left-[0px]">
+                        <Image
+                            src="forgelogo.png"
+                            width={90}
+                            height={90}
+                            radius="none"
+                        />
+                    </div>
+                    <p className="text-[14px] ml-[62px] mt-[8px] text-[#FCFC03] italic">
+                        AngelForge
+                    </p>
+                </div>
+            </div>
             <Navbar className="bg-[#000] mt-[50px] sm:mt-0 mb-[20px]">
                 <NavbarBrand>
-
+                    
                 </NavbarBrand>
                 <NavbarContent justify="center" className="flex flex-col sm:flex-row gap-6">
                     <NavbarItem>
