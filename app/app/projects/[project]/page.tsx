@@ -17,6 +17,7 @@ export default async function Project({
     params.project
   );
 
+
   // @todo - what is the best approach to handle errors(notFound or Error)
   if (!projectName) notFound();
 

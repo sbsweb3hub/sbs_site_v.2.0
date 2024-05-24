@@ -150,8 +150,8 @@ export const addProject = async (_prevState: unknown, formData: FormData) => {
         ? uploadImage(backgroundFile)
         : Promise.resolve(null),
     ];
-
     const [imageUrl, backgroundImageUrl] = await Promise.all(uploadFiles);
+
     const project = await Project.create({
       ...input,
       startDate: new Date((startDate as string).replace('[UTC]', '')),
