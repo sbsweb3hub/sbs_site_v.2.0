@@ -2,7 +2,7 @@ import '@/app/components/MainPage/MainPageContent/index.css'
 
 const UpLine = () => {
     return (
-        <div className="flex mt-[19px]">
+        <div className="flex mt-[-10px]">
             <svg width="1728" height="52" viewBox="0 0 1728 52" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g style={{mixBlendMode: 'screen'}} clipPath="url(#clip0_323_3348)">
                     <path d="M136 12C136 12.5515 108.24 13 74 13C39.76 13 12 12.5515 12 12C12 11.4485 39.76 11 74 11C108.24 11 136 11.4485 136 12Z" fill="url(#paint0_radial_323_3348)"/>

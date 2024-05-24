@@ -10,24 +10,34 @@ import {
 
 const Footer = () => {
     return (
-        <div className="relative flex flex-col w-[100%] justify-end h-[170px] bg-[#000] mt-[0px]">
-            <div className="absolute flex gap-[6px] right-[31px] top-[21px]">
+        <div className="relative flex flex-col w-[100%] justify-end items-center h-[170px] sm:h-[120px] bg-[#000] mt-[0px]">
+            <div className="flex items-center gap-[10px] right-[50%] top-[21px]">
                 <Link isExternal href="https://twitter.com/SBSweb3Hub">
                     <Image 
-                        width={36}
-                        height={36}
-                        src="/twitter.svg"
+                        width={20}
+                        height={20}
+                        src="/xfooter.png"
+                        radius="none"
                     />
                 </Link>
                 <Link isExternal href="https://t.me/SBSweb3">
                     <Image 
-                        width={36}
-                        height={36}
-                        src="/telegram.svg"
+                        width={22}
+                        height={22}
+                        src="/tgfooter.png"
+                        radius="none"
+                    />
+                </Link>
+                <Link isExternal href="https://t.me/SBSweb3">
+                    <Image 
+                        width={22}
+                        height={22}
+                        src="/gitfooter.png"
+                        radius="none"
                     />
                 </Link>
             </div>
-            <Navbar className="bg-[#000] mb-[42px]">
+            <Navbar className="bg-[#000] mt-[50px] sm:mt-0 mb-[20px]">
                 <NavbarBrand>
 
                 </NavbarBrand>
