@@ -11,7 +11,7 @@
 }
 
 .tabs {
-  height: 100vh;
+  height: max-content;
   padding: 0 64px;
   background-color: #f6f6f6;
   color: #000;
