@@ -62,8 +62,8 @@ const LiveProject = ({ projects }: { projects: Array<ProjectType> }) => {
             </div>
             <div className="flex flex-col min-[1401px]:hidden w-full mt-[40px] mb-[20px]">
                 <div className="flex max-[761px]:flex-col min-[762px]:justify-between 
-                        min-[762px]:items-center items-start w-11/12 min-[762px]:w-[580px] max-[761px]:gap-3
-                        mb-[10px] min-[1040px]:ml-[10px] min-[851px]:ml-[10px] ml-[10px]">
+                        min-[762px]:items-center items-start w-11/12 min-[762px]:w-[523px] max-[761px]:gap-3
+                        mb-[0px] min-[1040px]:ml-[170px] min-[851px]:ml-[100px] ml-[50px]">
                     <span className="text-[32px] text-[#D3D300] font-bold">
                         Live on Launchpad
                     </span>
