@@ -18,6 +18,7 @@ const Footer = () => {
                         height={20}
                         src="/xfooter.png"
                         radius="none"
+                        alt="twitter"
                     />
                 </Link>
                 <Link isExternal href="https://t.me/SBSweb3">
@@ -26,6 +27,7 @@ const Footer = () => {
                         height={22}
                         src="/tgfooter.png"
                         radius="none"
+                        alt="telegramm"
                     />
                 </Link>
                 <Link isExternal href="https://t.me/SBSweb3">
@@ -34,6 +36,7 @@ const Footer = () => {
                         height={22}
                         src="/gitfooter.png"
                         radius="none"
+                        alt="git"
                     />
                 </Link>
             </div>
@@ -45,6 +48,7 @@ const Footer = () => {
                             width={90}
                             height={90}
                             radius="none"
+                            alt="logo"
                         />
                     </div>
                     <p className="text-[14px] ml-[62px] mt-[8px] text-[#FCFC03] italic">

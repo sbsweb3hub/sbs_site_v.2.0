@@ -16,6 +16,7 @@ const LetterFadeInText: React.FC<LetterFadeInTextProps> = ({ text, useWaypoint =
     if (!useWaypoint) {
       startAnimation();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); 
 
   const startAnimation = () => {

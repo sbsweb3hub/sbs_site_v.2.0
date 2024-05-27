@@ -18,7 +18,7 @@ const Header = async () => {
             <div className="flex items-center">
                 <Image 
                     src='/forgelogo.png'
-                    alt=""
+                    alt="logo"
                     width={90}
                     height={90}
                 />

@@ -11,7 +11,7 @@ const Logo = () => {
                 </div>
                 <Image
                     src='/forgelogo.png'
-                    alt=""
+                    alt="logo"
                     width={320}
                     height={240}
                     className="ml-[-50px]"

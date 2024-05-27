@@ -18,6 +18,7 @@ const StartPageFooter = () => {
                         width={36}
                         height={36}
                         src="/twitter.svg"
+                        alt="twitter"
                     />
                 </Link>
                 <Link isExternal href="https://t.me/SBSweb3">
@@ -25,6 +26,7 @@ const StartPageFooter = () => {
                         width={36}
                         height={36}
                         src="/telegram.svg"
+                        alt="telegram"
                     />
                 </Link>
             </div>

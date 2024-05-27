@@ -25,6 +25,7 @@ export default function InfiniteScroll({
     if (inView) {
       loadMoreProjects();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView]);
   //@todo - fix loader
   return (

@@ -8,7 +8,7 @@ const Header = () => {
             <div className="flex justify-between w-full">
                 <Image 
                     src='/forgelogo.png'
-                    alt=""
+                    alt="logo"
                     width={80}
                     height={80}
                     radius="none"
