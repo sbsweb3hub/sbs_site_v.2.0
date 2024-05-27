@@ -15,3 +15,24 @@
     outline: none;
   }
 }
+
+.tabs {
+  height: max-content;
+  padding: 0 64px;
+  background-color: $bg-tabs;
+  color: $text_tabs;
+}
+
+.title {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-size: map-get($font-size, XXL);
+  font-weight: map-get($font-weight, B);
+
+  .short {
+    position: absolute;
+    top: 85px;
+    left: 0;
+  }
+}

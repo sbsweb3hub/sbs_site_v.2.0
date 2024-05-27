@@ -17,7 +17,6 @@ export default async function Project({
     params.project
   );
 
-
   // @todo - what is the best approach to handle errors(notFound or Error)
   if (!projectName) notFound();
 
@@ -28,11 +27,7 @@ export default async function Project({
         <ProjectHeader url={imageUrl} date={startDate} />
         <BeAngelModal />
       </div>
-
-      <div className="tabs">
-        <div className="title">Project: {projectName}</div>
         <ProjectTabs />
-      </div>
     </div>
   );
 }
