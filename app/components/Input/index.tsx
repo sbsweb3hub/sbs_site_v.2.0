@@ -11,7 +11,7 @@ import iconCopy from "@/public/copy-icon.svg";
 
 interface InputProps {
   id?: string;
-  size?: "s" | "m" | "l";
+  size?: "s" | "m" | "l" | 'xl';
   icon?: boolean;
   placeholder?: string;
   type?: string;
