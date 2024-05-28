@@ -6,10 +6,12 @@ import {
   Accordion,
   AccordionItem,
 } from "@nextui-org/react";
+import Image from "next/image";
 import { Input } from "../../Input";
 import { useProjectStore } from "../_store/store";
 import StepAccordion from "./StepAccordion/StepAccordion";
 import Voting from "./Voting/Voting";
+import iconCopy from "@/public/copy-icon.svg";
 import css from "./index.module.scss";
 
 export const ProjectTabs = () => {
@@ -41,7 +43,7 @@ export const ProjectTabs = () => {
       >
         <Tab key="main" title="Main">
           <div className="flex w-full gap-40 mt-10">
-            <div className="flex flex-col gap-7">
+            <div className="flex flex-col gap-7 relative">
               <Input label="Project’s name" value="FRST" size="m" />
               <Input
                 label="Token’s address"
@@ -49,14 +51,30 @@ export const ProjectTabs = () => {
                 size="l"
                 icon
               />
+              <button
+                className={css.buttonIcon}
+                onClick={async () => {
+                  await navigator.clipboard.writeText("Ox0A7f...CB77E4c2Da");
+                }}
+              >
+                <Image src={iconCopy} width={20} height={20} alt="icon copy" />
+              </button>
             </div>
-            <div className="flex flex-col gap-7">
+            <div className="flex flex-col gap-7 relative">
               <Input label="Project’s symbol" value="FRST" size="m" />
               <Input
                 label="Project’s owner"
                 value="0xF687...5A846a4023"
                 size="l"
               />
+              <button
+                className={css.buttonIcon}
+                onClick={async () => {
+                  await navigator.clipboard.writeText("0xF687...5A846a4023");
+                }}
+              >
+                <Image src={iconCopy} width={20} height={20} alt="icon copy" />
+              </button>
             </div>
             <div className="flex flex-col gap-7">
               <Input label="Amount steps" value="4" size="s" />
@@ -78,10 +96,11 @@ export const ProjectTabs = () => {
               aria-label="Full Description"
               title="Full Description"
             >
-              Full Description - Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptate, aut? Placeat at sed distinctio. Vero laborum
-              exercitationem consectetur doloremque nobis, quas repellat harum
-              repudiandae eligendi consequatur est optio nulla repellendus.
+              Full Description - Lorem ipsum dolor sit amet consectetur
+              adipisicing elit. Voluptate, aut? Placeat at sed distinctio. Vero
+              laborum exercitationem consectetur doloremque nobis, quas repellat
+              harum repudiandae eligendi consequatur est optio nulla
+              repellendus.
             </AccordionItem>
           </Accordion>
         </Tab>

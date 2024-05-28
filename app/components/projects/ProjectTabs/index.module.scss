@@ -1,9 +1,9 @@
 @import '../../../../styles/';
 
-// TODO: для иконки копирования в инпутах
-.button-icon {
+.buttonIcon {
   position: absolute;
   @include absoluteVerticalCenter();
+  top: 216px;
   right: 20px;
   outline: none;
   background: none;
