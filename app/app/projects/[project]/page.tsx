@@ -29,10 +29,12 @@ export default async function Project({
         {project.status === ProjectStatusEnum.STARTED && <BeAngelModal />}
       </div>
 
+
       <div className="tabs">
         <div className="title">Project: {project.projectName}</div>
         <ProjectTabs project={project} />
       </div>
+
     </div>
   );
 }

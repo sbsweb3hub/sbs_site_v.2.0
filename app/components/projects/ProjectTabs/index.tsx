@@ -1,23 +1,42 @@
 "use client";
-import { Divider, Tab, Tabs, Accordion, AccordionItem } from "@nextui-org/react";
+import {
+  Divider,
+  Tab,
+  Tabs,
+  Accordion,
+  AccordionItem,
+} from "@nextui-org/react";
+import Image from "next/image";
 import { Input } from "../../Input";
 import { useProjectStore } from "../_store/store";
 import StepAccordion from "./StepAccordion/StepAccordion";
 import Voting from "./Voting/Voting";
+
 import { ProjectStatusEnum, ProjectType } from "@/types";
 
 export const ProjectTabs = ({ project }: { project: ProjectType }) => {
   const { setIsMainTab } = useProjectStore();
+import iconCopy from "@/public/copy-icon.svg";
+import css from "./index.module.scss";
+
+
 
   return (
-    <>
+    <div className={css.tabs}>
+      <div className={css.title}>
+        <div className="">Project: Name </div>
+        {isMainTab && (
+          <Input className={css.short} value="Short description" size="xl" />
+        )}
+      </div>
       <Tabs
-        className="mt-28"
+        className="mt-20"
         classNames={{
-          tabList: "gap-28 w-full relative rounded-none p-0 border-b-1 border-[#000] px-[10px]",
+          tabList:
+            "gap-28 w-full relative rounded-none p-0 border-b-1 border-[#000] px-[10px]",
           cursor: " group-data-[selected=true]:bg-[#DCDCDC]",
           tabContent: "group-data-[selected=true]:text-[#000]",
-          tab: 'text-[24px] mb-[10px]'
+          tab: "text-[24px] mb-[10px]",
         }}
         size="lg"
         variant="light"
@@ -27,34 +46,76 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
         }}
       >
         <Tab key="main" title="Main">
-          <div className="flex w-full flex-wrap mb-6 gap-56">
-            <div className="flex flex-col gap-7">
-              <Input label="Project’s name"
-                value={project.projectName}
-                size="m" />
-              <Input
-                label="Project’s symbol"
-                value={project.tokenSymbol}
-                size="m"
-              />
-              <Input label="Amount steps" value={project.steps.length.toString()} size="s" />
-            </div>
-            <div className="flex flex-col gap-7">
+
+          <div className="flex w-full gap-40 mt-10">
+            <div className="flex flex-col gap-7 relative">
+              <Input label="Project’s name" value={project.projectName} size="m" />
               <Input
                 label="Token’s address"
                 value={project.founder}
                 size="l"
                 icon
               />
-              <Input label="Project’s owner"
+              <button
+                className={css.buttonIcon}
+                onClick={async () => {
+                  await navigator.clipboard.writeText("Ox0A7f...CB77E4c2Da");
+                }}
+              >
+                <Image src={iconCopy} width={20} height={20} alt="icon copy" />
+              </button>
+
+            </div>
+            <div className="flex flex-col gap-7 relative">
+              <Input label="Project’s symbol" value="FRST" size="m" />
+              <Input
+                label="Project’s owner"
                 value={project.founder}
-                size="l" />
+                size="l"
+              />
+
+              <button
+                className={css.buttonIcon}
+                onClick={async () => {
+                  await navigator.clipboard.writeText("0xF687...5A846a4023");
+                }}
+              >
+                <Image src={iconCopy} width={20} height={20} alt="icon copy" />
+              </button>
+            </div>
+            <div className="flex flex-col gap-7">
+              <Input label="Amount steps" value={project.steps.length.toString()} size="s" />
+
             </div>
           </div>
+          <Accordion
+            className="mt-10"
+            itemClasses={{
+              base: "mt-16 mb-10",
+              indicator: "w-[25px] h-[25px] rounded-[8px]",
+              title: "text-[24px] font-semibold text-[#000]",
+              content: "px-2  text-[16px]",
+              trigger:
+                "px-2 py-0 data-[hover=true]:bg-[#C4C4C4] rounded-lg h-14 flex items-center",
+            }}
+          >
+            <AccordionItem
+              key="1"
+              aria-label="Full Description"
+              title="Full Description"
+            >
+              Full Description - Lorem ipsum dolor sit amet consectetur
+              adipisicing elit. Voluptate, aut? Placeat at sed distinctio. Vero
+              laborum exercitationem consectetur doloremque nobis, quas repellat
+              harum repudiandae eligendi consequatur est optio nulla
+              repellendus.
+            </AccordionItem>
+          </Accordion>
         </Tab>
         <Tab key="tokens" title="Tokens">
-          <div className="flex w-full flex-wrap mb-6 gap-56">
+          <div className="flex w-full flex-wrap mb-6 gap-40 mt-10">
             <div className="flex flex-col gap-7">
+              <Input label="Token’s price, ETH" value="0.005" size="m" />
               <Input
                 label="Token’s price, ETH"
                 value={project.tokenPrice?.toString()}
@@ -83,6 +144,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
                 value={project.tokenSupply?.toString()}
                 size="l"
               />
+
             </div>
           </div>
         </Tab>
@@ -94,6 +156,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
               </p>
               <div className="flex items-center gap-[18px]">
                 <div className="flex flex-col">
+
                   <Input
                     label="Date"
                     value={new Date(project.startDate as string).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
@@ -121,10 +184,12 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
                   {new Date(project.datesForProjectCard?.seedRoundEndDate as string).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
                 </p>
               </div>
+
               <p className="text-[#828282] text-[22px] font-semibold mr-[21px]">
                 Seed Round
               </p>
             </div>
+
             {project.datesForProjectCard?.stepsDates.map((step, index) => (
               <StepAccordion
                 key={index}
@@ -139,6 +204,9 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
           </div>
         </Tab>
         {project.status === ProjectStatusEnum.STARTED && <Tab key="voting" title="Voting">
+
+  
+   
           <div className="flex flex-col w-full">
             <div className="flex items-start gap-[90px] mt-[40px]">
               <p className="text-[24px] text-[#000] font-semibold">
@@ -146,18 +214,12 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
               </p>
               <div className="flex items-center gap-[18px]">
                 <div className="flex flex-col">
-                  <Input
-                    label="Date"
-                    value="Date"
-                    size="m"
-                  />
+
+                  <Input label="Date" value="Date" size="m" />
                 </div>
                 <div className="flex flex-col">
-                  <Input
-                    label="Time"
-                    value="Time"
-                    size="m"
-                  />
+                  <Input label="Time" value="Time" size="m" />
+
                 </div>
               </div>
             </div>
@@ -183,9 +245,13 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
               votes=""
             />
           </div>
+
         </Tab>}
       </Tabs>
       <Divider />
+ </div>
     </>
+
+
   );
 };

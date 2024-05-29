@@ -9,15 +9,3 @@
   background-color: #000;
   clip-path: polygon(0 0, 100% 0, 100% 20%, 100% 100%, 56% 100%, 50% 83%, 0 83%, 0% 20%);
 }
-
-.tabs {
-  height: max-content;
-  padding: 0 64px;
-  background-color: #f6f6f6;
-  color: #000;
-}
-
-.title {
-  font-size: 48px;
-  font-weight: bold;
-}
