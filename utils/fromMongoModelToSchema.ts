@@ -36,6 +36,16 @@ export function fromMongoModelToSchema(data: IProjectModel): ProjectType {
       duration: step.duration,
       desc: step.desc,
     })) as StepType[],
+    datesForProjectCard: data.datesForProjectCard
+      ? {
+          seedRoundEndDate:
+            data.datesForProjectCard.seedRoundEndDate?.toISOString() || null,
+          stepsDates: data.datesForProjectCard.stepsDates.map((stepDate) => ({
+            startDate: stepDate.startDate.toISOString(),
+            endDate: stepDate.endDate.toISOString(),
+          })),
+        }
+      : undefined,
     createdAt: data.startDate.toISOString(),
     updatedAt: data.startDate.toISOString(),
   };

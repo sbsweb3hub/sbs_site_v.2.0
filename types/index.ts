@@ -19,14 +19,23 @@ export enum ProjectStatusEnum {
   APPROVED = 'APPROVED',
   DECLINED = 'DECLINED',
   DEPLOYED = 'DEPLOYED',
+  STARTED = 'STARTED',
 }
 
 export const StepSchema = z.object({
-  duration: z.number(),
-  desc: z.string(),
+  duration: z.number().optional(),
+  desc: z.string().optional(),
 });
 export type StepType = z.infer<typeof StepSchema>;
+const StepDateSchema = z.object({
+  startDate: z.string(),
+  endDate: z.string(),
+});
 
+const DatesForProjectCardSchema = z.object({
+  seedRoundEndDate: z.string().nullable(),
+  stepsDates: z.array(StepDateSchema),
+});
 export const ProjectSchema = z.object({
   id: z.string(),
   founder: z.string(),
@@ -42,7 +51,7 @@ export const ProjectSchema = z.object({
   tokenomik: z.string().optional(),
   discord: z.string().optional(),
   projectTg: z.string().optional(),
-  startDate: z.string().min(1, 'Start date is required'),
+  startDate: z.string().min(1, 'Start date is required').optional(),
   description: z.string().optional(),
   shortDescription: z.string().optional(),
   ecosystem: z.string().optional(),
@@ -51,26 +60,29 @@ export const ProjectSchema = z.object({
   tokenName: z
     .string()
     .min(1, 'Token name is required')
-    .max(10, 'Token name is too long, it should be less than 10 digits'),
+    .max(10, 'Token name is too long, it should be less than 10 digits')
+    .optional(),
   tokenSymbol: z
     .string()
     .min(1, 'Token symbol is required')
-    .max(4, 'Token name is too long, it should be less than 4 digits'),
+    .max(4, 'Token name is too long, it should be less than 4 digits')
+    .optional(),
   tokenSupply: z.coerce
     .number()
     .min(1, 'Token supply is required')
-    .max(100000000, 'Token supply is too big, it should be less than 100b'),
+    .max(100000000, 'Token supply is too big, it should be less than 100b')
+    .optional(),
   tokenPrice: z.coerce
     .number()
     .min(0.00001, 'Token price is required')
-    .max(1000, 'Token price is too big, it should be less than 1000 eth?'),
-  maxTokenForSeed: z.coerce.number(),
-  minTokenForSeed: z.coerce.number(),
-  seedDuration: z.coerce.number(),
+    .max(1000, 'Token price is too big, it should be less than 1000 eth?')
+    .optional(),
+  maxTokenForSeed: z.coerce.number().optional(),
+  minTokenForSeed: z.coerce.number().optional(),
+  seedDuration: z.coerce.number().optional(),
   status: z.nativeEnum(ProjectStatusEnum),
-  // members: z.string().min(1, 'Member details are required'),
-  // community: z.string().min(1, 'Community details are required'),
   steps: z.array(StepSchema),
+  datesForProjectCard: DatesForProjectCardSchema.optional(),
   createdAt: z.string(),
   updatedAt: z.string(),
 });

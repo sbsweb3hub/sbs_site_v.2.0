@@ -16,7 +16,6 @@ const ProjectStartDate = ({ disabled }: { disabled?: boolean }) => {
             </p>
             <I18nProvider locale="en-GB">
                 <DatePicker
-                    isRequired
                     labelPlacement="outside"
                     variant="faded"
                     label="Date"

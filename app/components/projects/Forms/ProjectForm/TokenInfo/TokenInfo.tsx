@@ -10,7 +10,6 @@ const TokenInfo = ({ disabled, project }: { disabled?: boolean, project?: Projec
             <div className="flex items-start gap-[127px]">
                 <div className="flex flex-col gap-[33px]">
                     <Input
-                        isRequired
                         labelPlacement="outside"
                         variant="faded"
                         label="Token name"
@@ -22,7 +21,6 @@ const TokenInfo = ({ disabled, project }: { disabled?: boolean, project?: Projec
                         defaultValue={project?.tokenName}
                     />
                     <Input
-                        isRequired
                         labelPlacement="outside"
                         variant="faded"
                         label="Total token supply"
@@ -34,7 +32,6 @@ const TokenInfo = ({ disabled, project }: { disabled?: boolean, project?: Projec
                         {...(disabled && { isDisabled: true })}
                         defaultValue={project ? String(project.tokenSupply) : undefined} />
                     <Input
-                        isRequired
                         labelPlacement="outside"
                         variant="faded"
                         label="Maximum tokens amount for seed round"
@@ -48,7 +45,6 @@ const TokenInfo = ({ disabled, project }: { disabled?: boolean, project?: Projec
                 </div>
                 <div className="flex flex-col gap-[33px]">
                     <Input
-                        isRequired
                         labelPlacement="outside"
                         variant="faded"
                         label="Symbol of token"
@@ -60,7 +56,6 @@ const TokenInfo = ({ disabled, project }: { disabled?: boolean, project?: Projec
                         defaultValue={project?.tokenSymbol}
                     />
                     <Input
-                        isRequired
                         labelPlacement="outside"
                         variant="faded"
                         label="Token price [$]"
@@ -72,7 +67,6 @@ const TokenInfo = ({ disabled, project }: { disabled?: boolean, project?: Projec
                         {...(disabled && { isDisabled: true })}
                         defaultValue={project ? String(project.tokenPrice) : undefined} />
                     <Input
-                        isRequired
                         labelPlacement="outside"
                         variant="faded"
                         label="Minimum tokens amount for seed round"

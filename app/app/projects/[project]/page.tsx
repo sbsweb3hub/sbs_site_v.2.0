@@ -13,25 +13,24 @@ export default async function Project({
 }: {
   params: { project: string };
 }) {
-  const { projectName, startDate, imageUrl } = await findProjectById(
-    params.project
+  const project = await findProjectById(
+    params.project, true
   );
 
-
   // @todo - what is the best approach to handle errors(notFound or Error)
-  if (!projectName) notFound();
+  if (!project) notFound();
 
   return (
     <div className="wrapper">
       <div className="line">
         <Background />
-        <ProjectHeader url={imageUrl} date={startDate} />
+        <ProjectHeader url={project.imageUrl} date={project.startDate!} />
         <BeAngelModal />
       </div>
 
       <div className="tabs">
-        <div className="title">Project: {projectName}</div>
-        <ProjectTabs />
+        <div className="title">Project: {project.projectName}</div>
+        <ProjectTabs project={project} />
       </div>
     </div>
   );

@@ -8,7 +8,6 @@ const SeedRound = ({ disabled, project }: { disabled?: boolean, project?: Projec
                 Seed round
             </p>
             <Input
-                isRequired
                 labelPlacement="outside"
                 variant="faded"
                 label="Duration [days]"

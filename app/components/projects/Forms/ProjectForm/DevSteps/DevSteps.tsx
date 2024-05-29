@@ -26,7 +26,6 @@ const StepCard: React.FC<CardProps> = ({ index, total, disabled, project }) => {
             <CardBody>
                 <div className='flex flex-col ml-[27px] gap-[34px]'>
                     <Input
-                        isRequired
                         variant='faded'
                         label='Duration [days]'
                         labelPlacement='outside'
@@ -41,7 +40,6 @@ const StepCard: React.FC<CardProps> = ({ index, total, disabled, project }) => {
                     />
                     <Textarea
                         maxRows={5}
-                        isRequired
                         labelPlacement="outside"
                         variant="faded"
                         label="Description"

@@ -2,7 +2,7 @@
 'use server';
 import { ethers } from 'ethers';
 
-const fetchChallenge = async () => {
+export const fetchChallenge = async () => {
   const options = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -24,10 +24,11 @@ const fetchChallenge = async () => {
   }
 };
 
-const generateSignature = async (msg: string) => {
+export const generateSignature = async (msg: string) => {
   try {
     const wallet = new ethers.Wallet(process.env.OPERATOR_KEY!);
     const signature = await wallet.signMessage(ethers.toUtf8Bytes(msg));
+
     return signature;
   } catch (err) {
     console.log(err);
@@ -35,7 +36,7 @@ const generateSignature = async (msg: string) => {
   }
 };
 
-const getToken = async (challengeData: string, signature: string) => {
+export const getToken = async (challengeData: string, signature: string) => {
   const options = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -57,6 +58,29 @@ const getToken = async (challengeData: string, signature: string) => {
   }
 };
 
+// const getToken = async (challengeData: string, signature: string) => {
+//   const options = {
+//     method: 'POST',
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify({
+//       challengeData,
+//       signature,
+//     }),
+//   };
+//   try {
+//     const res = await fetch(
+//       `${process.env.BLAST_API_URL}/dapp-auth/solve`,
+//       options
+//     );
+//     const token = await res.json();
+//     console.log('token', token);
+//     return token;
+//   } catch (err) {
+//     console.log(err);
+//     throw new Error('Failed to get token!');
+//   }
+// };
+
 export const getPoints = async (token: string) => {
   const options = {
     method: 'GET',
@@ -68,6 +92,7 @@ export const getPoints = async (token: string) => {
       options
     );
     const points = await res.json();
+
     return points;
   } catch (err) {
     console.log(err);

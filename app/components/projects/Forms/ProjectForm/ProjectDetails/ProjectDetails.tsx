@@ -10,7 +10,6 @@ const ProjectDetails = ({ disabled, project }: { disabled?: boolean, project?: P
             <div className="flex flex-col gap-[14px]">
                 <Textarea
                     maxRows={3}
-                    isRequired
                     labelPlacement="outside"
                     variant="faded"
                     label="Project description"
@@ -46,7 +45,6 @@ const ProjectDetails = ({ disabled, project }: { disabled?: boolean, project?: P
                 />
                 <Textarea
                     maxRows={3}
-                    isRequired
                     labelPlacement="outside"
                     variant="faded"
                     label="Team Description"
@@ -59,7 +57,6 @@ const ProjectDetails = ({ disabled, project }: { disabled?: boolean, project?: P
                 />
                 <Textarea
                     maxRows={3}
-                    isRequired
                     labelPlacement="outside"
                     variant="faded"
                     label="Describe Current Community"

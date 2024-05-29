@@ -5,7 +5,7 @@ import ButtonCreateProject from "./buttonCreateProject";
 import { DisconnectWalletButton } from "./auth/disconnectWalletButton";
 import { AuthRolesEnum } from "@/types";
 import { getSession } from "@/services/auth-service";
-import { getDataFromBlastApi, getPoints } from "@/services/blast-api-service";
+import { getDataFromBlastApi } from "@/services/blast-api-service";
 
 
 const Header = async () => {
@@ -16,7 +16,7 @@ const Header = async () => {
     return (
         <header className="bg-[#000] text-white text-[18px] flex justify-between items-center h-[81px]">
             <div className="flex items-center">
-                <Image 
+                <Image
                     src='/forgelogo.png'
                     alt="logo"
                     width={90}

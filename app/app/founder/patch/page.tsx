@@ -10,5 +10,6 @@ export default async function PatchProject() {
   const session = await getSession()
   const project: ProjectType = await findProjectByFounder(session.address)
   return (
-    <ProjectForm project={project!} />)
+    <ProjectForm project={project!} />
+  )
 }
