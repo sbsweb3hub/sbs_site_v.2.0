@@ -11,22 +11,19 @@ import { Input } from "../../Input";
 import { useProjectStore } from "../_store/store";
 import StepAccordion from "./StepAccordion/StepAccordion";
 import Voting from "./Voting/Voting";
-
+import iconCopy from "@/public/copy-icon.svg";
+import css from "./index.module.scss";
 import { ProjectStatusEnum, ProjectType } from "@/types";
 
 export const ProjectTabs = ({ project }: { project: ProjectType }) => {
-  const { setIsMainTab } = useProjectStore();
-import iconCopy from "@/public/copy-icon.svg";
-import css from "./index.module.scss";
-
-
+  const { setIsMainTab, isMainTab } = useProjectStore();
 
   return (
     <div className={css.tabs}>
       <div className={css.title}>
         <div className="">Project: Name </div>
         {isMainTab && (
-          <Input className={css.short} value="Short description" size="xl" />
+          <Input className={css.short} value={project.shortDescription} size="xl" />
         )}
       </div>
       <Tabs
@@ -205,8 +202,8 @@ import css from "./index.module.scss";
         </Tab>
         {project.status === ProjectStatusEnum.STARTED && <Tab key="voting" title="Voting">
 
-  
-   
+
+
           <div className="flex flex-col w-full">
             <div className="flex items-start gap-[90px] mt-[40px]">
               <p className="text-[24px] text-[#000] font-semibold">
@@ -249,9 +246,6 @@ import css from "./index.module.scss";
         </Tab>}
       </Tabs>
       <Divider />
- </div>
-    </>
-
-
+    </div>
   );
 };
