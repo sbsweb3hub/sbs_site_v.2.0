@@ -50,6 +50,15 @@ export interface IStep {
   desc: string;
 }
 
+interface IStepDate {
+  startDate: Date;
+  endDate: Date;
+}
+
+interface IDatesForProjectCard {
+  seedRoundEndDate: Date;
+  stepsDates: IStepDate[];
+}
 export interface IProjectModel extends Document {
   projectName: string;
   founder: string;
@@ -79,20 +88,18 @@ export interface IProjectModel extends Document {
   seedDuration: number;
   status: string;
   steps: IStep[];
+  datesForProjectCard?: IDatesForProjectCard;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-const stepSchema = new mongoose.Schema({
-  duration: {
-    type: Number,
-    required: true,
+const stepSchema = new mongoose.Schema(
+  {
+    duration: Number,
+    desc: String,
   },
-  desc: {
-    type: String,
-    required: true,
-  },
-});
+  { _id: false }
+);
 
 const projectSchema = new Schema(
   {
@@ -108,7 +115,6 @@ const projectSchema = new Schema(
     },
     startDate: {
       type: Date,
-      required: true,
     },
     imageUrl: {
       type: String,
@@ -135,37 +141,24 @@ const projectSchema = new Schema(
     teamDescription: String,
     tokenName: {
       type: String,
-      required: true,
-      // maxlength: 10,
     },
     tokenSymbol: {
       type: String,
-      required: true,
-      // maxlength: 4,
     },
     tokenSupply: {
       type: Number,
-      required: true,
-      // min: 1,
-      // max: 100000000,
     },
     tokenPrice: {
       type: Number,
-      required: true,
-      // min: 0.0000000001,
-      // max: 1000,
     },
     maxTokenForSeed: {
       type: Number,
-      required: true,
     },
     minTokenForSeed: {
       type: Number,
-      required: true,
     },
     seedDuration: {
       type: Number,
-      required: true,
     },
     status: {
       type: String,
@@ -178,6 +171,40 @@ const projectSchema = new Schema(
   },
   { timestamps: true }
 );
+
+projectSchema.virtual('datesForProjectCard').get(function () {
+  if (
+    !this.startDate ||
+    !this.seedDuration ||
+    !this.steps ||
+    this.steps.length === 0
+  ) {
+    return null;
+  }
+  let seedRoundEndDate = new Date(this.startDate);
+  seedRoundEndDate.setDate(seedRoundEndDate.getDate() + this.seedDuration + 1);
+
+  const stepsDates: Array<Record<string, Date>> = [];
+  let currentStartDate = new Date(seedRoundEndDate);
+
+  this.steps.forEach((step) => {
+    const stepStartDate = new Date(
+      currentStartDate.setDate(currentStartDate.getDate() + 1)
+    );
+
+    const stepEndDate = new Date(currentStartDate);
+    stepEndDate.setDate(stepEndDate.getDate() + step.duration!);
+
+    stepsDates.push({
+      startDate: stepStartDate,
+      endDate: stepEndDate,
+    });
+
+    currentStartDate = new Date(stepEndDate);
+  });
+
+  return { seedRoundEndDate, stepsDates };
+});
 
 // export const Project =
 // mongoose.models.Project ||

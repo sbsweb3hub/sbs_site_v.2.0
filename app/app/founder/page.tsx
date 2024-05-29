@@ -11,6 +11,5 @@ export default async function Founder() {
 
   return (
     <ProjectForm disabled={true} project={project} />
-
   )
 }

@@ -11,11 +11,15 @@ import { Input } from "../../Input";
 import { useProjectStore } from "../_store/store";
 import StepAccordion from "./StepAccordion/StepAccordion";
 import Voting from "./Voting/Voting";
+
+import { ProjectStatusEnum, ProjectType } from "@/types";
+
+export const ProjectTabs = ({ project }: { project: ProjectType }) => {
+  const { setIsMainTab } = useProjectStore();
 import iconCopy from "@/public/copy-icon.svg";
 import css from "./index.module.scss";
 
-export const ProjectTabs = () => {
-  const { setIsMainTab, isMainTab } = useProjectStore();
+
 
   return (
     <div className={css.tabs}>
@@ -42,12 +46,13 @@ export const ProjectTabs = () => {
         }}
       >
         <Tab key="main" title="Main">
+
           <div className="flex w-full gap-40 mt-10">
             <div className="flex flex-col gap-7 relative">
-              <Input label="Project’s name" value="FRST" size="m" />
+              <Input label="Project’s name" value={project.projectName} size="m" />
               <Input
                 label="Token’s address"
-                value="Ox0A7f...CB77E4c2Da"
+                value={project.founder}
                 size="l"
                 icon
               />
@@ -59,14 +64,16 @@ export const ProjectTabs = () => {
               >
                 <Image src={iconCopy} width={20} height={20} alt="icon copy" />
               </button>
+
             </div>
             <div className="flex flex-col gap-7 relative">
               <Input label="Project’s symbol" value="FRST" size="m" />
               <Input
                 label="Project’s owner"
-                value="0xF687...5A846a4023"
+                value={project.founder}
                 size="l"
               />
+
               <button
                 className={css.buttonIcon}
                 onClick={async () => {
@@ -77,7 +84,8 @@ export const ProjectTabs = () => {
               </button>
             </div>
             <div className="flex flex-col gap-7">
-              <Input label="Amount steps" value="4" size="s" />
+              <Input label="Amount steps" value={project.steps.length.toString()} size="s" />
+
             </div>
           </div>
           <Accordion
@@ -109,18 +117,34 @@ export const ProjectTabs = () => {
             <div className="flex flex-col gap-7">
               <Input label="Token’s price, ETH" value="0.005" size="m" />
               <Input
-                label="Maximum token supply, $FRST"
-                value="1000"
+                label="Token’s price, ETH"
+                value={project.tokenPrice?.toString()}
                 size="m"
+              />
+              <Input
+                label="Seed phase, $FRST"
+                value={project.seedDuration?.toString()}
+                size="m"
+              />
+              <Input
+                label="Ordered tokens, $FRST"
+                value={project.founder}
+                size="s"
               />
             </div>
             <div className="flex flex-col gap-7">
-              <Input label="Seed phase, $FRST" value="100" size="l" icon />
+              <Input
+                label="Token’s address"
+                value={project.founder}
+                size="l"
+                icon
+              />
+              <Input
+                label="Maximum token supply, $FRST"
+                value={project.tokenSupply?.toString()}
+                size="l"
+              />
 
-              <Input label="Maximum token supply, $FRST" value="50" size="l" />
-            </div>
-            <div className="flex flex-col gap-7">
-              <Input label="Ordered tokens, $FRST" value="1" size="s" />
             </div>
           </div>
         </Tab>
@@ -132,66 +156,57 @@ export const ProjectTabs = () => {
               </p>
               <div className="flex items-center gap-[18px]">
                 <div className="flex flex-col">
-                  <Input label="Date" value="Date" size="m" />
+
+                  <Input
+                    label="Date"
+                    value={new Date(project.startDate as string).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                    size="m"
+                  />
                 </div>
                 <div className="flex flex-col">
-                  <Input label="Time" value="Time" size="m" />
+                  <Input
+                    label="Time"
+                    value={new Date(project.startDate as string).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}
+                    size="m"
+                  />
                 </div>
               </div>
             </div>
             <div className="flex justify-between items-center w-[1044px] h-[98px] bg-[#EEEEEE] mt-[40px] ml-[8px]">
               <div className="flex items-center gap-[10px] text-[#000] text-[22px] font-semibold ml-[55px]">
-                <p>9 feb. 2024</p>
-                <p>-</p>
-                <p>9 mar. 2024</p>
+                <p>
+                  {new Date(project.startDate as string).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                </p>
+                <p>
+                  -
+                </p>
+                <p>
+                  {new Date(project.datesForProjectCard?.seedRoundEndDate as string).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                </p>
               </div>
+
               <p className="text-[#828282] text-[22px] font-semibold mr-[21px]">
                 Seed Round
               </p>
             </div>
-            <StepAccordion
-              index="1"
-              startDate="9 apr. 2024"
-              endDate="9 jun. 2024"
-            >
-              First steps, thinking, testnet launch, team hooliday, road map,
-              investors, marketing plan, team vision, details about step, new
-              features, future prosapects. New changes and differences, team
-              building
-            </StepAccordion>
-            <StepAccordion
-              index="2"
-              startDate="9 apr. 2024"
-              endDate="9 jun. 2024"
-            >
-              First steps, thinking, testnet launch, team hooliday, road map,
-              investors, marketing plan, team vision, details about step, new
-              features, future prosapects. New changes and differences, team
-              building
-            </StepAccordion>
-            <StepAccordion
-              index="3"
-              startDate="9 apr. 2024"
-              endDate="9 jun. 2024"
-            >
-              First steps, thinking, testnet launch, team hooliday, road map,
-              investors, marketing plan, team vision, details about step, new
-              features, future prosapects. New changes and differences, team
-              building
-            </StepAccordion>
-            <StepAccordion
-              index="4"
-              startDate="9 apr. 2024"
-              endDate="9 jun. 2024"
-            >
-              First steps, thinking, testnet launch, team hooliday, road map,
-              investors, marketing plan, team vision, details about step, new
-              features, future prosapects. New changes and differences, team
-              building
-            </StepAccordion>
+
+            {project.datesForProjectCard?.stepsDates.map((step, index) => (
+              <StepAccordion
+                key={index}
+                index={(index + 1).toString()}
+                startDate={new Date(step.startDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                endDate={new Date(step.endDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+              >
+                {project.steps[index].desc}
+              </StepAccordion>
+            ))}
+
           </div>
         </Tab>
-        <Tab key="voting" title="Voting">
+        {project.status === ProjectStatusEnum.STARTED && <Tab key="voting" title="Voting">
+
+  
+   
           <div className="flex flex-col w-full">
             <div className="flex items-start gap-[90px] mt-[40px]">
               <p className="text-[24px] text-[#000] font-semibold">
@@ -199,10 +214,12 @@ export const ProjectTabs = () => {
               </p>
               <div className="flex items-center gap-[18px]">
                 <div className="flex flex-col">
+
                   <Input label="Date" value="Date" size="m" />
                 </div>
                 <div className="flex flex-col">
                   <Input label="Time" value="Time" size="m" />
+
                 </div>
               </div>
             </div>
@@ -228,9 +245,13 @@ export const ProjectTabs = () => {
               votes=""
             />
           </div>
-        </Tab>
+
+        </Tab>}
       </Tabs>
       <Divider />
-    </div>
+ </div>
+    </>
+
+
   );
 };

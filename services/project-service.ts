@@ -52,18 +52,61 @@ export const fetchAllProjects = async (
   }
 };
 
-export const findProjectById = async (id: string): Promise<ProjectType> => {
+export const findProjectById = async (
+  id: string,
+  virtual = false
+): Promise<ProjectType> => {
   'use server';
   try {
     await dbConnect();
-    const project = await Project.findById(id).lean<IProjectModel>();
-    if (!project) throw new Error('Project doesn`t exist');
+
+    let project;
+    if (virtual) {
+      project = await Project.findById(id).exec();
+      if (!project) throw new Error('Project doesn`t exist');
+      project = project.toObject({ virtuals: true });
+    } else {
+      project = await Project.findById(id).lean<IProjectModel>();
+      if (!project) throw new Error('Project doesn`t exist');
+    }
+
     return fromMongoModelToSchema(project);
   } catch (err) {
     console.log(err);
     throw new Error('Failed to fetch project!');
   }
 };
+
+// export const findProjectById = async (id: string): Promise<ProjectType> => {
+//   'use server';
+//   try {
+//     await dbConnect();
+
+//     const project = await Project.findById(id).lean<IProjectModel>();
+//     if (!project) throw new Error('Project doesn`t exist');
+//     return fromMongoModelToSchema(project);
+//   } catch (err) {
+//     console.log(err);
+//     throw new Error('Failed to fetch project!');
+//   }
+// };
+
+// export const findProjectByIdWithDates = async (id: string) => {
+//   'use server';
+//   try {
+//     await dbConnect();
+//     const project = await Project.findById(id).exec();
+//     if (!project) throw new Error('Project doesn`t exist');
+
+//     // Преобразование документа Mongoose в объект с включением виртуальных свойств
+//     const projectWithVirtuals = project.toObject({ virtuals: true });
+
+//     return fromMongoModelToSchema(projectWithVirtuals);
+//   } catch (err) {
+//     console.log(err);
+//     throw new Error('Failed to fetch project!');
+//   }
+// };
 
 // export const addProject = async (_prevState: unknown, formData: FormData) => {
 //   'use server';
@@ -114,6 +157,7 @@ export const findProjectById = async (id: string): Promise<ProjectType> => {
 // };
 
 //@todo - refactor add and patch into one
+
 export const addProject = async (_prevState: unknown, formData: FormData) => {
   'use server';
   const session = await getSession();

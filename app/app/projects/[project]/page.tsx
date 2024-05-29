@@ -7,27 +7,34 @@ import {
   ProjectHeader,
 } from "@/app/components/projects";
 import "./index.css";
+import { ProjectStatusEnum } from "@/types";
 
 export default async function Project({
   params,
 }: {
   params: { project: string };
 }) {
-  const { projectName, startDate, imageUrl } = await findProjectById(
-    params.project
+  const project = await findProjectById(
+    params.project, true
   );
 
   // @todo - what is the best approach to handle errors(notFound or Error)
-  if (!projectName) notFound();
+  if (!project) notFound();
 
   return (
     <div className="wrapper">
       <div className="line">
         <Background />
-        <ProjectHeader url={imageUrl} date={startDate} />
-        <BeAngelModal />
+        <ProjectHeader {...project} />
+        {project.status === ProjectStatusEnum.STARTED && <BeAngelModal />}
       </div>
-        <ProjectTabs />
+
+
+      <div className="tabs">
+        <div className="title">Project: {project.projectName}</div>
+        <ProjectTabs project={project} />
+      </div>
+
     </div>
   );
 }

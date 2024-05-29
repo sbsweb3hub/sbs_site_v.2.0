@@ -59,7 +59,7 @@ export const ProjectsTable = ({
                 {(columnKey) => (
                   <TableCell>
                     <Link href={`/app/projects/${item.id}`}>
-                      {renderCell(item, columnKey)}
+                      {renderCell(item, columnKey) as React.ReactNode}
                     </Link>
                   </TableCell>
                 )}

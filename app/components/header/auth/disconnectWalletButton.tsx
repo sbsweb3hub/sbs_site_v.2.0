@@ -5,6 +5,7 @@ import { useDisconnect } from 'wagmi'
 import { Button } from '@nextui-org/react'
 
 export function DisconnectWalletButton({ address, points }: { address: string, points: any }) {
+
     const { disconnectAsync } = useDisconnect()
     const router = useRouter()
     const handleDisconnect = async () => {
