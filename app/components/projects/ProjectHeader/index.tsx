@@ -3,29 +3,27 @@ import { Progress } from "@nextui-org/react";
 import Image from "next/image";
 import { useProjectStore } from "../_store/store";
 import css from "./index.module.scss";
+import { ProjectStatusEnum, ProjectType } from "@/types";
 
 const isLaunchTime = false;
 const isSeedTime = true;
 
-type Props = {
-  url?: string;
-  date: string;
-};
 
-export const ProjectHeader = ({ url, date }: Props) => {
+
+export const ProjectHeader = (project: ProjectType) => {
   const { isMainTab } = useProjectStore();
-  
+
   return (
     <div className={css.main}>
       <Image
-        src={url!}
+        src={project.imageUrl!}
         width={509}
         height={266}
         alt="Picture of the author"
         className="rounded-3xl"
       />
 
-      <div className={css.content}>
+      {project.status === ProjectStatusEnum.STARTED && <div className={css.content}>
         {isMainTab ? (
           <>
             {isSeedTime && (
@@ -77,7 +75,7 @@ export const ProjectHeader = ({ url, date }: Props) => {
             {isLaunchTime && (
               <>
                 <p className={css.start}>Starts in</p>
-                <p className={css.title}>Launch time: {date}</p>
+                <p className={css.title}>Launch time: {project.startDate}</p>
               </>
             )}
           </>
@@ -103,7 +101,7 @@ export const ProjectHeader = ({ url, date }: Props) => {
             </tbody>
           </table>
         )}
-      </div>
+      </div>}
     </div>
   );
 };

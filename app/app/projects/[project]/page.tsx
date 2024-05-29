@@ -7,6 +7,7 @@ import {
   ProjectHeader,
 } from "@/app/components/projects";
 import "./index.css";
+import { ProjectStatusEnum } from "@/types";
 
 export default async function Project({
   params,
@@ -24,8 +25,8 @@ export default async function Project({
     <div className="wrapper">
       <div className="line">
         <Background />
-        <ProjectHeader url={project.imageUrl} date={project.startDate!} />
-        <BeAngelModal />
+        <ProjectHeader {...project} />
+        {project.status === ProjectStatusEnum.STARTED && <BeAngelModal />}
       </div>
 
       <div className="tabs">

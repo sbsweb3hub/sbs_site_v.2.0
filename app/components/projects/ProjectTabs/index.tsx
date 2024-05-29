@@ -4,7 +4,7 @@ import { Input } from "../../Input";
 import { useProjectStore } from "../_store/store";
 import StepAccordion from "./StepAccordion/StepAccordion";
 import Voting from "./Voting/Voting";
-import { ProjectType } from "@/types";
+import { ProjectStatusEnum, ProjectType } from "@/types";
 
 export const ProjectTabs = ({ project }: { project: ProjectType }) => {
   const { setIsMainTab } = useProjectStore();
@@ -37,7 +37,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
                 value={project.tokenSymbol}
                 size="m"
               />
-              <Input label="Amount steps" value={project.steps.length.toFixed()} size="s" />
+              <Input label="Amount steps" value={project.steps.length.toString()} size="s" />
             </div>
             <div className="flex flex-col gap-7">
               <Input
@@ -96,14 +96,14 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
                 <div className="flex flex-col">
                   <Input
                     label="Date"
-                    value={project.startDate}
+                    value={new Date(project.startDate as string).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
                     size="m"
                   />
                 </div>
                 <div className="flex flex-col">
                   <Input
                     label="Time"
-                    value={project.startDate}
+                    value={new Date(project.startDate as string).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}
                     size="m"
                   />
                 </div>
@@ -112,50 +112,33 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
             <div className="flex justify-between items-center w-[1044px] h-[98px] bg-[#EEEEEE] mt-[40px] ml-[8px]">
               <div className="flex items-center gap-[10px] text-[#000] text-[22px] font-semibold ml-[55px]">
                 <p>
-                  9 feb. 2024
+                  {new Date(project.startDate as string).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
                 </p>
                 <p>
                   -
                 </p>
                 <p>
-                  9 mar. 2024
+                  {new Date(project.datesForProjectCard?.seedRoundEndDate as string).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
                 </p>
               </div>
               <p className="text-[#828282] text-[22px] font-semibold mr-[21px]">
                 Seed Round
               </p>
             </div>
-            <StepAccordion
-              index="1"
-              startDate="9 apr. 2024"
-              endDate="9 jun. 2024"
-            >
-              First steps, thinking, testnet launch, team hooliday, road map, investors, marketing plan, team vision, details about step, new features, future prosapects. New changes and differences, team building
-            </StepAccordion>
-            <StepAccordion
-              index="2"
-              startDate="9 apr. 2024"
-              endDate="9 jun. 2024"
-            >
-              First steps, thinking, testnet launch, team hooliday, road map, investors, marketing plan, team vision, details about step, new features, future prosapects. New changes and differences, team building
-            </StepAccordion>
-            <StepAccordion
-              index="3"
-              startDate="9 apr. 2024"
-              endDate="9 jun. 2024"
-            >
-              First steps, thinking, testnet launch, team hooliday, road map, investors, marketing plan, team vision, details about step, new features, future prosapects. New changes and differences, team building
-            </StepAccordion>
-            <StepAccordion
-              index="4"
-              startDate="9 apr. 2024"
-              endDate="9 jun. 2024"
-            >
-              First steps, thinking, testnet launch, team hooliday, road map, investors, marketing plan, team vision, details about step, new features, future prosapects. New changes and differences, team building
-            </StepAccordion>
+            {project.datesForProjectCard?.stepsDates.map((step, index) => (
+              <StepAccordion
+                key={index}
+                index={(index + 1).toString()}
+                startDate={new Date(step.startDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                endDate={new Date(step.endDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+              >
+                {project.steps[index].desc}
+              </StepAccordion>
+            ))}
+
           </div>
         </Tab>
-        <Tab key="voting" title="Voting">
+        {project.status === ProjectStatusEnum.STARTED && <Tab key="voting" title="Voting">
           <div className="flex flex-col w-full">
             <div className="flex items-start gap-[90px] mt-[40px]">
               <p className="text-[24px] text-[#000] font-semibold">
@@ -200,7 +183,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
               votes=""
             />
           </div>
-        </Tab>
+        </Tab>}
       </Tabs>
       <Divider />
     </>

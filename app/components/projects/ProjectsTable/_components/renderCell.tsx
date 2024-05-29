@@ -21,20 +21,15 @@ export const renderCell = (project: ProjectType, columnKey: React.Key) => {
           description={
             <div className="text-[#7D7D7D]">{project.projectName}</div>
           }
-          name={cellValue}
+          name={cellValue as string}
         />
       );
 
-    // case "seed":
-    // case "ordered":
-    // case "received":
-    // case "stepAlive":
-    // case "voting":
     case "tokenName":
     case "tokenSymbol":
     case "tokenSupply":
     case "tokenPrice":
-      return <p className="text-bold text-sm capitalize">{cellValue}</p>;
+      return <p className="text-bold text-sm capitalize">{cellValue as string}</p>;
 
     default:
       return cellValue;
