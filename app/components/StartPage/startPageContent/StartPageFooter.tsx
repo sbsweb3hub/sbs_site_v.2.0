@@ -21,7 +21,7 @@ const StartPageFooter = () => {
                         alt="twitter"
                     />
                 </Link>
-                <Link isExternal href="https://t.me/SBSweb3">
+                <Link isExternal href="https://t.me/angel_forge">
                     <Image 
                         width={36}
                         height={36}

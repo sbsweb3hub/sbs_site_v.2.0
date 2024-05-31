@@ -21,7 +21,7 @@ const Footer = () => {
                         alt="twitter"
                     />
                 </Link>
-                <Link isExternal href="https://t.me/SBSweb3">
+                <Link isExternal href="https://t.me/angel_forge">
                     <Image 
                         width={22}
                         height={22}
@@ -30,7 +30,7 @@ const Footer = () => {
                         alt="telegramm"
                     />
                 </Link>
-                <Link isExternal href="https://t.me/SBSweb3">
+                <Link isExternal href="https://sbsweb3hubs-organization.gitbook.io/light-paper">
                     <Image 
                         width={22}
                         height={22}
