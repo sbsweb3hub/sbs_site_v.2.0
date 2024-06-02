@@ -16,12 +16,16 @@ const Header = async () => {
     return (
         <header className="bg-[#000] text-white text-[18px] flex justify-between items-center h-[81px]">
             <div className="flex items-center">
-                <Image
-                    src='/forgelogo.png'
-                    alt="logo"
-                    width={90}
-                    height={90}
-                />
+                <Link
+                    href='/'
+                >
+                    <Image
+                        src='/forgelogo.png'
+                        alt="logo"
+                        width={90}
+                        height={90}
+                    />
+                </Link>
                 <div className="flex items-center ml-[0px] gap-[43px]">
                     <Link href='/app'>Home</Link>
                     <Link href='/app/projects'>Projects</Link>
