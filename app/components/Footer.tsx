@@ -11,7 +11,7 @@ import {
 const Footer = () => {
     return (
         <div className="relative flex flex-col w-[100%] justify-end items-center h-[170px] sm:h-[120px] bg-[#000] mt-[0px]">
-            <div className="flex items-center gap-[10px] right-[50%] top-[21px]">
+            <div className="flex items-center max-[500px]:w-full max-[500px]:justify-end gap-[10px] top-[21px] max-[500px]:mr-[40px]">
                 <Link isExternal href="https://twitter.com/SBSweb3Hub">
                     <Image 
                         width={20}
@@ -61,16 +61,6 @@ const Footer = () => {
                     
                 </NavbarBrand>
                 <NavbarContent justify="center" className="flex flex-col sm:flex-row gap-6">
-                    <NavbarItem>
-                        <Link 
-                            isExternal 
-                            href="https://sbsweb3hubs-organization.gitbook.io/light-paper"
-                            className="text-[24px]"
-                            color="foreground"
-                        >
-                            GitBook
-                        </Link>
-                    </NavbarItem>
                     <NavbarItem>
                         <Link
                             isDisabled 

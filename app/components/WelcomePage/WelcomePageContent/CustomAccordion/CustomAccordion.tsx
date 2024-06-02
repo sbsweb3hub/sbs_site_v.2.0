@@ -21,6 +21,7 @@ const CustomAccordion: React.FC<CustomAccordionProps> = ({label, children}) => {
                 content: 'flex justify-center min-[860px]:w-[850px] min-[500px]:w-[450px] w-[350px] text-[20px] max-[650px]:scale-[0.9]',
                 title: 'text-[32px]'
             }}
+            className="max-[500px]:my-[40px]"
         >
             <AccordionItem key="1" aria-label={label} title={label}>
                 <div className="flex text-center">

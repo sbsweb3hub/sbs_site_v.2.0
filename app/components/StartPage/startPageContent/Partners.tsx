@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import { Card, CardBody, CardFooter, Image, Link } from "@nextui-org/react";
 import { motion, useAnimation } from 'framer-motion';
 import { Waypoint } from 'react-waypoint';
 import LetterFadeInText from "./FadedText";
@@ -20,19 +20,19 @@ export default function Partners() {
   };
 
   const list = [
-    { title: "Nomis", img: "/nomis.jpeg", price: "Score" },
-    { title: "Gitcoin", img: "/gitcoin.jpeg", price: "Score" },
-    { title: "0xScore", img: "/0xScore.png", price: "Score" },
-    { title: "Chainalysis", img: "/chainalysis.svg", price: "AML" },
+    { title: "Nomis", img: "/nomis.jpeg", price: "Score", link: "https://nomis.cc/" },
+    { title: "Fintop", img: "/fintop.svg", price: "Partner", link: "https://fintop.space/" },
+   /*  { title: "0xScore", img: "/0xScore.png", price: "Score" },
+    { title: "Chainalysis", img: "/chainalysis.svg", price: "AML" }, */
   ];
 
   return (
     <>
       <div className="text-[36px] text-[#FFF] font-bold mt-[80px] mb-[40px] max-[650px]:scale-[0.85]">
-            <LetterFadeInText text="Our Scoring System"  useWaypoint={true} />
+            <LetterFadeInText text="Partners & Support"  useWaypoint={true} />
       </div>
       <Waypoint onEnter={onEnter}>
-      <div className="gap-2 grid grid-cols-2 sm:grid-cols-4">
+      <div className="flex justify-center gap-5">
         {list.map((item, index) => (
           <motion.div
             key={index}
@@ -40,8 +40,15 @@ export default function Partners() {
             initial={{ x: index % 2 === 0 ? -200 : 200, opacity: 0 }} 
             animate={controls}
           >
-            <Card shadow="sm" isPressable isHoverable onPress={() => console.log("item pressed")}>
-              <CardBody className="overflow-visible p-0">
+            <Card 
+              as={Link} 
+              href={item.link}
+              target='blank' 
+              shadow="sm" 
+              isPressable 
+              isHoverable 
+            >
+              <CardBody className="overflow-visible p-0 w-[150px]">
                 <Image
                   shadow="sm"
                   radius="lg"
