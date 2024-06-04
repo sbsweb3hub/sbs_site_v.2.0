@@ -5,9 +5,9 @@ import CustomAccordion from "./CustomAccordion/CustomAccordion";
 
 const MainVision = () => {
     return (
-        <CustomAccordion label="Main Vision">
+        <CustomAccordion label="Our Vision">
             <p>
-                Turn an idea into a finished product using the infrastructure / AngelForge.  AngelForge provides all the tools and competencies that are necessary for the implementation of each specific task.<br/><br/>  Do you have an idea? - come and implement it.  Are you a professional in your field? - come and find the perfect project for yourself. Do you have a desire to support the project? - come and become the angel of the future unicorn.
+            Transform your idea into a finished product with AngelForge. <br/>AngelForge provides all the tools and expertise needed to execute each specific task, ensuring you gain a significant market advantage.<br/><br/>Have an idea? Join us and bring it to life. Are you a professional in your field? Discover the perfect project and expand your opportunities. Want to support a project? <br/>Become the angel behind the next unicorn.
             </p>
         </CustomAccordion>
     )   
