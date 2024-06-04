@@ -89,6 +89,7 @@ export interface IProjectModel extends Document {
   status: string;
   steps: IStep[];
   datesForProjectCard?: IDatesForProjectCard;
+  onchainId?: number;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -168,6 +169,7 @@ const projectSchema = new Schema(
     steps: {
       type: [stepSchema],
     },
+    onchainId: Number,
   },
   { timestamps: true }
 );
@@ -182,14 +184,14 @@ projectSchema.virtual('datesForProjectCard').get(function () {
     return null;
   }
   let seedRoundEndDate = new Date(this.startDate);
-  seedRoundEndDate.setDate(seedRoundEndDate.getDate() + this.seedDuration + 1);
+  seedRoundEndDate.setDate(seedRoundEndDate.getDate() + this.seedDuration);
 
   const stepsDates: Array<Record<string, Date>> = [];
   let currentStartDate = new Date(seedRoundEndDate);
 
   this.steps.forEach((step) => {
     const stepStartDate = new Date(
-      currentStartDate.setDate(currentStartDate.getDate() + 1)
+      currentStartDate.setDate(currentStartDate.getDate())
     );
 
     const stepEndDate = new Date(currentStartDate);

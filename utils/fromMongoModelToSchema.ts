@@ -46,6 +46,7 @@ export function fromMongoModelToSchema(data: IProjectModel): ProjectType {
           })),
         }
       : undefined,
+    onchainId: data.onchainId,
     createdAt: data.startDate.toISOString(),
     updatedAt: data.startDate.toISOString(),
   };
