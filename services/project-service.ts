@@ -77,37 +77,6 @@ export const findProjectById = async (
   }
 };
 
-// export const findProjectById = async (id: string): Promise<ProjectType> => {
-//   'use server';
-//   try {
-//     await dbConnect();
-
-//     const project = await Project.findById(id).lean<IProjectModel>();
-//     if (!project) throw new Error('Project doesn`t exist');
-//     return fromMongoModelToSchema(project);
-//   } catch (err) {
-//     console.log(err);
-//     throw new Error('Failed to fetch project!');
-//   }
-// };
-
-// export const findProjectByIdWithDates = async (id: string) => {
-//   'use server';
-//   try {
-//     await dbConnect();
-//     const project = await Project.findById(id).exec();
-//     if (!project) throw new Error('Project doesn`t exist');
-
-//     // Преобразование документа Mongoose в объект с включением виртуальных свойств
-//     const projectWithVirtuals = project.toObject({ virtuals: true });
-
-//     return fromMongoModelToSchema(projectWithVirtuals);
-//   } catch (err) {
-//     console.log(err);
-//     throw new Error('Failed to fetch project!');
-//   }
-// };
-
 // export const addProject = async (_prevState: unknown, formData: FormData) => {
 //   'use server';
 //   const session = await getSession();
@@ -378,4 +347,20 @@ export const reviewProject = async (id: string, status: ProjectStatusEnum) => {
   }
   //@todo  - try smth else
   revalidatePath('/app/admin');
+};
+
+export const updateProjectWithOnchainData = async (
+  id: string,
+  fieldsToUpdate: Record<string, unknown>
+): Promise<void> => {
+  try {
+    await dbConnect();
+    const updatedProject = await Project.findByIdAndUpdate(id, fieldsToUpdate);
+    if (!updatedProject) {
+      throw new Error('Updating project fields with onchain data failed');
+    }
+  } catch (err) {
+    console.log(err);
+    throw new Error('Failed to update project with onchain data!');
+  }
 };

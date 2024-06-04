@@ -83,6 +83,7 @@ export const ProjectSchema = z.object({
   status: z.nativeEnum(ProjectStatusEnum),
   steps: z.array(StepSchema),
   datesForProjectCard: DatesForProjectCardSchema.optional(),
+  onchainId: z.coerce.number().optional(),
   createdAt: z.string(),
   updatedAt: z.string(),
 });

@@ -17,9 +17,15 @@ import { ProjectStatusEnum, ProjectType } from "@/types";
 import DeleteProjectButton from "../DeleteProjectButton";
 import SendReviewButton from "../SendReviewButton";
 import Link from 'next/link'
+import { useBuildProject } from "@/services/hooks/useBuildProject";
+import { useStartProject } from "@/services/hooks/useStartProject";
+import { readContract } from "@/services/onchain-service";
 
 const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: ProjectType }) => {
     const [state, formAction] = useFormState(project ? patchProject : addProject, { errors: [] });
+    const { isLoading, buildProject } = useBuildProject();
+    const { isLoadingStart, startProject } = useStartProject();
+
     return (
         <div className="light bg-[#FFF]">
             <form action={formAction} className="flex flex-col items-center">
@@ -81,13 +87,9 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                     <DevSteps disabled={disabled!} project={project!} />
                 </div>
 
-
-
-
                 {!disabled && <div className="flex justify-start w-[100%] min-[1728px]:w-[1728px] mb-[48px]">
                     <Submit />
                 </div>}
-
 
             </form>
             {(project && disabled) &&
@@ -101,10 +103,42 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                                 <DeleteProjectButton id={project.id} />
                             </>)
                         case ProjectStatusEnum.APPROVED:
+                            const stepsInSeconds = project.steps.map(step => step.duration! * 86400)
+                            const args: (string | number | bigint | number[])[] = [
+                                project.projectName,
+                                project.tokenSymbol!,
+                                BigInt(project.tokenSupply!),
+                                BigInt(project.minTokenForSeed!),
+                                BigInt(project.tokenPrice!),
+                                BigInt(project.maxTokenForSeed!),
+                                project.steps.length + 1,
+                                [project.seedDuration! * 86400, ...stepsInSeconds],
+                            ]
                             return (<>
                                 <DeleteProjectButton id={project.id} />
-                                <button className="w-[217px] h-[70px] bg-[#533A3ACC] text-[#FFF] text-[24px] rounded-[5px] font-medium ml-[117px]">Deploy</button>
-                            </>);
+                                <button
+                                    disabled={isLoading}
+                                    onClick={() => buildProject(args, project.id)}
+                                    className="w-[217px] h-[70px] bg-[#533A3ACC] 
+                                    text-[#FFF] text-[24px] rounded-[5px] font-medium ml-[117px]">
+                                    {isLoading ? 'Buildig...' : 'Build project'}</button>
+
+                            </>)
+                        case ProjectStatusEnum.DEPLOYED:
+                            return (<>
+                                <button
+                                    disabled={isLoadingStart}
+                                    onClick={() => startProject(project.onchainId!, project.id)}
+                                    className="w-[217px] h-[70px] bg-[#533A3ACC] 
+                                    text-[#FFF] text-[24px] rounded-[5px] font-medium ml-[117px]">
+                                    {isLoadingStart ? 'Starting...' : 'Start project'}</button>
+
+                            </>)
+                        case ProjectStatusEnum.STARTED:
+                            return (<>
+                                <p className="text-black">Your project is successfully started!</p>
+
+                            </>)
                         default:
                             return <>
                                 <Link href='/app/founder/patch' type="submit" className="w-[217px] h-[70px] bg-[#533A3ACC] text-[#FFF] text-[24px] rounded-[5px] font-medium ml-[117px]">
@@ -117,7 +151,6 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                 })()
             }
         </div>
-
     )
 }
 

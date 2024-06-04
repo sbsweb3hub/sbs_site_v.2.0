@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { ProjectStatusEnum } from "@/types";
 
 export default async function App() {
-
     const projects = await fetchAllProjects(
         {
             filter: {

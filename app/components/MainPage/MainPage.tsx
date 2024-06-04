@@ -17,14 +17,14 @@ const MainPage = ({ projects }: { projects: Array<ProjectType> }) => {
 
     return (
         <div className="flex flex-col items-center w-screen h-full">
-            <BlueBackgroud /> 
+            <BlueBackgroud />
             <UpLine />
-           {/*  <Logo />
+            {/*  <Logo />
             <DownLine /> */}
             <ComingSoon projects={projects} />
             <Uline />
-            <LiveProject projects={projects}/>
-            <Dline/>
+            <LiveProject projects={projects} />
+            <Dline />
             <FundedProject projects={projects} />
             <FooterLine />
         </div>
