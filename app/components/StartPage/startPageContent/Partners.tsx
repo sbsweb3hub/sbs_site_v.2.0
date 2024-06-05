@@ -22,6 +22,7 @@ export default function Partners() {
   const list = [
     { title: "Nomis", img: "/nomis.jpeg", price: "Score", link: "https://nomis.cc/" },
     { title: "Fintop", img: "/fintop.svg", price: "Partner", link: "https://fintop.space/" },
+    { title: "BitOK", img: "/bitok.svg", price: "Partner", link: "https://bitok.org/" },
    /*  { title: "0xScore", img: "/0xScore.png", price: "Score" },
     { title: "Chainalysis", img: "/chainalysis.svg", price: "AML" }, */
   ];
@@ -32,7 +33,7 @@ export default function Partners() {
             <LetterFadeInText text="Partners & Support"  useWaypoint={true} />
       </div>
       <Waypoint onEnter={onEnter}>
-      <div className="flex justify-center gap-5">
+      <div className="flex justify-center gap-5 max-[600px]:scale-[0.6]">
         {list.map((item, index) => (
           <motion.div
             key={index}

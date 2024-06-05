@@ -3,11 +3,11 @@ import CustomAccordion from "./CustomAccordion/CustomAccordion";
 import { Divider } from "@nextui-org/react";
 
 const angelContent =
-"Angels hedges their investment risks and oversees the project implementation process. They get an accurate vision of the integrity of the team, of its intention to follow exactly the set step of creating a product.";
+"Angel investors can mitigate investment risks and oversee the project implementation process. They gain a clear understanding of the team's integrity and commitment to following the established steps for product creation.";
 const creatorContent =
-"The opportunity to receive a trust from the angels. To prove your intentions and desires to implement the product. Be sure of constant financing through decentralized distribution by a smart contract.";
+"Project creators have the opportunity to earn the trust of angels by demonstrating their commitment to product development. They can rely on consistent financing through decentralized distribution via smart contracts.";
 const industryContent =
-"Improvement of the startup support sphere. We create conditions for the launch of new finished products. The more tools there are, the more competition there is, which is a guide to the best service, user-friendly interfaces and cheap products.";
+"We enhance the startup support ecosystem by creating conditions conducive to launching new, fully developed products. Increased availability of tools fosters competition, driving the development of superior services, user-friendly interfaces, and cost-effective solutions.";
 
 
 const OurUsers = () => {

@@ -5,10 +5,9 @@ const KeyBenefits = () => {
     return (
         <CustomAccordion label="Key Benefits">
             <p>
-                The roadmap of the project is divided into stages, all of which have a clear plan and schedule.<br/><br/>
-                The project financing is organised in instalments. Each of the stages is accompanied by a thorough report, which contains the actual results and achievements of the team.<br/><br/>
-                Smart contracts are used in such a way that the team is able to access the money only if they have completed the previous stage successfully.<br/>
-                Having analysed the report, investors can vote for further transactions or against them.
+                The project roadmap is segmented into distinct stages,<br/> each with a well-defined plan and schedule.<br/><br/>
+                Project financing is structured in installments. Each stage is accompanied by a comprehensive report detailing the team&apos;s actual results and achievements.<br/><br/>
+                Smart &apos contracts ensure that the team can access funds only upon successful completion of the previous stage. After reviewing the report, investors can vote to approve or deny subsequent transactions.
             </p>
         </CustomAccordion>
     )
