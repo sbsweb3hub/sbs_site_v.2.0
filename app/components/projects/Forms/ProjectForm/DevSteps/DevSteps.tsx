@@ -68,7 +68,7 @@ const DevSteps = ({ disabled, project }: { disabled?: boolean, project?: Project
                 required
                 value={count}
                 onChange={e => setCount(Number(e.target.value))}
-                className='w-[232px] h-[43px] text-[#000]'
+                className='w-[232px] h-[43px] text-[#000] border-[1px] rounded-[13px] border-[#938C8C] bg-[#F4F4F482] px-[5px]'
             >
                 <option value={3}>3</option>
                 <option value={4}>4</option>

@@ -77,7 +77,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
                             Completed :
                         </p>
                         <p className="text-[15px] text-[#FFFFFF] font-medium">
-                            {project?.startDate}
+                            {new Date(
+                                project.startDate as string
+                                ).toLocaleDateString("en-US", {
+                                day: "numeric",
+                                month: "short",
+                                year: "numeric",
+                            })}
                         </p>
                         <p className="text-[14px] text-[#FFFFFF] font-medium">
                             {/* 16:00 UTC */}
@@ -285,10 +291,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
                         Launch date :
                     </p>
                     <p className="text-[15px] text-[#FFFFFF] font-medium">
-                        {project?.startDate}
+                        {new Date(
+                            project.startDate as string
+                            ).toLocaleDateString("en-US", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                        })}
                     </p>
                     <p className="text-[14px] text-[#FFFFFF] font-medium">
-                        {/* 16:00 UTC */}
+                        {new Date(
+                            project.startDate as string
+                            ).toLocaleTimeString("en-US", {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            
+                        })}
                     </p>
                 </div>
             </div>

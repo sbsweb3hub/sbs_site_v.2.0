@@ -1,7 +1,10 @@
 'use client'
+import '@/app/components/projects/Forms/ProjectForm/Modals/index.css'
+import '@/app/components/font.css'
 import React from "react";
 import AddImage from "./AddImage/AddImage";
-import { Divider, Input } from "@nextui-org/react";
+import { Divider, Input, Button, useDisclosure, Spinner } from "@nextui-org/react";
+import CustomModal from "./Modals/CustomModal";
 import Image from "next/image";
 import BasicInfo from "./BasicInfo/BasicInfo";
 import Links from "./Links/Links";
@@ -25,6 +28,7 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
     const [state, formAction] = useFormState(project ? patchProject : addProject, { errors: [] });
     const { isLoading, buildProject } = useBuildProject();
     const { isLoadingStart, startProject } = useStartProject();
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
         <div className="light bg-[#FFF]">
@@ -96,11 +100,13 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                 (() => {
                     switch (project?.status) {
                         case ProjectStatusEnum.REVIEWING:
-                            return <p className="text-black">Pls wait while your project is reviewing!</p>;
+                            return <p className="text-black w-[100%] min-[1728px]:w-[1728px] ml-[117px] text-[18px] font-semibold">Pls wait while your project is reviewing!</p>;
                         case ProjectStatusEnum.DECLINED:
                             return (<>
-                                < p className="text-black"> We are sorry, but we cant approve your project! We have sent details to your contact email.</p >
-                                <DeleteProjectButton id={project.id} />
+                                <div className="flex flex-col gap-[15px] w-[100%] min-[1728px]:w-[1728px] ml-[117px]">
+                                    < p className="text-red-500 text-[18px] font-semibold"> We are sorry, but we cant approve your project! We have sent details to your contact email.</p >
+                                    <DeleteProjectButton id={project.id} />
+                                </div>
                             </>)
                         case ProjectStatusEnum.APPROVED:
                             const stepsInSeconds = project.steps.map(step => step.duration! * 86400)
@@ -115,37 +121,116 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                                 [project.seedDuration! * 86400, ...stepsInSeconds],
                             ]
                             return (<>
-                                <DeleteProjectButton id={project.id} />
-                                <button
-                                    disabled={isLoading}
-                                    onClick={() => buildProject(args, project.id)}
-                                    className="w-[217px] h-[70px] bg-[#533A3ACC] 
-                                    text-[#FFF] text-[24px] rounded-[5px] font-medium ml-[117px]">
-                                    {isLoading ? 'Buildig...' : 'Build project'}</button>
+                                <div className='flex justify-start items-center w-[100%] min-[1728px]:w-[1728px] ml-[117px] gap-[40px]'>
+                                    <DeleteProjectButton id={project.id} />
+                                    <Button
+                                        onPress={onOpen}
+                                        variant="light"
+                                        style={{
+                                            background: "url(/buildbutton.svg) no-repeat",
+                                            width: "318px",
+                                            height: "92.5px",
+                                            marginBottom: '48px'
+                                        }}
+
+                                    >
+                                    </Button>
+                                    <CustomModal
+                                        isOpen={isOpen}
+                                        onClose={onClose}
+                                    >
+                                        <p className="text-[32px] text-[#EDE4B5] font-bold mt-[47px]">
+                                            Create project ?
+                                        </p>
+                                        <div className="flex items-center gap-[54px] scale-85 mt-[20px]">
+                                            <button
+                                                disabled={isLoading}
+                                                onClick={() => buildProject(args, project.id)}
+                                                className="w-[148px] h-[70px] rounded-[5px] bg-[#EDE4B5] text-[24px] text-[#000] 
+                                                font-semibold hover:bg-[#D7CFA5] active:bg-[#BFB087]"
+                                            >
+                                                {isLoading ? <Spinner color='default' size='md' className='mt-[7px]' /> : 'Create'}
+                                            </button>
+                                            <Button
+                                                className="w-[148px] h-[70px] rounded-[5px] 
+                                                border-[1px] border-[#D7CFA5] bg-[#272726] text-[24px] text-[#EDE4B5] font-semibold"
+                                                onPress={onClose}
+                                            >
+                                                Cancel
+                                            </Button>
+                                        </div>
+                                    </CustomModal >
+                                </div>
 
                             </>)
                         case ProjectStatusEnum.DEPLOYED:
                             return (<>
-                                <button
-                                    disabled={isLoadingStart}
-                                    onClick={() => startProject(project.onchainId!, project.id)}
-                                    className="w-[217px] h-[70px] bg-[#533A3ACC] 
-                                    text-[#FFF] text-[24px] rounded-[5px] font-medium ml-[117px]">
-                                    {isLoadingStart ? 'Starting...' : 'Start project'}</button>
+                                <div className='flex justify-start items-center w-[100%] min-[1728px]:w-[1728px] ml-[117px]'>
+                                    <Button
+                                        onPress={onOpen}
+                                        variant="light"
+                                        style={{
+                                            background: "url(/startbutton.svg) no-repeat",
+                                            width: "318px",
+                                            height: "85px",
+                                            marginBottom: '48px'
+                                        }}
+
+                                    >
+                                    </Button>
+                                    <CustomModal
+                                        isOpen={isOpen}
+                                        onClose={onClose}
+                                    >
+                                        <p className="text-[32px] text-[#EDE4B5] font-bold mt-[47px]"> 
+                                            Launch project ? 
+                                        </p>
+                                        <div className="flex flex-col items-center gap-[25px] scale-85">
+                                            <button
+                                                disabled={isLoadingStart}
+                                                onClick={() => startProject(project.onchainId!, project.id)}
+                                                style={{
+                                                    background: "url(/start.svg) no-repeat",
+                                                    width: "261px",
+                                                    height: "70px",
+                                                }}
+                                                className="text-[24px] text-[#000] font-semibold"
+                                            >
+                                                {isLoadingStart ? <Spinner color='default' size='md' className='mt-[7px]' /> : 'LAUNCH'}
+                                            </button>
+                                            <Button
+                                                className="w-[134px] h-[41px] rounded-[5px] 
+                                                    border-[1px] border-[#D7CFA5] bg-[#272726] text-[24px] text-[#EDE4B5] font-semibold"
+                                                onPress={onClose}
+                                            >
+                                                Cancel
+                                            </Button>
+                                        </div>
+                                    </CustomModal>
+                                </div>
 
                             </>)
                         case ProjectStatusEnum.STARTED:
                             return (<>
-                                <p className="text-black">Your project is successfully started!</p>
+                                <p className="text-black w-[100%] min-[1728px]:w-[1728px] ml-[117px] text-[24px] font-semibold">Your project is successfully started!</p>
 
                             </>)
                         default:
                             return <>
-                                <Link href='/app/founder/patch' type="submit" className="w-[217px] h-[70px] bg-[#533A3ACC] text-[#FFF] text-[24px] rounded-[5px] font-medium ml-[117px]">
-                                    Edit draft
-                                </Link>
-                                <SendReviewButton id={project.id} />
-                                <DeleteProjectButton id={project.id} />
+                                <div className="flex justify-start items-center w-[100%] min-[1728px]:w-[1728px] gap-[40px]">
+                                    <Link 
+                                        href='/app/founder/patch' 
+                                        type="submit" 
+                                    >
+                                        <button className="w-[217px] h-[70px] bg-[#533A3ACC] text-[#FFF] text-[24px] 
+                                            rounded-[5px] font-medium ml-[117px] hover:bg-[#704C4C] active:bg-[#402828] mb-[48px]"
+                                        >
+                                        Edit draft
+                                        </button>
+                                    </Link>
+                                    <SendReviewButton id={project.id} />
+                                    <DeleteProjectButton id={project.id} />
+                                </div>
                             </>;
                     }
                 })()
