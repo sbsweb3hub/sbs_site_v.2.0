@@ -49,11 +49,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
         <Tab key="main" title="Main">
           <div className="flex w-full gap-40 mt-10">
             <div className="flex flex-col gap-7 relative">
-              <Input
-                label="Project’s name"
-                value={project.projectName}
-                size="m"
-              />
+
               <Input
                 label="Token’s address"
                 value={`${project.founder.slice(
@@ -70,7 +66,6 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
                 }}
               >
                 <Image src={iconCopy} width={20} height={20} alt="icon copy" />
-              </button>
               </button> */}
 
             </div>
@@ -132,7 +127,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
                 size="m"
               />
               <Input
-                label="Minimum seed, $FRST"
+                label="Min tokens for seed"
                 value={project.minTokenForSeed?.toString()}
                 size="l"
               />
@@ -144,9 +139,6 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
                 size="m"
               />
               <Input
-                label="Maximum token supply, $FRST"
-                value={project.maxTokenForSeed?.toString()}
-                size="l"
                 label="Sold tokens"
                 value='0'
                 size="s"
@@ -156,18 +148,11 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
               <Input label="Token symbol" size="m" value={project.tokenSymbol} />
 
               <Input
-                label="Ordered tokens, $FRST"
-                value={project.founder}
-                size="s"
                 label="Total token supply"
                 value={project.tokenSupply?.toString()}
                 size="l"
               />
-              <Input
-                label="Min tokens for seed"
-                value={project.minTokenForSeed?.toString()}
-                size="l"
-              />
+
             </div>
           </div>
         </Tab>
