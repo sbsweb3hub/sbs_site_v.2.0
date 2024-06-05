@@ -23,7 +23,11 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
       <div className={css.title}>
         <div className="">Project: Name </div>
         {isMainTab && (
-          <Input className={css.short} value={project.shortDescription} size="xl" />
+          <Input
+            className={css.short}
+            value={project.shortDescription}
+            size="xl"
+          />
         )}
       </div>
       <Tabs
@@ -43,46 +47,57 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
         }}
       >
         <Tab key="main" title="Main">
-
           <div className="flex w-full gap-40 mt-10">
             <div className="flex flex-col gap-7 relative">
-              <Input label="Project’s name" value={project.projectName} size="m" />
+              <Input
+                label="Project’s name"
+                value={project.projectName}
+                size="m"
+              />
               <Input
                 label="Token’s address"
-                value={project.founder}
+                value={`${project.founder.slice(
+                  0,
+                  6
+                )}...${project.founder.slice(-10)}`}
                 size="l"
                 icon
               />
               <button
                 className={css.buttonIcon}
                 onClick={async () => {
-                  await navigator.clipboard.writeText("Ox0A7f...CB77E4c2Da");
+                  await navigator.clipboard.writeText(project.founder);
                 }}
               >
                 <Image src={iconCopy} width={20} height={20} alt="icon copy" />
               </button>
-
             </div>
             <div className="flex flex-col gap-7 relative">
               <Input label="Project’s symbol" value="FRST" size="m" />
               <Input
                 label="Project’s owner"
-                value={project.founder}
+                value={`${project.founder.slice(
+                  0,
+                  6
+                )}...${project.founder.slice(-10)}`}
                 size="l"
               />
 
               <button
                 className={css.buttonIcon}
                 onClick={async () => {
-                  await navigator.clipboard.writeText("0xF687...5A846a4023");
+                  await navigator.clipboard.writeText(project.founder);
                 }}
               >
                 <Image src={iconCopy} width={20} height={20} alt="icon copy" />
               </button>
             </div>
             <div className="flex flex-col gap-7">
-              <Input label="Amount steps" value={project.steps.length.toString()} size="s" />
-
+              <Input
+                label="Amount steps"
+                value={project.steps.length.toString()}
+                size="s"
+              />
             </div>
           </div>
           <Accordion
@@ -109,39 +124,39 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
             </AccordionItem>
           </Accordion>
         </Tab>
+
         <Tab key="tokens" title="Tokens">
           <div className="flex w-full flex-wrap mb-6 gap-40 mt-10">
             <div className="flex flex-col gap-7">
-              <Input label="Token’s price, ETH" value="0.005" size="m" />
               <Input
                 label="Token’s price, ETH"
                 value={project.tokenPrice?.toString()}
                 size="m"
               />
               <Input
+                label="Minimum seed, $FRST"
+                value={project.minTokenForSeed?.toString()}
+                size="l"
+              />
+            </div>
+            <div className="flex flex-col gap-7">
+              <Input
                 label="Seed phase, $FRST"
                 value={project.seedDuration?.toString()}
                 size="m"
               />
               <Input
-                label="Ordered tokens, $FRST"
-                value={project.founder}
-                size="s"
+                label="Maximum token supply, $FRST"
+                value={project.maxTokenForSeed?.toString()}
+                size="l"
               />
             </div>
             <div className="flex flex-col gap-7">
               <Input
-                label="Token’s address"
+                label="Ordered tokens, $FRST"
                 value={project.founder}
-                size="l"
-                icon
+                size="s"
               />
-              <Input
-                label="Maximum token supply, $FRST"
-                value={project.tokenSupply?.toString()}
-                size="l"
-              />
-
             </div>
           </div>
         </Tab>
@@ -153,17 +168,29 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
               </p>
               <div className="flex items-center gap-[18px]">
                 <div className="flex flex-col">
-
                   <Input
                     label="Date"
-                    value={new Date(project.startDate as string).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                    value={new Date(
+                      project.startDate as string
+                    ).toLocaleDateString("en-US", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })}
                     size="m"
                   />
                 </div>
                 <div className="flex flex-col">
                   <Input
                     label="Time"
-                    value={new Date(project.startDate as string).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}
+                    value={new Date(
+                      project.startDate as string
+                    ).toLocaleTimeString("en-US", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      second: "2-digit",
+                      hour12: false,
+                    })}
                     size="m"
                   />
                 </div>
@@ -172,13 +199,20 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
             <div className="flex justify-between items-center w-[1044px] h-[98px] bg-[#EEEEEE] mt-[40px] ml-[8px]">
               <div className="flex items-center gap-[10px] text-[#000] text-[22px] font-semibold ml-[55px]">
                 <p>
-                  {new Date(project.startDate as string).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                  {new Date(project.startDate as string).toLocaleDateString(
+                    "en-US",
+                    { day: "numeric", month: "short", year: "numeric" }
+                  )}
                 </p>
+                <p>-</p>
                 <p>
-                  -
-                </p>
-                <p>
-                  {new Date(project.datesForProjectCard?.seedRoundEndDate as string).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                  {new Date(
+                    project.datesForProjectCard?.seedRoundEndDate as string
+                  ).toLocaleDateString("en-US", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  })}
                 </p>
               </div>
 
@@ -191,59 +225,61 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
               <StepAccordion
                 key={index}
                 index={(index + 1).toString()}
-                startDate={new Date(step.startDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
-                endDate={new Date(step.endDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                startDate={new Date(step.startDate).toLocaleDateString(
+                  "en-US",
+                  { day: "numeric", month: "short", year: "numeric" }
+                )}
+                endDate={new Date(step.endDate).toLocaleDateString("en-US", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                })}
               >
                 {project.steps[index].desc}
               </StepAccordion>
             ))}
-
           </div>
         </Tab>
-        {project.status === ProjectStatusEnum.STARTED && <Tab key="voting" title="Voting">
-
-
-
-          <div className="flex flex-col w-full">
-            <div className="flex items-start gap-[90px] mt-[40px]">
-              <p className="text-[24px] text-[#000] font-semibold">
-                Next voting:
-              </p>
-              <div className="flex items-center gap-[18px]">
-                <div className="flex flex-col">
-
-                  <Input label="Date" value="Date" size="m" />
-                </div>
-                <div className="flex flex-col">
-                  <Input label="Time" value="Time" size="m" />
-
+        {project.status === ProjectStatusEnum.STARTED && (
+          <Tab key="voting" title="Voting">
+            <div className="flex flex-col w-full">
+              <div className="flex items-start gap-[90px] mt-[40px]">
+                <p className="text-[24px] text-[#000] font-semibold">
+                  Next voting:
+                </p>
+                <div className="flex items-center gap-[18px]">
+                  <div className="flex flex-col">
+                    <Input label="Date" value="Date" size="m" />
+                  </div>
+                  <div className="flex flex-col">
+                    <Input label="Time" value="Time" size="m" />
+                  </div>
                 </div>
               </div>
+              <Voting
+                status="finished"
+                index="1"
+                startDate="20 jun. 2024"
+                endDate="20 jul. 2024"
+                votes="5"
+              />
+              <Voting
+                status="live"
+                index="2"
+                startDate="20 jul. 2024"
+                endDate="20 aug. 2024"
+                votes="5"
+              />
+              <Voting
+                status="coming"
+                index="3"
+                startDate="20 aug. 2024"
+                endDate="20 sep. 2024"
+                votes=""
+              />
             </div>
-            <Voting
-              status="finished"
-              index="1"
-              startDate="20 jun. 2024"
-              endDate="20 jul. 2024"
-              votes="5"
-            />
-            <Voting
-              status="live"
-              index="2"
-              startDate="20 jul. 2024"
-              endDate="20 aug. 2024"
-              votes="5"
-            />
-            <Voting
-              status="coming"
-              index="3"
-              startDate="20 aug. 2024"
-              endDate="20 sep. 2024"
-              votes=""
-            />
-          </div>
-
-        </Tab>}
+          </Tab>
+        )}
       </Tabs>
       <Divider />
     </div>
