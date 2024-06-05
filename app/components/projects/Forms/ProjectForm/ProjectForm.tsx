@@ -33,7 +33,7 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                 <div className="flex flex-col w-[100%] min-[1728px]:w-[1728px] mt-[-20px] mb-[85px]">
                     <div className="flex items-center gap-[30px] mb-[46px] ml-[117px]">
                         <p className="text-[48px] text-[#000] font-semibold">
-                            IDO Application Form
+                            Application Form
                         </p>
                         <Image
                             width={40}
@@ -43,7 +43,7 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                         />
                     </div>
                     <p className="text-[20px] text-[#000] ml-[117px]">
-                        <strong>Important</strong>: Blaunchpad would never request any funds upfront.<br /> Please verify all email communication as @blaunchpad.com
+                        <strong>Important</strong>: Fill in all fields carefully and clearly. The token data will be inserted into the smart contact and cannot be changed.
                     </p>
                 </div>
                 <div className="flex justify-start w-[100%] min-[1728px]:w-[1728px] mb-[48px]">

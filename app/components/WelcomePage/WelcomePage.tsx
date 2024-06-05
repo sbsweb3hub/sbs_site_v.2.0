@@ -37,7 +37,7 @@ const WelcomePage = () => {
                 <LetterFadeInText text="AngelForge" useWaypoint={false} />
             </div>
             <div className="min-[965px]:w-[959px] w-11/12 text-[32px] text-[#FFF] font-medium text-center scale-85 max-[650px]:scale-[0.7]">
-                <p>Our unbelievable platform will send your project to the moon inevitable. Just create and participate and have fun.</p>
+                <p>Our powerful platform propels your project to new heights. Create, participate, and succeed.</p>
             </div>
             <LearnMore />
             <div className="">

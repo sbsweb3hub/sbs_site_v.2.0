@@ -7,12 +7,12 @@ export const SearchInput = () => {
 
   return (
     <Input
-      isClearable
-      className="w-full sm:max-w-[60%]"
+      //isClearable
+      className="relative w-full sm:max-w-[60%] h-[50px]"
       placeholder="Search by project name, token contract address or token symbol"
-      startContent={<SearchIcon />}
+     // startContent={<SearchIcon/>}
       value={filterValue}
-      onClear={() => onClear()}
+     // onClear={() => onClear()}
       onValueChange={onSearchChange}
     />
   );
