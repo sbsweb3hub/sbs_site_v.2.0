@@ -5,7 +5,7 @@ import { useCallback, useState } from 'react';
 import {
   readNewStartDateFromChain,
   startProjectOnChain,
-} from '../onchain-service';
+} from '../onchain/onchain-service';
 import {
   changeProjectStatus,
   updateProjectWithOnchainData,

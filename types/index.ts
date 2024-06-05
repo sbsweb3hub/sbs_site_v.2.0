@@ -1,5 +1,6 @@
 /** @format */
 
+import { Abi } from 'viem';
 import { z } from 'zod';
 
 /** Projects types */
@@ -137,4 +138,18 @@ export enum AuthRoutes {
   FOUNDER_CREATE = '/app/founder/create',
   FOUNDER_PATCH = '/app/founder/patch',
   ADMIN = '/app/admin',
+}
+
+export interface IWriteContractParams {
+  address: `0x${string}`;
+  abi: Abi;
+  functionName: string;
+  args?: (string | number | bigint | number[])[];
+}
+
+export interface IReadContractParams {
+  address: `0x${string}`;
+  abi: Abi;
+  functionName: string;
+  args?: (string | number | bigint | number[])[];
 }

@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
-import { createProject } from '../onchain-service';
+import { createProject } from '../onchain/onchain-service';
 import { ProjectStatusEnum } from '@/types';
 import {
   changeProjectStatus,

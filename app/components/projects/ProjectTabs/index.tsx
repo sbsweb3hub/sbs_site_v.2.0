@@ -21,7 +21,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
   return (
     <div className={css.tabs}>
       <div className={css.title}>
-        <div className="">Project: Name </div>
+        <div className="">Project: {project.projectName} </div>
         {isMainTab && (
           <Input className={css.short} value={project.shortDescription} size="xl" />
         )}
@@ -46,39 +46,37 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
 
           <div className="flex w-full gap-40 mt-10">
             <div className="flex flex-col gap-7 relative">
-              <Input label="Project’s name" value={project.projectName} size="m" />
               <Input
                 label="Token’s address"
                 value={project.founder}
                 size="l"
                 icon
               />
-              <button
+              {/* <button
                 className={css.buttonIcon}
                 onClick={async () => {
                   await navigator.clipboard.writeText("Ox0A7f...CB77E4c2Da");
                 }}
               >
                 <Image src={iconCopy} width={20} height={20} alt="icon copy" />
-              </button>
+              </button> */}
 
             </div>
             <div className="flex flex-col gap-7 relative">
-              <Input label="Project’s symbol" value="FRST" size="m" />
               <Input
                 label="Project’s owner"
                 value={project.founder}
                 size="l"
               />
 
-              <button
+              {/* <button
                 className={css.buttonIcon}
                 onClick={async () => {
                   await navigator.clipboard.writeText("0xF687...5A846a4023");
                 }}
               >
                 <Image src={iconCopy} width={20} height={20} alt="icon copy" />
-              </button>
+              </button> */}
             </div>
             <div className="flex flex-col gap-7">
               <Input label="Amount steps" value={project.steps.length.toString()} size="s" />
@@ -101,44 +99,41 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
               aria-label="Full Description"
               title="Full Description"
             >
-              Full Description - Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Voluptate, aut? Placeat at sed distinctio. Vero
-              laborum exercitationem consectetur doloremque nobis, quas repellat
-              harum repudiandae eligendi consequatur est optio nulla
-              repellendus.
+              {project.description}
             </AccordionItem>
           </Accordion>
         </Tab>
         <Tab key="tokens" title="Tokens">
           <div className="flex w-full flex-wrap mb-6 gap-40 mt-10">
             <div className="flex flex-col gap-7">
-              <Input label="Token’s price, ETH" value="0.005" size="m" />
+              <Input label="Token’s name" value={project.tokenName} size="m" />
               <Input
-                label="Token’s price, ETH"
+                label="Token’s price, $"
                 value={project.tokenPrice?.toString()}
                 size="m"
               />
               <Input
-                label="Seed phase, $FRST"
-                value={project.seedDuration?.toString()}
+                label="Max tokens for seed"
+                value={project.maxTokenForSeed?.toString()}
                 size="m"
               />
               <Input
-                label="Ordered tokens, $FRST"
-                value={project.founder}
+                label="Sold tokens"
+                value='0'
                 size="s"
               />
             </div>
             <div className="flex flex-col gap-7">
+              <Input label="Token symbol" size="m" value={project.tokenSymbol} />
+
               <Input
-                label="Token’s address"
-                value={project.founder}
+                label="Total token supply"
+                value={project.tokenSupply?.toString()}
                 size="l"
-                icon
               />
               <Input
-                label="Maximum token supply, $FRST"
-                value={project.tokenSupply?.toString()}
+                label="Min tokens for seed"
+                value={project.minTokenForSeed?.toString()}
                 size="l"
               />
 
@@ -201,8 +196,6 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
           </div>
         </Tab>
         {project.status === ProjectStatusEnum.STARTED && <Tab key="voting" title="Voting">
-
-
 
           <div className="flex flex-col w-full">
             <div className="flex items-start gap-[90px] mt-[40px]">

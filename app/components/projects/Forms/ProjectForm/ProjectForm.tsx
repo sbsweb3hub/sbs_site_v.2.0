@@ -19,7 +19,7 @@ import SendReviewButton from "../SendReviewButton";
 import Link from 'next/link'
 import { useBuildProject } from "@/services/hooks/useBuildProject";
 import { useStartProject } from "@/services/hooks/useStartProject";
-import { readContract } from "@/services/onchain-service";
+import { readContract } from "@/services/onchain/onchain-service";
 
 const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: ProjectType }) => {
     const [state, formAction] = useFormState(project ? patchProject : addProject, { errors: [] });
