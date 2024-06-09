@@ -11,8 +11,8 @@ import { getDataFromBlastApi } from "@/services/blast-api-service";
 const Header = async () => {
     const session = await getSession()
     //@todo - make revalidate SWR
-    const { balancesByPointType } = await getDataFromBlastApi()
-    const points = parseFloat(balancesByPointType?.LIQUIDITY?.available)?.toFixed(2) ?? "n/a"
+    // const { balancesByPointType } = await getDataFromBlastApi()
+    // const points = parseFloat(balancesByPointType?.LIQUIDITY?.available)?.toFixed(2) ?? "n/a"
     return (
         <header className="bg-[#000] text-white text-[18px] flex justify-between items-center h-[81px]">
             <div className="flex items-center">
@@ -35,7 +35,9 @@ const Header = async () => {
                     }
                 </div>
             </div>
-            {session ? <DisconnectWalletButton points={points} address={session.address} /> : <ConnectWalletButton />}
+            {session ? <DisconnectWalletButton
+                points='777'
+                address={session.address} /> : <ConnectWalletButton />}
         </header>
     );
 };
