@@ -10,13 +10,13 @@ const TokenInfo = ({
   project?: ProjectType;
 }) => {
   const {
-    formData,
     isFocused,
     handleChange,
     handleFocus,
     isInvalid,
-    convertToETH,
-    convertToToken,
+    tokenPriseResult,
+    maxTokenAmountResult,
+    minTokenAmountResult,
   } = useTokenForm(project);
 
   return (
@@ -55,9 +55,7 @@ const TokenInfo = ({
           />
           <Tooltip
             color="success"
-            content={`$ ${formData.maxTokenForSeed} / ${convertToToken(
-              formData.maxTokenForSeed
-            )} ETH`}
+            content={maxTokenAmountResult}
             placement="top-end"
             isOpen={isFocused.maxTokenForSeed}
           >
@@ -74,7 +72,7 @@ const TokenInfo = ({
               color={isInvalid.maxTokenForSeed ? "danger" : "success"}
               errorMessage={
                 isInvalid.maxTokenForSeed &&
-                "Should be greater than Total token supply"
+                "Should be less than Total token supply"
               }
               min="0"
               onFocus={() => handleFocus("maxTokenForSeed", true)}
@@ -100,9 +98,9 @@ const TokenInfo = ({
           />
           <Tooltip
             color="success"
-            content={`${convertToETH(formData.tokenPrice)} ETH`}
+            content={tokenPriseResult}
             placement="top-end"
-            isOpen={isFocused.tokenPrice}
+            isOpen={isFocused.tokenPrice }
           >
             <Input
               labelPlacement="outside"
@@ -111,7 +109,7 @@ const TokenInfo = ({
               placeholder="e.g. 0.005 $"
               type="number"
               name="tokenPrice"
-              onValueChange={handleChange("tokenPrice")}
+              onValueChange={(value) => handleChange("tokenPrice")(value)}
               className="w-[360px] h-[43px] text-[#000]"
               min="0"
               isInvalid={isInvalid.tokenPrice}
@@ -125,9 +123,7 @@ const TokenInfo = ({
           </Tooltip>
           <Tooltip
             color="success"
-            content={`$ ${formData.minTokenForSeed} / ${convertToToken(
-              formData.minTokenForSeed
-            )} ETH`}
+            content={minTokenAmountResult}
             placement="top-end"
             isOpen={isFocused.minTokenForSeed}
           >

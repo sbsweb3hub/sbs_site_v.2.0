@@ -1,6 +1,14 @@
 import { useState, useMemo, useCallback } from "react";
 import { ProjectType } from "@/types";
 
+const COST_ETH = 4000;
+
+/**
+ * Кастомный хук для управления инпутами TokenInfo
+ * @param {ProjectType} initialData - Начальные данные для инициализации инпутов формы TokenInfo
+ * @returns объект, содержащий состояние формы, функции для управления состоянием и результаты вычислений
+ */
+
 export const useTokenForm = (initialData?: ProjectType) => {
   const [formData, setFormData] = useState({
     tokenSupply: initialData?.tokenSupply || 0,
@@ -32,11 +40,12 @@ export const useTokenForm = (initialData?: ProjectType) => {
     }));
   }, []);
 
+  // Мемоизированное значение, определяющее, являются ли значения формы валидными
   const isInvalid = useMemo(
     () => ({
       tokenSupply: formData.tokenSupply < 0,
       maxTokenForSeed:
-        formData.maxTokenForSeed < formData.tokenSupply ||
+        formData.maxTokenForSeed > formData.tokenSupply ||
         formData.maxTokenForSeed < 0,
       minTokenForSeed:
         formData.minTokenForSeed > formData.maxTokenForSeed ||
@@ -46,16 +55,26 @@ export const useTokenForm = (initialData?: ProjectType) => {
     [formData]
   );
 
-  const convertToETH = useCallback((value: number) => {
-    return value * 0.0001;
-  }, []);
+  const convertToETH = useCallback(() => {
+    return formData.tokenPrice / COST_ETH;
+  }, [formData.tokenPrice]);
 
-  const convertToToken = useCallback(
+  const convertTokenToDollar = useCallback(
     (value: number) => {
-      return value * formData.tokenPrice * 0.0001;
+      return value * formData.tokenPrice;
     },
     [formData.tokenPrice]
   );
+
+  const tokenPriseResult = `${convertToETH()} ETH`;
+
+  const maxTokenAmountResult = `$ ${convertTokenToDollar(
+    formData.maxTokenForSeed
+  )} / ${formData.maxTokenForSeed * convertToETH()} ETH`;
+
+  const minTokenAmountResult = `$ ${convertTokenToDollar(
+    formData.minTokenForSeed
+  )} / ${formData.minTokenForSeed * convertToETH()} ETH`;
 
   return {
     formData,
@@ -63,7 +82,8 @@ export const useTokenForm = (initialData?: ProjectType) => {
     handleChange,
     handleFocus,
     isInvalid,
-    convertToETH,
-    convertToToken,
+    tokenPriseResult,
+    maxTokenAmountResult,
+    minTokenAmountResult,
   };
 };
