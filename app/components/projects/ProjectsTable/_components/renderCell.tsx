@@ -1,6 +1,7 @@
 import React from "react";
 import { User } from "@nextui-org/react";
-import { ProjectType } from "@/types";
+import { ProjectType, ProjectStatusEnum } from "@/types";
+import { getCurrentStep } from "../_utils";
 
 export const renderCell = (project: ProjectType, columnKey: React.Key) => {
   const cellValue = project[columnKey as keyof Omit<ProjectType, 'steps'>];
@@ -19,15 +20,18 @@ export const renderCell = (project: ProjectType, columnKey: React.Key) => {
             wrapper: "ml-10",
           }}
           description={
-            <div className="text-[#7D7D7D]">{project.projectName}</div>
+            <div className="text-[#7D7D7D]">{project.tokenName}, {project.tokenSymbol}</div>
           }
-          name={cellValue as string}
+          name={project.projectName}
         />
       );
 
-    case "tokenName":
-    case "tokenSymbol":
-    case "tokenSupply":
+    case "currentStep":
+      return <p className="text-bold text-sm capitalize">{getCurrentStep(project.status)}</p>;
+    case "softcapTokens":
+      return <p className="text-bold text-sm capitalize">{project.minTokenForSeed}</p>;
+    case "hardcapTokens":
+      return <p className="text-bold text-sm capitalize">{project.maxTokenForSeed}</p>;
     case "tokenPrice":
       return <p className="text-bold text-sm capitalize">{cellValue as string}</p>;
 
