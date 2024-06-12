@@ -12,7 +12,7 @@ const Footer = () => {
     return (
         <div className="relative flex flex-col w-[100%] justify-end items-center h-[170px] sm:h-[120px] bg-[#000] mt-[0px]">
             <div className="flex items-center max-[500px]:w-full max-[500px]:justify-end gap-[10px] top-[21px] max-[500px]:mr-[40px]">
-                <Link isExternal href="https://twitter.com/SBSweb3Hub">
+                <Link isExternal href="https://twitter.com/angel_forge_">
                     <Image 
                         width={20}
                         height={20}
@@ -37,6 +37,24 @@ const Footer = () => {
                         src="/gitfooter.png"
                         radius="none"
                         alt="git"
+                    />
+                </Link>
+                <Link isExternal href="https://medium.com/@AngelForge">
+                    <Image
+                        width={22}
+                        height={22}
+                        src="/medium64.png"
+                        radius="none"
+                        alt="medium"
+                    />
+                </Link>
+                <Link isExternal href="https://www.linkedin.com/company/angelforge/">
+                    <Image
+                        width={25}
+                        height={25}
+                        src="/linkedin.png"
+                        radius="none"
+                        alt="linkedin"
                     />
                 </Link>
             </div>
