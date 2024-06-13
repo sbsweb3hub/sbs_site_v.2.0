@@ -5,6 +5,8 @@ import { ReactNode } from 'react'
 import { NextUIProvider } from '@nextui-org/react'
 import { Chakra_Petch } from "next/font/google";
 import Footer from './components/Footer'
+import { Analytics } from '@vercel/analytics/react';
+
 
 
 const chakraPetch = Chakra_Petch({
@@ -42,6 +44,7 @@ export default function RootLayout({
 
           </Providers>
         </div>
+        <Analytics/>
       </body>
     </html>
   )
