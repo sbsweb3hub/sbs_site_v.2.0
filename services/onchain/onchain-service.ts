@@ -6,21 +6,27 @@ import {
   createWalletClient,
   custom,
   publicActions,
+  parseEther,
 } from 'viem';
 
-import { createProjectAbi, projectsKeeperAbi, startFundsAbi } from './abi';
+import {
+  createProjectAbi,
+  orderingAbi,
+  projectsKeeperAbi,
+  startFundsAbi,
+} from './abi';
 import { blastSepolia } from './chains';
 
 export const walletClient = createWalletClient({
   chain: blastSepolia,
   transport: custom(window.ethereum),
 }).extend(publicActions);
-
 export const writeContract = async ({
   address,
   abi,
   functionName,
   args,
+  value,
 }: IWriteContractParams): Promise<`0x${string}` | undefined> => {
   try {
     const [account] = await walletClient.getAddresses();
@@ -32,6 +38,7 @@ export const writeContract = async ({
       functionName,
       account,
       args,
+      value,
     });
     console.log('result', request);
 
@@ -73,7 +80,6 @@ export const readContract = async ({
     throw new Error('Fail to read data from contract');
   }
 };
-
 export const readNewStartDateFromChain = async (
   id: number
 ): Promise<string> => {
@@ -91,7 +97,6 @@ export const readNewStartDateFromChain = async (
     throw new Error('Fail to read new start date from chain');
   }
 };
-
 export const createProject = async (
   args: (string | number | bigint | number[])[],
   id: string
@@ -145,5 +150,42 @@ export const startProjectOnChain = async (id: number): Promise<void> => {
   } catch (err) {
     console.log(err);
     throw new Error('Fail to start project');
+  }
+};
+export const readTokenAddressFromChain = async (
+  id: number
+): Promise<string> => {
+  try {
+    const [tokenAddress] = (await walletClient.readContract({
+      address: process.env.NEXT_PUBLIC_CONTRACT_CREATE_PROJECT as `0x${string}`,
+      abi: createProjectAbi,
+      functionName: 'projectsViewMain',
+      args: [id],
+    })) as unknown[];
+    return tokenAddress as string;
+  } catch (err) {
+    console.log(err);
+    throw new Error('Fail to read new start date from chain');
+  }
+};
+export const beAnAngel = async (id: number, value: string): Promise<void> => {
+  try {
+    console.log('value', value);
+    console.log('ParsedValue', parseEther(value));
+
+    const hash = await writeContract({
+      address: process.env.NEXT_PUBLIC_ORDERING as `0x${string}`,
+      abi: orderingAbi,
+      functionName: 'order',
+      args: [id],
+      value: parseEther(value),
+    });
+    const res = await walletClient.waitForTransactionReceipt({
+      hash: hash!,
+    });
+    console.log('res', res);
+  } catch (err) {
+    console.log(err);
+    throw new Error('Fail to create project');
   }
 };

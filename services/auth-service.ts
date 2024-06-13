@@ -96,7 +96,7 @@ export async function login({
     if (!user) {
       throw new Error('User not found');
     }
-    const message = `Welcome to Blast!\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nWallet address:\n${address.toLowerCase()}\n\nNonce:\n${
+    const message = `Welcome to AngelForge!\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nWallet address:\n${address.toLowerCase()}\n\nNonce:\n${
       user.nonce
     }`;
     const isSignatureValid = await validateSignature({

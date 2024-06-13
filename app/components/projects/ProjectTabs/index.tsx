@@ -25,7 +25,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
         {isMainTab && (
           <Input
             className={css.short}
-            value={project.shortDescription}
+            value={project.shortDescription ?? 'n/a'}
             size="xl"
           />
         )}
@@ -52,10 +52,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
 
               <Input
                 label="Token’s address"
-                value={`${project.founder.slice(
-                  0,
-                  6
-                )}...${project.founder.slice(-10)}`}
+                value={project.tokenAddress ?? 'n/a'}
                 size="l"
                 icon
               />
@@ -91,7 +88,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
             <div className="flex flex-col gap-7">
               <Input
                 label="Amount steps"
-                value={project.steps.length.toString()}
+                value={project.steps.length.toString() ?? 'n/a'}
                 size="s"
               />
             </div>
@@ -112,7 +109,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
               aria-label="Full Description"
               title="Full Description"
             >
-              {project.description}
+              {project.description ?? 'n/a'}
             </AccordionItem>
           </Accordion>
         </Tab>
@@ -120,22 +117,22 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
         <Tab key="tokens" title="Tokens">
           <div className="flex w-full flex-wrap mb-6 gap-40 mt-10">
             <div className="flex flex-col gap-7">
-              <Input label="Token’s name" value={project.tokenName} size="m" />
+              <Input label="Token’s name" value={project.tokenName ?? 'n/a'} size="m" />
               <Input
                 label="Token’s price, $"
-                value={project.tokenPrice?.toString()}
+                value={project.tokenPrice?.toString() ?? 'n/a'}
                 size="m"
               />
               <Input
                 label="Min tokens for seed"
-                value={project.minTokenForSeed?.toString()}
+                value={project.minTokenForSeed?.toString() ?? 'n/a'}
                 size="l"
               />
             </div>
             <div className="flex flex-col gap-7">
               <Input
                 label="Max tokens for seed"
-                value={project.maxTokenForSeed?.toString()}
+                value={project.maxTokenForSeed?.toString() ?? 'n/a'}
                 size="m"
               />
               <Input
@@ -145,11 +142,11 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
               />
             </div>
             <div className="flex flex-col gap-7">
-              <Input label="Token symbol" size="m" value={project.tokenSymbol} />
+              <Input label="Token symbol" size="m" value={project.tokenSymbol ?? 'n/a'} />
 
               <Input
                 label="Total token supply"
-                value={project.tokenSupply?.toString()}
+                value={project.tokenSupply?.toString() ?? 'n/a'}
                 size="l"
               />
 
@@ -172,7 +169,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
                       day: "numeric",
                       month: "short",
                       year: "numeric",
-                    })}
+                    }) ?? 'n/a'}
                     size="m"
                   />
                 </div>
@@ -186,7 +183,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
                       minute: "2-digit",
                       second: "2-digit",
                       hour12: false,
-                    })}
+                    }) ?? 'n/a'}
                     size="m"
                   />
                 </div>
@@ -198,7 +195,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
                   {new Date(project.startDate as string).toLocaleDateString(
                     "en-US",
                     { day: "numeric", month: "short", year: "numeric" }
-                  )}
+                  ) ?? 'n/a'}
                 </p>
                 <p>-</p>
                 <p>
@@ -208,7 +205,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
                     day: "numeric",
                     month: "short",
                     year: "numeric",
-                  })}
+                  }) ?? 'n/a'}
                 </p>
               </div>
 

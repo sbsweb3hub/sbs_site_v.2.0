@@ -16,7 +16,7 @@ export const ProjectHeader = (project: ProjectType) => {
   return (
     <div className={css.main}>
       <Image
-        src={project.imageUrl!}
+        src={project.imageUrl! ?? '/avatar.png'}
         width={509}
         height={266}
         alt="Picture of the author"

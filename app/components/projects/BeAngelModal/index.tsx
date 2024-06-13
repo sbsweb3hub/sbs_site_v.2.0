@@ -9,16 +9,19 @@ import { Button } from "@/app/components/Button";
 import CustomModal from "../Forms/ProjectForm/Modals/CustomModal";
 import { useProjectStore } from "../_store/store";
 import css from "./index.module.scss";
+import { beAnAngel, readNewStartDateFromChain, readTokenAddressFromChain } from "@/services/onchain/onchain-service";
 
 export const BeAngelModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isMainTab } = useProjectStore();
-  
+
   return (
     <div className={css.modal}>
       {isMainTab ? (
         <>
-          <Button className="mr-40" onClick={onOpen}>
+          <Button className="mr-40"
+            onClick={onOpen}
+          >
             BE AN ANGEL
           </Button>
           <CustomModal isOpen={isOpen} onClose={onClose}>

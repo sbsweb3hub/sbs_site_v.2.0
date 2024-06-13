@@ -63,6 +63,7 @@ export const ProjectSchema = z.object({
     .min(1, 'Token name is required')
     .max(10, 'Token name is too long, it should be less than 10 digits')
     .optional(),
+  tokenAddress: z.string().optional(),
   tokenSymbol: z
     .string()
     .min(1, 'Token symbol is required')
@@ -145,6 +146,7 @@ export interface IWriteContractParams {
   abi: Abi;
   functionName: string;
   args?: (string | number | bigint | number[])[];
+  value?: bigint;
 }
 
 export interface IReadContractParams {

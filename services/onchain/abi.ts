@@ -221,3 +221,18 @@ export const projectsKeeperAbi = [
     type: 'function',
   },
 ] as const;
+export const orderingAbi = [
+  {
+    inputs: [
+      {
+        internalType: 'uint32',
+        name: '_projectId',
+        type: 'uint32',
+      },
+    ],
+    name: 'order',
+    outputs: [],
+    stateMutability: 'payable',
+    type: 'function',
+  },
+] as const;
