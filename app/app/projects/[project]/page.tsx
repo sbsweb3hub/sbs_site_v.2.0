@@ -17,7 +17,6 @@ export default async function Project({
   const project = await findProjectById(
     params.project, true
   );
-
   // @todo - what is the best approach to handle errors(notFound or Error)
   if (!project) notFound();
 

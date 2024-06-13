@@ -23,6 +23,7 @@ import Link from 'next/link'
 import { useBuildProject } from "@/services/hooks/useBuildProject";
 import { useStartProject } from "@/services/hooks/useStartProject";
 import { readContract } from "@/services/onchain/onchain-service";
+import { toBigIntWithDecimals } from '@/utils/toBigIntWithDecimals';
 
 const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: ProjectType }) => {
     const [state, formAction] = useFormState(project ? patchProject : addProject, { errors: [] });
@@ -113,10 +114,10 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                             const args: (string | number | bigint | number[])[] = [
                                 project.projectName,
                                 project.tokenSymbol!,
-                                BigInt(project.tokenSupply!),
-                                BigInt(project.minTokenForSeed!),
-                                BigInt(project.tokenPrice!),
-                                BigInt(project.maxTokenForSeed!),
+                                toBigIntWithDecimals(project.tokenSupply, 18),
+                                toBigIntWithDecimals(project.minTokenForSeed, 18),
+                                toBigIntWithDecimals(project.tokenPrice, 18),
+                                toBigIntWithDecimals(project.maxTokenForSeed, 18),
                                 project.steps.length + 1,
                                 [project.seedDuration! * 86400, ...stepsInSeconds],
                             ]
@@ -182,8 +183,8 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                                         isOpen={isOpen}
                                         onClose={onClose}
                                     >
-                                        <p className="text-[32px] text-[#EDE4B5] font-bold mt-[47px]"> 
-                                            Launch project ? 
+                                        <p className="text-[32px] text-[#EDE4B5] font-bold mt-[47px]">
+                                            Launch project ?
                                         </p>
                                         <div className="flex flex-col items-center gap-[25px] scale-85">
                                             <button
@@ -218,14 +219,14 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                         default:
                             return <>
                                 <div className="flex justify-start items-center w-[100%] min-[1728px]:w-[1728px] gap-[40px]">
-                                    <Link 
-                                        href='/app/founder/patch' 
-                                        type="submit" 
+                                    <Link
+                                        href='/app/founder/patch'
+                                        type="submit"
                                     >
                                         <button className="w-[217px] h-[70px] bg-[#533A3ACC] text-[#FFF] text-[24px] 
                                             rounded-[5px] font-medium ml-[117px] hover:bg-[#704C4C] active:bg-[#402828] mb-[48px]"
                                         >
-                                        Edit draft
+                                            Edit draft
                                         </button>
                                     </Link>
                                     <SendReviewButton id={project.id} />

@@ -25,6 +25,7 @@ export function fromMongoModelToSchema(data: IProjectModel): ProjectType {
     team: data.team,
     teamDescription: data.teamDescription,
     tokenName: data.tokenName,
+    tokenAddress: data.tokenAddress,
     tokenSymbol: data.tokenSymbol,
     tokenSupply: data.tokenSupply,
     tokenPrice: data.tokenPrice,

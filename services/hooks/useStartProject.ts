@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import {
   readNewStartDateFromChain,
+  readTokenAddressFromChain,
   startProjectOnChain,
 } from '../onchain/onchain-service';
 import {
@@ -23,8 +24,12 @@ export const useStartProject = () => {
         console.log('onchainId', onchainId);
         await startProjectOnChain(onchainId);
         const newStartDate = await readNewStartDateFromChain(onchainId);
+        const tokenAddress = await readTokenAddressFromChain(onchainId);
         await Promise.all([
-          updateProjectWithOnchainData(id, { startDate: newStartDate }),
+          updateProjectWithOnchainData(id, {
+            startDate: newStartDate,
+            tokenAddress,
+          }),
           changeProjectStatus(id, ProjectStatusEnum.STARTED),
         ]);
         router.refresh();

@@ -83,6 +83,7 @@ export interface IProjectModel extends Document {
   tokenSymbol: string;
   tokenSupply: number;
   tokenPrice: number;
+  tokenAddress: string;
   maxTokenForSeed: number;
   minTokenForSeed: number;
   seedDuration: number;
@@ -152,6 +153,7 @@ const projectSchema = new Schema(
     tokenPrice: {
       type: Number,
     },
+    tokenAddress: String,
     maxTokenForSeed: {
       type: Number,
     },

@@ -16,7 +16,7 @@ export default function useWalletConnect() {
         accounts: [address],
       } = await connectAsync({ connector: injected() });
       const { nonce } = await getNonce(address);
-      const message = `Welcome to Blast!\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nWallet address:\n${address.toLowerCase()}\n\nNonce:\n${nonce}`;
+      const message = `Welcome to AngelForge!\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nWallet address:\n${address.toLowerCase()}\n\nNonce:\n${nonce}`;
       const signature = await signMessageAsync({ message });
       await login({ address, signature });
       router.refresh();
