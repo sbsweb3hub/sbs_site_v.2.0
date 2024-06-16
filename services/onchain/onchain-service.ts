@@ -7,16 +7,26 @@ import {
   custom,
   publicActions,
   parseEther,
+  createPublicClient,
+  http,
+  formatEther,
 } from 'viem';
 
 import {
+  claimingAbi,
   createProjectAbi,
+  getFundForProjectAbi,
   orderingAbi,
   projectsKeeperAbi,
   startFundsAbi,
+  votingAbi,
 } from './abi';
 import { blastSepolia } from './chains';
 
+const publicClient = createPublicClient({
+  chain: blastSepolia,
+  transport: http(),
+});
 export const walletClient = createWalletClient({
   chain: blastSepolia,
   transport: custom(window.ethereum),
@@ -170,9 +180,6 @@ export const readTokenAddressFromChain = async (
 };
 export const beAnAngel = async (id: number, value: string): Promise<void> => {
   try {
-    console.log('value', value);
-    console.log('ParsedValue', parseEther(value));
-
     const hash = await writeContract({
       address: process.env.NEXT_PUBLIC_ORDERING as `0x${string}`,
       abi: orderingAbi,
@@ -183,9 +190,107 @@ export const beAnAngel = async (id: number, value: string): Promise<void> => {
     const res = await walletClient.waitForTransactionReceipt({
       hash: hash!,
     });
-    console.log('res', res);
   } catch (err) {
     console.log(err);
-    throw new Error('Fail to create project');
+    throw new Error('Fail to become an angel');
+  }
+};
+export const getDataForProgressBar = async (
+  id: number
+): Promise<Record<string, string>> => {
+  try {
+    const data = await publicClient.readContract({
+      address: process.env.NEXT_PUBLIC_CONTRACT_CREATE_PROJECT as `0x${string}`,
+      abi: createProjectAbi,
+      functionName: 'projectsViewPrice',
+      args: [id],
+    });
+    const bigIntArray = data as bigint[];
+    const totalSupply = formatEther(bigIntArray[0]);
+    const raised = formatEther(bigIntArray[bigIntArray.length - 1]);
+    return { totalSupply, raised };
+  } catch (err) {
+    console.log(err);
+    throw new Error('Fail to get data for progress bar');
+  }
+};
+export const getTranсhe = async (id: number): Promise<void> => {
+  try {
+    const hash = await writeContract({
+      address: process.env.NEXT_PUBLIC_GET_FUND_FOR_PROJECT as `0x${string}`,
+      abi: getFundForProjectAbi,
+      functionName: 'getNextFund',
+      args: [id],
+    });
+    const res = await walletClient.waitForTransactionReceipt({
+      hash: hash!,
+    });
+  } catch (err) {
+    console.log(err);
+    throw new Error('Fail to get tranche');
+  }
+};
+export const claimTokens = async (id: number): Promise<void> => {
+  try {
+    const hash = await writeContract({
+      address: process.env.NEXT_PUBLIC_CLAIMING as `0x${string}`,
+      abi: claimingAbi,
+      functionName: 'claimTokens',
+      args: [id],
+    });
+    const res = await walletClient.waitForTransactionReceipt({
+      hash: hash!,
+    });
+  } catch (err) {
+    console.log(err);
+    throw new Error('Fail to claim tokens');
+  }
+};
+export const refundEth = async (id: number): Promise<void> => {
+  try {
+    const hash = await writeContract({
+      address: process.env.NEXT_PUBLIC_ORDERING as `0x${string}`,
+      abi: orderingAbi,
+      functionName: 'refundUsers',
+      args: [id],
+    });
+    const res = await walletClient.waitForTransactionReceipt({
+      hash: hash!,
+    });
+  } catch (err) {
+    console.log(err);
+    throw new Error('Fail to refund eth');
+  }
+};
+export const negativeVote = async (id: number): Promise<void> => {
+  try {
+    const hash = await writeContract({
+      address: process.env.NEXT_PUBLIC_VOTING as `0x${string}`,
+      abi: votingAbi,
+      functionName: 'vote',
+      args: [id],
+    });
+    const res = await walletClient.waitForTransactionReceipt({
+      hash: hash!,
+    });
+  } catch (err) {
+    console.log(err);
+    throw new Error('Fail to make negative vote');
+  }
+};
+export const claimAllProjectTokens = async (id: number): Promise<void> => {
+  try {
+    const hash = await writeContract({
+      address: process.env.NEXT_PUBLIC_GET_FUND_FOR_PROJECT as `0x${string}`,
+      abi: getFundForProjectAbi,
+      functionName: 'getAllProjectTokens',
+      args: [id],
+    });
+    const res = await walletClient.waitForTransactionReceipt({
+      hash: hash!,
+    });
+  } catch (err) {
+    console.log(err);
+    throw new Error('Fail to claim all tokens');
   }
 };

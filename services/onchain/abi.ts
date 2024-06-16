@@ -26,6 +26,60 @@ export const createProjectAbi: Abi = [
         type: 'uint32',
       },
     ],
+    name: 'projectsViewPrice',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint32',
+        name: 'projectId',
+        type: 'uint32',
+      },
+    ],
     name: 'projectsViewSteps',
     outputs: [
       {
@@ -200,7 +254,7 @@ export const createProjectAbi: Abi = [
     type: 'function',
   },
 ] as const;
-export const projectsKeeperAbi = [
+export const projectsKeeperAbi: Abi = [
   {
     inputs: [
       {
@@ -221,7 +275,7 @@ export const projectsKeeperAbi = [
     type: 'function',
   },
 ] as const;
-export const orderingAbi = [
+export const orderingAbi: Abi = [
   {
     inputs: [
       {
@@ -233,6 +287,77 @@ export const orderingAbi = [
     name: 'order',
     outputs: [],
     stateMutability: 'payable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint32',
+        name: '_projectId',
+        type: 'uint32',
+      },
+    ],
+    name: 'refundUsers',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+] as const;
+export const getFundForProjectAbi: Abi = [
+  {
+    inputs: [
+      {
+        internalType: 'uint32',
+        name: '_projectId',
+        type: 'uint32',
+      },
+    ],
+    name: 'getNextFund',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint32',
+        name: '_projectId',
+        type: 'uint32',
+      },
+    ],
+    name: 'getAllProjectTokens',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+] as const;
+export const claimingAbi: Abi = [
+  {
+    inputs: [
+      {
+        internalType: 'uint32',
+        name: '_projectId',
+        type: 'uint32',
+      },
+    ],
+    name: 'claimTokens',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+] as const;
+export const votingAbi: Abi = [
+  {
+    inputs: [
+      {
+        internalType: 'uint32',
+        name: '_projectId',
+        type: 'uint32',
+      },
+    ],
+    name: 'vote',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function',
   },
 ] as const;
