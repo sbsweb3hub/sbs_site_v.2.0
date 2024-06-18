@@ -255,6 +255,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
                 startDate="20 jun. 2024"
                 endDate="20 jul. 2024"
                 votes="5"
+                onChainId={project.onchainId}
               />
               <Voting
                 status="live"
@@ -262,6 +263,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
                 startDate="20 jul. 2024"
                 endDate="20 aug. 2024"
                 votes="5"
+                onChainId={project.onchainId}
               />
               <Voting
                 status="coming"
@@ -269,6 +271,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
                 startDate="20 aug. 2024"
                 endDate="20 sep. 2024"
                 votes=""
+                onChainId={project.onchainId}
               />
             </div>
           </Tab>
