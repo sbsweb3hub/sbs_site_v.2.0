@@ -24,12 +24,41 @@ import { useBuildProject } from "@/services/hooks/useBuildProject";
 import { useStartProject } from "@/services/hooks/useStartProject";
 import { readContract } from "@/services/onchain/onchain-service";
 import { toBigIntWithDecimals } from '@/utils/toBigIntWithDecimals';
+import { getTranсhe, claimAllProjectTokens } from '@/services/onchain/onchain-service';
 
 const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: ProjectType }) => {
     const [state, formAction] = useFormState(project ? patchProject : addProject, { errors: [] });
     const { isLoading, buildProject } = useBuildProject();
     const { isLoadingStart, startProject } = useStartProject();
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const handleTranche = async () => {
+        if (project?.onchainId !== undefined) {
+          try {
+            await getTranсhe(project.onchainId);
+            // Дополнительные действия после успешного вызова, если нужно
+          } catch (err) {
+            console.error("Failed to get tranche", err);
+          }
+          onClose();
+        } else {
+          console.error("onChainId is undefined");
+        }
+    };
+
+    const handleClaimAll = async () => {
+        if (project?.onchainId !== undefined) {
+          try {
+            await claimAllProjectTokens(project.onchainId);
+            // Дополнительные действия после успешного вызова, если нужно
+          } catch (err) {
+            console.error("Failed to claim all tokens:", err);
+          }
+          onClose();
+        } else {
+          console.error("onChainId is undefined");
+        }
+    };
 
     return (
         <div className="light bg-[#FFF]">
@@ -214,7 +243,12 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                         case ProjectStatusEnum.STARTED:
                             return (<>
                                 <p className="text-black w-[100%] min-[1728px]:w-[1728px] ml-[117px] text-[24px] font-semibold">Your project is successfully started!</p>
-
+                                <button onClick={handleTranche} className='w-[100px] h-[20px] bg-white text-black'>
+                                    getTranche
+                                </button>
+                                <button onClick={handleClaimAll} className='w-[100px] h-[20px] bg-white text-black'>
+                                    claim all
+                                </button>
                             </>)
                         default:
                             return <>

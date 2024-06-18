@@ -3,7 +3,7 @@ import '@/app/components/WelcomePage/WelcomePageContent/index.css'
 import React from "react";
 import { Chip, Button, useDisclosure } from "@nextui-org/react";
 import CustomModal from "../../Forms/ProjectForm/Modals/CustomModal";
-
+import { negativeVote } from '@/services/onchain/onchain-service';
 
 interface VotingCardProps {
     status: 'live' | 'finished' | 'coming'
@@ -11,11 +11,27 @@ interface VotingCardProps {
     startDate: string
     endDate: string
     votes: string
+    onChainId: number | undefined
 }
 
-const Voting: React.FC<VotingCardProps> = ({status, index, startDate, endDate, votes}) => {
+const Voting: React.FC<VotingCardProps> = ({status, index, startDate, endDate, votes, onChainId}) => {
     
     const {isOpen, onOpen, onClose} = useDisclosure();
+    const validId = onChainId ?? 0
+
+    const handleVote = async () => {
+        if (validId !== undefined) {
+          try {
+            await negativeVote(validId);
+            // Дополнительные действия после успешного вызова, если нужно
+          } catch (err) {
+            console.error("Failed to vote", err);
+          }
+          onClose();
+        } else {
+          console.error("onChainId is undefined");
+        }
+      }
 
     if (status === 'finished') {
         return (
@@ -145,6 +161,7 @@ const Voting: React.FC<VotingCardProps> = ({status, index, startDate, endDate, v
                             </Button>
                             <Button
                                 className='svg-button text-lg font-semibold scale-[0.6]'
+                                onPress={handleVote}
                             >
                                 I want to Vote
                             </Button>

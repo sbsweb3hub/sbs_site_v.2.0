@@ -1,4 +1,5 @@
 "use client";
+import React, {useState} from "react";
 import {
   ModalHeader,
   ModalBody,
@@ -9,16 +10,87 @@ import { Button } from "@/app/components/Button";
 import CustomModal from "../Forms/ProjectForm/Modals/CustomModal";
 import { useProjectStore } from "../_store/store";
 import css from "./index.module.scss";
-import { beAnAngel, readNewStartDateFromChain, readTokenAddressFromChain } from "@/services/onchain/onchain-service";
+import { beAnAngel, readNewStartDateFromChain, readTokenAddressFromChain, getDataForProgressBar, claimTokens, refundEth } from "@/services/onchain/onchain-service";
 
-export const BeAngelModal = () => {
+interface BeAngelModalProps {
+  onChainId: number | undefined,
+  symbol: string | undefined
+}
+
+
+export const BeAngelModal: React.FC<BeAngelModalProps> = ({onChainId, symbol}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isMainTab } = useProjectStore();
+  const [ethValue, setEthValue] = useState<string>("");
+
+  const handleEthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEthValue(e.target.value);
+  };
+
+  const tokenSymbol = symbol ?? 'n/a'
+  const validId = onChainId ?? 0
+
+  const handlePrice = async () => {
+    
+    if (validId !== undefined) {
+      try {
+        console.log(getDataForProgressBar(validId))
+        // Дополнительные действия после успешного вызова, если нужно
+      } catch (err) {
+        console.error("Failed to become an angel:", err);
+      }
+    }
+  }
+  
+  const handleBeAnAngel = async () => {
+    if (validId !== undefined) {
+      try {
+        await beAnAngel(validId, ethValue);
+        // Дополнительные действия после успешного вызова, если нужно
+      } catch (err) {
+        console.error("Failed to become an angel:", err);
+      }
+      onClose();
+    } else {
+      console.error("onChainId is undefined");
+    }
+  };
+
+  const handelClaim = async () => {
+    if (validId !== undefined) {
+      try {
+        await claimTokens(validId);
+        // Дополнительные действия после успешного вызова, если нужно
+      } catch (err) {
+        console.error("Failed to claim", err);
+      }
+      onClose();
+    } else {
+      console.error("onChainId is undefined");
+    }
+  }
+
+  const handleRefund = async () => {
+    if (validId !== undefined) {
+      try {
+        await refundEth(validId);
+        // Дополнительные действия после успешного вызова, если нужно
+      } catch (err) {
+        console.error("Failed to refund", err);
+      }
+      onClose();
+    } else {
+      console.error("onChainId is undefined");
+    }
+  }
 
   return (
     <div className={css.modal}>
       {isMainTab ? (
         <>
+          <button onClick={handlePrice} className="w-[100px] h-[50px] bg-white text-black">
+            check price
+          </button>
           <Button className="mr-40"
             onClick={onOpen}
           >
@@ -36,6 +108,8 @@ export const BeAngelModal = () => {
                     id="eth"
                     type="text"
                     className={css.inputEth}
+                    value={ethValue}
+                    onChange={handleEthChange}
                   />
                   <label htmlFor="eth" className={css.labelEth}>
                     ETH
@@ -44,7 +118,7 @@ export const BeAngelModal = () => {
                 <div>
                   <input id="frst" type="text" className={css.inputFrst} />
                   <label htmlFor="frst" className={css.labelFrst}>
-                    $FRST
+                    {tokenSymbol}
                   </label>
                 </div>
               </ModalBody>
@@ -52,7 +126,7 @@ export const BeAngelModal = () => {
                 <Button size="xs" onClick={onClose}>
                   later
                 </Button>
-                <Button size="s" className="ml-4" onClick={onClose}>
+                <Button size="s" className="ml-4" onClick={handleBeAnAngel}>
                   Let’s DO it
                 </Button>
               </ModalFooter>
@@ -65,7 +139,7 @@ export const BeAngelModal = () => {
             <Button size="s" onClick={onOpen}>
               CLAIM TOKENS
             </Button>
-            <Button disabled={true} size="s" className="ml-14">
+            <Button disabled={false} size="s" className="ml-14" onClick={handleRefund}>
               REFUND ETH
             </Button>
           </div>
@@ -92,7 +166,7 @@ export const BeAngelModal = () => {
                 <Button size="xs" onClick={onClose}>
                   later
                 </Button>
-                <Button size="s" className="ml-4" onClick={onClose}>
+                <Button size="s" className="ml-4" onClick={handelClaim}>
                   Yes, i need my tokens
                 </Button>
               </ModalFooter>
