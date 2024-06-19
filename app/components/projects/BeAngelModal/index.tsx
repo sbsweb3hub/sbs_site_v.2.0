@@ -1,7 +1,7 @@
 "use client";
-import React, {useState, useEffect} from "react";
-import { ToastContainer, toast, ToastOptions } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState, useEffect } from "react";
+import { ToastContainer, toast, ToastOptions } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { z } from "zod";
 import {
   ModalHeader,
@@ -13,33 +13,44 @@ import { Button } from "@/app/components/Button";
 import CustomModal from "../Forms/ProjectForm/Modals/CustomModal";
 import { useProjectStore } from "../_store/store";
 import css from "./index.module.scss";
-import { beAnAngel, readNewStartDateFromChain, readTokenAddressFromChain, getDataForProgressBar, claimTokens, refundEth } from "@/services/onchain/onchain-service";
+import {
+  beAnAngel,
+  readNewStartDateFromChain,
+  readTokenAddressFromChain,
+  getDataForProgressBar,
+  claimTokens,
+  refundEth,
+} from "@/services/onchain/onchain-service";
 
 interface BeAngelModalProps {
-  onChainId: number | undefined,
-  symbol: string | undefined,
-  tokenPrice: number | undefined
+  onChainId: number | undefined;
+  symbol: string | undefined;
+  tokenPrice: number | undefined;
 }
 
-const ethSchema = z.number().min(0.001, { message: "Minimum amount is 0.001 ETH" });
+const ethSchema = z
+  .number()
+  .min(0.001, { message: "Minimum amount is 0.001 ETH" });
 
-export const BeAngelModal: React.FC<BeAngelModalProps> = ({onChainId, symbol, tokenPrice}) => {
+export const BeAngelModal: React.FC<BeAngelModalProps> = ({
+  onChainId,
+  symbol,
+  tokenPrice,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isMainTab } = useProjectStore();
   const [ethValue, setEthValue] = useState<string>("");
   const [tokenAmount, setTokenAmount] = useState<string>("");
   const [error, setError] = useState<string>("");
 
-
-
-  const tokenSymbol = symbol ?? 'n/a'
-  const validId = onChainId ?? 0
-  const price = tokenPrice ?? 0
+  const tokenSymbol = symbol ?? "n/a";
+  const validId = onChainId ?? 0;
+  const price = tokenPrice ?? 0;
 
   const toastOptions: ToastOptions = {
     style: {
       backgroundColor: "#272726",
-      color: "#FFF", 
+      color: "#FFF",
     },
     progressStyle: {
       backgroundColor: "#FCFC03",
@@ -73,7 +84,7 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({onChainId, symbol, to
       }
     }
   }, [ethValue, price]);
- 
+
   const handleBeAnAngel = async () => {
     if (validId !== undefined) {
       try {
@@ -81,7 +92,10 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({onChainId, symbol, to
         toast.success("Transaction successful!", toastOptions);
       } catch (err) {
         console.error("Failed to become an angel:", err);
-        toast.error("Failed to become an angel. Please try again.", toastOptions);
+        toast.error(
+          "Failed to become an angel. Please try again.",
+          toastOptions
+        );
       }
       onClose();
     } else {
@@ -102,7 +116,7 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({onChainId, symbol, to
     } else {
       console.error("onChainId is undefined");
     }
-  }
+  };
 
   const handleRefund = async () => {
     if (validId !== undefined) {
@@ -116,16 +130,14 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({onChainId, symbol, to
     } else {
       console.error("onChainId is undefined");
     }
-  }
+  };
 
   return (
     <div className={css.modal}>
-      <ToastContainer/>
+      <ToastContainer />
       {isMainTab ? (
         <>
-          <Button className="mr-40"
-            onClick={onOpen}
-          >
+          <Button className="mr-40" onClick={onOpen}>
             BE AN ANGEL
           </Button>
           <CustomModal isOpen={isOpen} onClose={onClose}>
@@ -143,22 +155,21 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({onChainId, symbol, to
                     value={ethValue}
                     onChange={handleEthChange}
                     style={{
-                      padding: '0 0 0 10px'
+                      padding: "0 0 0 10px",
                     }}
                   />
                   <label htmlFor="eth" className={css.labelEth}>
                     ETH
                   </label>
                 </div>
-                {error && <div className='text-xs text-red-500'>{error}</div>}
+                {error && <div className="text-xs text-red-500">{error}</div>}
                 <div>
-                  <input 
-                    id="frst" 
-                    type="text" 
+                  <input
+                    id="frst"
+                    type="text"
                     className={css.inputFrst}
                     readOnly
-                    value={tokenAmount} 
-                  
+                    value={tokenAmount}
                   />
                   <label htmlFor="frst" className={css.labelFrst}>
                     {tokenSymbol}
@@ -166,10 +177,14 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({onChainId, symbol, to
                 </div>
               </ModalBody>
               <ModalFooter className={css.modalFooter}>
-                <Button size="xs" onClick={onClose} className="bg-[#272726]">
+                <Button size="xs" onClick={onClose} className={css.btnLater}>
                   later
                 </Button>
-                <Button size="s" className="ml-2 scale-85" onClick={handleBeAnAngel}>
+                <Button
+                  size="s"
+                  className="ml-2 scale-85"
+                  onClick={handleBeAnAngel}
+                >
                   Let’s DO it
                 </Button>
               </ModalFooter>
@@ -182,7 +197,12 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({onChainId, symbol, to
             <Button size="s" onClick={onOpen}>
               CLAIM TOKENS
             </Button>
-            <Button disabled={false} size="s" className="ml-14" onClick={handleRefund}>
+            <Button
+              disabled={false}
+              size="s"
+              className="ml-14"
+              onClick={handleRefund}
+            >
               REFUND ETH
             </Button>
           </div>
@@ -206,7 +226,7 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({onChainId, symbol, to
                 </div>
               </ModalBody>
               <ModalFooter className={css.modalFooter}>
-                <Button size="xs" onClick={onClose}>
+                <Button size="xs" onClick={onClose} className={css.btnLater}>
                   later
                 </Button>
                 <Button size="s" className="ml-4" onClick={handelClaim}>
