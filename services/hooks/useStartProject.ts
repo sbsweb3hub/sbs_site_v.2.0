@@ -1,5 +1,6 @@
 /** @format */
 
+import { toast, ToastOptions } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import {
@@ -16,6 +17,16 @@ import { ProjectStatusEnum } from '@/types';
 export const useStartProject = () => {
   const router = useRouter();
   const [isLoadingStart, setLoading] = useState(false);
+
+  const toastOptions: ToastOptions = {
+    style: {
+      backgroundColor: "#272726",
+      color: "#FFF", 
+    },
+    progressStyle: {
+      backgroundColor: "#FCFC03",
+    },
+  };
 
   const startProject = useCallback(
     async (onchainId: number, id: string) => {
@@ -34,9 +45,11 @@ export const useStartProject = () => {
         ]);
         router.refresh();
         setLoading(false);
+        toast.success("Start successful!", toastOptions);
       } catch (err) {
         console.error(err);
         setLoading(false);
+        toast.error("Failed to start project", toastOptions)
       }
     },
     [router]

@@ -25,7 +25,7 @@ export default async function Project({
       <div className="line">
         <Background />
         <ProjectHeader {...project} />
-        {project.status === ProjectStatusEnum.STARTED && <BeAngelModal onChainId={project.onchainId} symbol={project.tokenSymbol} />}
+        {project.status === ProjectStatusEnum.STARTED && <BeAngelModal onChainId={project.onchainId} symbol={project.tokenSymbol} tokenPrice={project.tokenPrice} />}
       </div>
 
 

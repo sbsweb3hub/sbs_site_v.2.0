@@ -4,6 +4,8 @@ import React from "react";
 import { Chip, Button, useDisclosure } from "@nextui-org/react";
 import CustomModal from "../../Forms/ProjectForm/Modals/CustomModal";
 import { negativeVote } from '@/services/onchain/onchain-service';
+import { ToastContainer, toast, ToastOptions } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface VotingCardProps {
     status: 'live' | 'finished' | 'coming'
@@ -19,13 +21,24 @@ const Voting: React.FC<VotingCardProps> = ({status, index, startDate, endDate, v
     const {isOpen, onOpen, onClose} = useDisclosure();
     const validId = onChainId ?? 0
 
+    const toastOptions: ToastOptions = {
+        style: {
+          backgroundColor: "#272726",
+          color: "#FFF", 
+        },
+        progressStyle: {
+          backgroundColor: "#FCFC03",
+        },
+      };
+
     const handleVote = async () => {
         if (validId !== undefined) {
           try {
             await negativeVote(validId);
-            // Дополнительные действия после успешного вызова, если нужно
+            toast.success("Vote successful!", toastOptions);
           } catch (err) {
             console.error("Failed to vote", err);
+            toast.error("Vote failed!", toastOptions);
           }
           onClose();
         } else {
@@ -36,6 +49,7 @@ const Voting: React.FC<VotingCardProps> = ({status, index, startDate, endDate, v
     if (status === 'finished') {
         return (
             <>
+                <ToastContainer/>
                 <div className="flex items-center gap-[150px] w-[1175px] h-[103px] bg-[#E5E5E599] rounded-[3px] mt-[70px]">
                     <div className="flex items-end gap-[30px] ml-[20px]">
                         <p className="text-[22px] text-[#000] font-semibold">

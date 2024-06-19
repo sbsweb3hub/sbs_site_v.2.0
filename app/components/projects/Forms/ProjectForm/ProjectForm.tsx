@@ -25,6 +25,8 @@ import { useStartProject } from "@/services/hooks/useStartProject";
 import { readContract } from "@/services/onchain/onchain-service";
 import { toBigIntWithDecimals } from '@/utils/toBigIntWithDecimals';
 import { getTranсhe, claimAllProjectTokens } from '@/services/onchain/onchain-service';
+import { ToastContainer, toast, ToastOptions } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: ProjectType }) => {
     const [state, formAction] = useFormState(project ? patchProject : addProject, { errors: [] });
@@ -32,15 +34,25 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
     const { isLoadingStart, startProject } = useStartProject();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
+    const toastOptions: ToastOptions = {
+        style: {
+          backgroundColor: "#272726",
+          color: "#FFF", 
+        },
+        progressStyle: {
+          backgroundColor: "#FCFC03",
+        },
+      };
+
     const handleTranche = async () => {
         if (project?.onchainId !== undefined) {
           try {
             await getTranсhe(project.onchainId);
-            // Дополнительные действия после успешного вызова, если нужно
+            toast.success("Transaction successful!", toastOptions);
           } catch (err) {
             console.error("Failed to get tranche", err);
+            toast.error("Failed to get a tranche.", toastOptions);
           }
-          onClose();
         } else {
           console.error("onChainId is undefined");
         }
@@ -50,11 +62,11 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
         if (project?.onchainId !== undefined) {
           try {
             await claimAllProjectTokens(project.onchainId);
-            // Дополнительные действия после успешного вызова, если нужно
+            toast.success("Transaction successful!", toastOptions);
           } catch (err) {
             console.error("Failed to claim all tokens:", err);
+            toast.error("Failed to claim all tokens.", toastOptions);
           }
-          onClose();
         } else {
           console.error("onChainId is undefined");
         }
@@ -62,6 +74,7 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
 
     return (
         <div className="light bg-[#FFF]">
+            <ToastContainer />
             <form action={formAction} className="flex flex-col items-center">
                 <AddImage imageUrl={project?.imageUrl!} disabled={disabled!} backgroundImageUrl={project?.backgroundImageUrl!} />
                 <div className="flex flex-col w-[100%] min-[1728px]:w-[1728px] mt-[-20px] mb-[85px]">
@@ -243,12 +256,33 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                         case ProjectStatusEnum.STARTED:
                             return (<>
                                 <p className="text-black w-[100%] min-[1728px]:w-[1728px] ml-[117px] text-[24px] font-semibold">Your project is successfully started!</p>
-                                <button onClick={handleTranche} className='w-[100px] h-[20px] bg-white text-black'>
-                                    getTranche
-                                </button>
-                                <button onClick={handleClaimAll} className='w-[100px] h-[20px] bg-white text-black'>
-                                    claim all
-                                </button>
+                                <div className='flex items-center w-[100%] min-[1728px]:w-[1728px] ml-[117px] mt-[30px] gap-[30px]'>
+                                    <Button
+                                        onPress={handleTranche}
+                                        style={{
+                                            background: "url(/startbutton.svg) no-repeat",
+                                            width: "318px",
+                                            height: "85px",
+                                            marginBottom: '48px'
+                                        }}
+                                    >
+                                        <div className='flex items-center justify-center text-black text-[22px] font-semibold w-[100%] h-[60%] bg-[#FCFC03]'>
+                                            GET TRANCHE
+                                        </div>
+                                    </Button>
+                                    <Button
+                                        onPress={handleClaimAll}
+                                        style={{
+                                            width: "158px",
+                                            height: "42px",
+                                            fontFamily: "Geom Graphic",
+                                            backgroundColor: "#FCFC03"
+                                        }}
+                                        className="text-[16px] text-black font-light tracking-[1.6px] mb-[48px]"
+                                    >
+                                        Claim All
+                                    </Button>
+                                </div>
                             </>)
                         default:
                             return <>
