@@ -294,3 +294,39 @@ export const claimAllProjectTokens = async (id: number): Promise<void> => {
     throw new Error('Fail to claim all tokens');
   }
 };
+export const getUserOrderedTokens = async (
+  id: number,
+  address: string
+): Promise<number> => {
+  try {
+    const data = (await publicClient.readContract({
+      address: process.env.NEXT_PUBLIC_ORDERING as `0x${string}`,
+      abi: orderingAbi,
+      functionName: 'getUserOrderedTokens',
+      args: [id, address],
+    })) as number;
+    console.log('DATA FROM getUserOrderedTokens: ', data);
+    return data;
+  } catch (err) {
+    console.log(err);
+    throw new Error('Fail to get data for progress bar');
+  }
+};
+export const getAvailableToClaimTokensByUser = async (
+  id: number,
+  address: string
+): Promise<number> => {
+  try {
+    const data = (await publicClient.readContract({
+      address: process.env.NEXT_PUBLIC_CLAIMING as `0x${string}`,
+      abi: claimingAbi,
+      functionName: 'earned',
+      args: [id, address],
+    })) as number;
+    console.log('DATA FROM getAvailableToClaimTokensByUser: ', data);
+    return data;
+  } catch (err) {
+    console.log(err);
+    throw new Error('Fail to get data for progress bar');
+  }
+};
