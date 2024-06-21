@@ -302,6 +302,30 @@ export const orderingAbi: Abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
+  {
+    inputs: [
+      {
+        internalType: 'uint32',
+        name: '_projectId',
+        type: 'uint32',
+      },
+      {
+        internalType: 'address',
+        name: '_user',
+        type: 'address',
+      },
+    ],
+    name: 'getUserOrderedTokens',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
 ] as const;
 export const getFundForProjectAbi: Abi = [
   {
@@ -343,6 +367,30 @@ export const claimingAbi: Abi = [
     name: 'claimTokens',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint32',
+        name: '_projectId',
+        type: 'uint32',
+      },
+      {
+        internalType: 'address',
+        name: '_account',
+        type: 'address',
+      },
+    ],
+    name: 'earned',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
 ] as const;
