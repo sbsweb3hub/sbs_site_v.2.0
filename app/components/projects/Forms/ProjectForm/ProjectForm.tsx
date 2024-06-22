@@ -27,6 +27,7 @@ import { toBigIntWithDecimals } from '@/utils/toBigIntWithDecimals';
 import { getTranсhe, claimAllProjectTokens } from '@/services/onchain/onchain-service';
 import { ToastContainer, toast, ToastOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { parseEther } from 'viem';
 
 const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: ProjectType }) => {
     const [state, formAction] = useFormState(project ? patchProject : addProject, { errors: [] });
@@ -74,7 +75,7 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
 
     return (
         <div className="light bg-[#FFF]">
-            <ToastContainer />
+            <ToastContainer style={{marginTop: '80px'}}/>
             <form action={formAction} className="flex flex-col items-center">
                 <AddImage imageUrl={project?.imageUrl!} disabled={disabled!} backgroundImageUrl={project?.backgroundImageUrl!} />
                 <div className="flex flex-col w-[100%] min-[1728px]:w-[1728px] mt-[-20px] mb-[85px]">
@@ -153,12 +154,14 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                             </>)
                         case ProjectStatusEnum.APPROVED:
                             const stepsInSeconds = project.steps.map(step => step.duration! * 86400)
+                            console.log('tokenPrice', project.tokenPrice, typeof project.tokenPrice)
                             const args: (string | number | bigint | number[])[] = [
                                 project.projectName,
                                 project.tokenSymbol!,
                                 toBigIntWithDecimals(project.tokenSupply, 18),
                                 toBigIntWithDecimals(project.minTokenForSeed, 18),
-                                toBigIntWithDecimals(project.tokenPrice, 18),
+                                // toBigIntWithDecimals(project.tokenPrice, 18),
+                                parseEther(project.tokenPrice!.toString()),
                                 toBigIntWithDecimals(project.maxTokenForSeed, 18),
                                 project.steps.length + 1,
                                 [project.seedDuration! * 86400, ...stepsInSeconds],

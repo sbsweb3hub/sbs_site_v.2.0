@@ -1,11 +1,12 @@
 import '@/app/components/Common/Buttons/SeeDetailsButton/index.css'
 import '@/app/components/font.css'
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Progress, Avatar, Button, Tabs, Tab } from "@nextui-org/react";
 import { Arrow } from './Buttons/SeeDetailsButton/Arrow';
 import { ProjectType } from '@/types';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getDataForProgressBar } from '@/services/onchain/onchain-service';
 
 interface ProjectCardProps {
     status: 'live' | 'funded' | 'coming'
@@ -15,6 +16,63 @@ interface ProjectCardProps {
 
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
+    
+    const validPrice = project.tokenPrice ?? 0
+    const calculateCap = (tokenPrice: number | undefined , tokenForSeed: number | undefined) => {
+        const price = tokenPrice ?? 0;
+        const tokens = tokenForSeed ?? 0;
+        return price * tokens;
+    };
+
+    const maxCap = calculateCap(project.tokenPrice, project.maxTokenForSeed).toString()
+
+    const [raised, setRaised] = useState<string>("0");
+    const [percentage, setPercentage] = useState<number>(0);
+    const [label, setLabel] = useState<string>(`0 / ${maxCap}`)
+    
+
+  
+
+    useEffect(() => {
+        const fetchData = async () => {
+          if (project.onchainId !== undefined) {
+            try {
+              const data = await getDataForProgressBar(project.onchainId);
+              setRaised(data.raised);
+              const raisedValue = parseFloat(data.raised);
+              const percentageValue = project.maxTokenForSeed ? (raisedValue / (project.maxTokenForSeed * validPrice)) * 100 : 0;
+              setPercentage(percentageValue);
+              setLabel(`${data.raised} / ${maxCap}`)
+    
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        };
+
+        fetchData();
+        const interval = setInterval(fetchData, 5000)
+        return () => clearInterval(interval)
+        
+    }, [project.onchainId, project.maxTokenForSeed, validPrice, maxCap]);
+
+    function formatUrl(url: string): string {
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+          return `http://${url}`;
+        }
+        return url;
+    }
+
+    const links = {
+        web: project.web ? formatUrl(project.web) : null,
+        twitter: project.twitter ? formatUrl(project.twitter) : null,
+        discord: project.discord ? formatUrl(project.discord) : null,
+        telegram: project.projectTg ? formatUrl(project.projectTg) : null,
+    }
+
+
+    
+    
     if (status === 'funded') {
         return (
             <div
@@ -91,50 +149,58 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
                     </div>
                 </div>
                 <div className='flex gap-[12px] ml-[46px] mt-[23px]'>
-                    <Link
-                        target='blank'
-                        href='/'
-                    >
-                        <Image
-                            src='/x.png'
-                            alt=''
-                            width={18.6}
-                            height={18.6}
-                        />
-                    </Link>
-                    <Link
-                        target='blank'
-                        href='/'
-                    >
-                        <Image
-                            src='/tg.png'
-                            alt=''
-                            width={18.6}
-                            height={18.6}
-                        />
-                    </Link>
-                    <Link
-                        target='blank'
-                        href='/'
-                    >
-                        <Image
-                            src='/git.png'
-                            alt=''
-                            width={18.6}
-                            height={18.6}
-                        />
-                    </Link>
-                    <Link
-                        target='blank'
-                        href='/'
-                    >
-                        <Image
-                            src='/ds.png'
-                            alt=''
-                            width={18.6}
-                            height={18.6}
-                        />
-                    </Link>
+                    {links.twitter &&(
+                        <Link
+                            target='blank'
+                            href={links.twitter}
+                        >
+                            <Image
+                                src='/x.png'
+                                alt=''
+                                width={18.6}
+                                height={18.6}
+                            />
+                        </Link>
+                    )}
+                    {links.telegram &&(
+                        <Link
+                            target='blank'
+                            href={links.telegram}
+                        >
+                            <Image
+                                src='/tg.png'
+                                alt=''
+                                width={18.6}
+                                height={18.6}
+                            /> 
+                        </Link>
+                    )}
+                    {links.discord &&(
+                        <Link
+                            target='blank'
+                            href={links.discord}
+                        >
+                            <Image
+                                src='/discord.svg'
+                                alt=''
+                                width={18.6}
+                                height={18.6}
+                            />
+                        </Link>
+                    )}
+                    {links.web && (
+                        <Link
+                            target='blank'
+                            href={links.web}
+                        >
+                            <Image
+                                src='/webw.svg'
+                                alt=''
+                                width={18.6}
+                                height={18.6}
+                            />
+                        </Link>
+                    )}
                 </div>
                 <div className="flex flex-col w-[80%] ml-[30px] mt-[20px]">
                     <Tabs
@@ -162,13 +228,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
                                         {project?.tokenPrice}
                                     </p>
                                     <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                        {project?.tokenSupply}
+                                        {calculateCap(project.tokenPrice, project.maxTokenForSeed)}
                                     </p>
                                     <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                        {project?.tokenName}
+                                        {calculateCap(project.tokenPrice, project.minTokenForSeed)} 
                                     </p>
                                     <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                        {project?.tokenSymbol}
+                                        {raised}
                                     </p>
                                 </div>
                             </div>
@@ -241,50 +307,58 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
             </div>
             <div className="flex justify-between items-start mt-[30px] ml-[46px]">
                 <div className='flex items-center gap-[12px] mr-[124px] mt-[5px]'>
-                    <Link
-                        target='blank'
-                        href='/'
-                    >
-                        <Image
-                            src='/x.png'
-                            alt=''
-                            width={18.6}
-                            height={18.6}
-                        />
-                    </Link>
-                    <Link
-                        target='blank'
-                        href='/'
-                    >
-                        <Image
-                            src='/tg.png'
-                            alt=''
-                            width={18.6}
-                            height={18.6}
-                        />
-                    </Link>
-                    <Link
-                        target='blank'
-                        href='/'
-                    >
-                        <Image
-                            src='/git.png'
-                            alt=''
-                            width={18.6}
-                            height={18.6}
-                        />
-                    </Link>
-                    <Link
-                        target='blank'
-                        href='/'
-                    >
-                        <Image
-                            src='/ds.png'
-                            alt=''
-                            width={18.6}
-                            height={18.6}
-                        />
-                    </Link>
+                    {links.twitter &&(
+                        <Link
+                            target='blank'
+                            href={links.twitter}
+                        >
+                            <Image
+                                src='/x.png'
+                                alt=''
+                                width={18.6}
+                                height={18.6}
+                            />
+                        </Link>
+                    )}
+                    {links.telegram &&(
+                        <Link
+                            target='blank'
+                            href={links.telegram}
+                        >
+                            <Image
+                                src='/tg.png'
+                                alt=''
+                                width={18.6}
+                                height={18.6}
+                            /> 
+                        </Link>
+                    )}
+                    {links.discord &&(
+                        <Link
+                            target='blank'
+                            href={links.discord}
+                        >
+                            <Image
+                                src='/discord.svg'
+                                alt=''
+                                width={18.6}
+                                height={18.6}
+                            />
+                        </Link>
+                    )}
+                    {links.web && (
+                        <Link
+                            target='blank'
+                            href={links.web}
+                        >
+                            <Image
+                                src='/webw.svg'
+                                alt=''
+                                width={18.6}
+                                height={18.6}
+                            />
+                        </Link>
+                    )}
                 </div>
                 <div className="flex flex-col items-start ml-[0px]">
                     <p className="text-[15px] text-[#FFFFFF80] font-medium">
@@ -333,10 +407,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
                                     {project?.tokenPrice}
                                 </p>
                                 <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                    {project?.tokenSupply}
+                                    {calculateCap(project.tokenPrice, project.maxTokenForSeed)}
                                 </p>
                                 <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                    {project?.tokenName}
+                                    {calculateCap(project.tokenPrice, project.minTokenForSeed)}
                                 </p>
                             </div>
                         </div>
@@ -409,9 +483,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
                 <div className="flex justify-between items-start mt-[15px] ml-[46px]">
                     <div className="relative flex flex-col gap-[4px]">
                         <Progress
-                            label='4,000 / 5,000 ETH'
+                            label={label}
                             size="lg"
-                            value={80}
+                            value={percentage}
                             showValueLabel={true}
                             classNames={{
                                 value: 'absolute top-[35px]',
@@ -434,50 +508,58 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
                     </div>
                 </div>
                 <div className='flex gap-[12px] ml-[46px] mt-[23px]'>
-                        <Link
-                            target='blank'
-                            href='/'
-                        >
-                            <Image
-                                src='/x.png'
-                                alt=''
-                                width={18.6}
-                                height={18.6}
-                            />
-                        </Link>
-                        <Link
-                            target='blank'
-                            href='/'
-                        >
-                            <Image
-                                src='/tg.png'
-                                alt=''
-                                width={18.6}
-                                height={18.6}
-                            />
-                        </Link>
-                        <Link
-                            target='blank'
-                            href='/'
-                        >
-                            <Image
-                                src='/git.png'
-                                alt=''
-                                width={18.6}
-                                height={18.6}
-                            />
-                        </Link>
-                        <Link
-                            target='blank'
-                            href='/'
-                        >
-                            <Image
-                                src='/ds.png'
-                                alt=''
-                                width={18.6}
-                                height={18.6}
-                            />
-                        </Link>
+                        {links.twitter &&(
+                            <Link
+                                target='blank'
+                                href={links.twitter}
+                            >
+                                <Image
+                                    src='/x.png'
+                                    alt=''
+                                    width={18.6}
+                                    height={18.6}
+                                />
+                            </Link>
+                        )}
+                        {links.telegram &&(
+                            <Link
+                                target='blank'
+                                href={links.telegram}
+                            >
+                                <Image
+                                    src='/tg.png'
+                                    alt=''
+                                    width={18.6}
+                                    height={18.6}
+                                /> 
+                            </Link>
+                        )}
+                        {links.discord &&(
+                            <Link
+                                target='blank'
+                                href={links.discord}
+                            >
+                                <Image
+                                    src='/discord.svg'
+                                    alt=''
+                                    width={18.6}
+                                    height={18.6}
+                                />
+                            </Link>
+                        )}
+                        {links.web && (
+                            <Link
+                                target='blank'
+                                href={links.web}
+                            >
+                                <Image
+                                    src='/webw.svg'
+                                    alt=''
+                                    width={18.6}
+                                    height={18.6}
+                                />
+                            </Link>
+                        )}
                 </div>
                 <div className="flex flex-col w-[80%] ml-[30px] mt-[20px]">
                     <Tabs
@@ -502,10 +584,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
                                         {project?.tokenPrice}
                                     </p>
                                     <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                        {project?.tokenSupply}
+                                        {calculateCap(project.tokenPrice, project.maxTokenForSeed)}
                                     </p>
                                     <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                        {project?.tokenName}
+                                        {calculateCap(project.tokenPrice, project.minTokenForSeed)}
                                     </p>
                                 </div>
                             </div>

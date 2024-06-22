@@ -14,14 +14,99 @@ import Voting from "./Voting/Voting";
 import iconCopy from "@/public/copy-icon.svg";
 import css from "./index.module.scss";
 import { ProjectStatusEnum, ProjectType } from "@/types";
+import { Link } from "@nextui-org/react";
+
 
 export const ProjectTabs = ({ project }: { project: ProjectType }) => {
   const { setIsMainTab, isMainTab } = useProjectStore();
+
+  const links = {
+    web: project.web ? formatUrl(project.web) : null,
+    twitter: project.twitter ? formatUrl(project.twitter) : null,
+    discord: project.discord ? formatUrl(project.discord) : null,
+    telegram: project.projectTg ? formatUrl(project.projectTg) : null,
+    pitch: project.pitchdeck ? formatUrl(project.pitchdeck) : null
+  }
+
+  function formatUrl(url: string): string {
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      return `http://${url}`;
+    }
+    return url;
+  }
 
   return (
     <div className={css.tabs}>
       <div className={css.title}>
         <div className="">Project: {project.projectName} </div>
+         <div className="flex items-center gap-[15px]">
+          {links.web &&(
+            <Link 
+              href={links.web}
+              isExternal
+              
+            >
+              <Image
+                src='/web.svg'
+                alt="website"
+                width={22}
+                height={22}
+              />
+            </Link>
+          )}
+          {links.twitter &&(
+            <Link 
+              href={links.twitter}
+              isExternal
+            >
+              <Image
+                src='/twitterb.svg'
+                alt="twiiter"
+                width={22}
+                height={22}
+              />
+            </Link>
+          )}
+          {links.discord &&(
+            <Link 
+              href={links.discord}
+              isExternal
+            >
+              <Image
+                src='/discordb.svg'
+                alt="discord"
+                width={22}
+                height={22}
+              />
+            </Link>
+          )}
+          {links.telegram &&(
+            <Link 
+              href={links.telegram}
+              isExternal
+            >
+              <Image
+                src='/telegramb.svg'
+                alt="telegram"
+                width={22}
+                height={22}
+              />
+            </Link>
+          )}
+          {links.pitch &&(
+            <Link 
+              href={links.pitch}
+              isExternal
+            >
+              <Image
+                src='/pitch.svg'
+                alt="pitchdeck"
+                width={22}
+                height={22}
+              />
+            </Link>
+          )}
+        </div>
         {isMainTab && (
           <Input
             className={css.short}
