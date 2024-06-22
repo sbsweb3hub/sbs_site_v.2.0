@@ -5,7 +5,8 @@ import Image from "next/image";
 import { useProjectStore } from "../_store/store";
 import css from "./index.module.scss";
 import { ProjectStatusEnum, ProjectType } from "@/types";
-import { getDataForProgressBar } from "@/services/onchain/onchain-service";
+import { getDataForProgressBar, getUserOrderedTokens, getAvailableToClaimTokensByUser } from "@/services/onchain/onchain-service";
+import { useAccount } from "wagmi";
 
 const isLaunchTime = false;
 const isSeedTime = true;
@@ -16,10 +17,30 @@ export const ProjectHeader = (project: ProjectType) => {
   const { isMainTab } = useProjectStore();
   const [raised, setRaised] = useState<string>("0");
   const [percentage, setPercentage] = useState<number>(0);
-  const [label, setLabel] = useState('In progress');
+  const [label, setLabel] = useState<string>('In progress');
+  const [invest, setInvest] = useState<string>('0')
+  const [ordered, setOrdered] = useState<string>('0')
+  const [claimable, setClaimable] = useState<string>('0')
+
+  const account = useAccount()
+
+
 
 
   const validPrice = project.tokenPrice ?? 0
+  const validId = project.onchainId ?? 0
+
+  // const handleUserTokens = async () => {
+    
+  //   if (validId !== undefined && account.address!== undefined) {
+  //     try {
+  //       console.log(getAvailableToClaimTokensByUser(validId, account.address))
+  //       // Дополнительные действия после успешного вызова, если нужно
+  //     } catch (err) {
+  //       console.error("Failed to become an angel:", err);
+  //     }
+  //   }
+  // }
 
   const calculateCap = (tokenPrice: number | undefined , tokenForSeed: number | undefined) => {
     const price = tokenPrice ?? 0;
@@ -48,6 +69,19 @@ export const ProjectHeader = (project: ProjectType) => {
             setLabel('In progress');
           }
 
+          if (account.address !== undefined) {
+            const tokenSizeBig = await getUserOrderedTokens (project.onchainId, account.address)
+            const tokenSize = Number(tokenSizeBig)
+            const investValue = validPrice * tokenSize
+            setInvest(investValue.toString())
+            setOrdered(tokenSize.toString())
+
+            const claimSize = await getAvailableToClaimTokensByUser(project.onchainId, account.address)
+            setClaimable(claimSize.toString())
+          }
+
+          
+
         } catch (error) {
           console.error(error);
         }
@@ -55,10 +89,10 @@ export const ProjectHeader = (project: ProjectType) => {
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 5000)
+    const interval = setInterval(fetchData, 30000)
     return () => clearInterval(interval)
     
-  }, [project.onchainId, project.maxTokenForSeed, project.minTokenForSeed, validPrice]);
+  }, [project.onchainId, project.maxTokenForSeed, project.minTokenForSeed, validPrice, account]);
 
 
   return (
@@ -78,7 +112,6 @@ export const ProjectHeader = (project: ProjectType) => {
               <div className="flex w-full">
                 <div className="flex flex-col">
                   <p className={css.title}>Seed round time:</p>
-
                   <Progress
                     size="lg"
                     label={label}
@@ -136,7 +169,7 @@ export const ProjectHeader = (project: ProjectType) => {
             <tbody>
               <tr>
                 <td>My investment :</td>
-                <td>2 ETH</td>
+                <td>{invest} ETH</td>
               </tr>
               <tr>
                 <td>Available to refund :</td>
@@ -144,11 +177,11 @@ export const ProjectHeader = (project: ProjectType) => {
               </tr>
               <tr>
                 <td>My ordered tokens :</td>
-                <td>250,000 ${project.tokenSymbol}</td>
+                <td>{ordered} ${project.tokenSymbol}</td>
               </tr>
               <tr>
                 <td>Available to claim :</td>
-                <td>60,000 ${project.tokenSymbol}</td>
+                <td>{claimable} ${project.tokenSymbol}</td>
               </tr>
             </tbody>
           </table>

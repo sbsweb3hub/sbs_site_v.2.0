@@ -68,13 +68,9 @@ export const useTokenForm = (initialData?: ProjectType) => {
 
   const tokenPriseResult = `${convertToETH()} ETH`;
 
-  const maxTokenAmountResult = `$ ${convertTokenToDollar(
-    formData.maxTokenForSeed
-  )} / ${formData.maxTokenForSeed * convertToETH()} ETH`;
+  const maxTokenAmountResult = `${formData.maxTokenForSeed * formData.tokenPrice} ETH`;
 
-  const minTokenAmountResult = `$ ${convertTokenToDollar(
-    formData.minTokenForSeed
-  )} / ${formData.minTokenForSeed * convertToETH()} ETH`;
+  const minTokenAmountResult = `${formData.minTokenForSeed * formData.tokenPrice} ETH`;
 
   return {
     formData,

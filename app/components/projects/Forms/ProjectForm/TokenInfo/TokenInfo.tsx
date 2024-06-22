@@ -96,17 +96,17 @@ const TokenInfo = ({
             {...(disabled && { isDisabled: true })}
             defaultValue={project?.tokenSymbol}
           />
-          <Tooltip
+          {/* <Tooltip
             color="success"
             content={tokenPriseResult}
             placement="top-end"
             isOpen={isFocused.tokenPrice}
-          >
+          > */}
             <Input
               labelPlacement="outside"
               variant="faded"
-              label="Token price [$]"
-              placeholder="e.g. 0.005 $"
+              label="Token price, in ETH"
+              placeholder="e.g. 0.005"
               type="string"
               name="tokenPrice"
               onValueChange={(value) => handleChange("tokenPrice")(value)}
@@ -120,7 +120,7 @@ const TokenInfo = ({
               {...(disabled && { isDisabled: true })}
               defaultValue={project ? String(project.tokenPrice) : undefined}
             />
-          </Tooltip>
+          {/* </Tooltip> */}
           <Tooltip
             color="success"
             content={minTokenAmountResult}
