@@ -75,9 +75,15 @@ export const ProjectHeader = (project: ProjectType) => {
             const investValue = validPrice * tokenSize
             setInvest(investValue.toString())
             setOrdered(tokenSize.toString())
-
+            
+            try {
             const claimSize = await getAvailableToClaimTokensByUser(project.onchainId, account.address)
             setClaimable(claimSize.toString())
+            
+            } catch (error) {
+              console.log(error)
+            }
+            
           }
 
           
