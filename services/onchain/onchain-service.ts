@@ -207,8 +207,9 @@ export const getDataForProgressBar = async (
     });
     const bigIntArray = data as bigint[];
     const totalSupply = formatEther(bigIntArray[0]);
+    const price = formatEther(bigIntArray[3])
     const raised = formatEther(bigIntArray[bigIntArray.length - 1]);
-    return { totalSupply, raised };
+    return { totalSupply, price, raised };
   } catch (err) {
     console.log(err);
     throw new Error('Fail to get data for progress bar');

@@ -49,7 +49,7 @@ const Voting: React.FC<VotingCardProps> = ({status, index, startDate, endDate, v
     if (status === 'finished') {
         return (
             <>
-                <ToastContainer/>
+                <ToastContainer style={{marginTop: '80px'}}/>
                 <div className="flex items-center gap-[150px] w-[1175px] h-[103px] bg-[#E5E5E599] rounded-[3px] mt-[70px]">
                     <div className="flex items-end gap-[30px] ml-[20px]">
                         <p className="text-[22px] text-[#000] font-semibold">

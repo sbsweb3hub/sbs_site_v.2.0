@@ -15,6 +15,11 @@ const isSeedTime = true;
 export const ProjectHeader = (project: ProjectType) => {
   const { isMainTab } = useProjectStore();
   const [raised, setRaised] = useState<string>("0");
+  const [percentage, setPercentage] = useState<number>(0);
+  const [label, setLabel] = useState('In progress');
+
+
+  const validPrice = project.tokenPrice ?? 0
 
   const calculateCap = (tokenPrice: number | undefined , tokenForSeed: number | undefined) => {
     const price = tokenPrice ?? 0;
@@ -28,6 +33,21 @@ export const ProjectHeader = (project: ProjectType) => {
         try {
           const data = await getDataForProgressBar(project.onchainId);
           setRaised(data.raised);
+          const raisedValue = parseFloat(data.raised);
+          const percentageValue = project.maxTokenForSeed ? (raisedValue / (project.maxTokenForSeed * validPrice)) * 100 : 0;
+          setPercentage(percentageValue);
+
+          const minTokenForSeed = project.minTokenForSeed;
+          const maxTokenForSeed = project.maxTokenForSeed;
+
+          if (!isNaN(raisedValue) && minTokenForSeed !== undefined && raisedValue >= (minTokenForSeed * validPrice) && maxTokenForSeed !== undefined && raisedValue < (maxTokenForSeed * validPrice)) {
+            setLabel('Soft cap reached!');
+          } else if (!isNaN(raisedValue) && maxTokenForSeed !== undefined && raisedValue === (maxTokenForSeed * validPrice)) {
+            setLabel('Finished!');
+          } else {
+            setLabel('In progress');
+          }
+
         } catch (error) {
           console.error(error);
         }
@@ -35,7 +55,11 @@ export const ProjectHeader = (project: ProjectType) => {
     };
 
     fetchData();
-  }, [project.onchainId]);
+    const interval = setInterval(fetchData, 5000)
+    return () => clearInterval(interval)
+    
+  }, [project.onchainId, project.maxTokenForSeed, project.minTokenForSeed, validPrice]);
+
 
   return (
     <div className={css.main}>
@@ -57,10 +81,14 @@ export const ProjectHeader = (project: ProjectType) => {
 
                   <Progress
                     size="lg"
+                    label={label}
                     color="success"
                     aria-label="Loading..."
-                    value={70}
+                    value={percentage}
                     className="mt-28"
+                    classNames={{
+                      indicator: 'bg-gradient-to-r from-[#172418] to-[#58D865]'
+                    }}
                   />
 
                   <div className="flex mt-16">
@@ -87,7 +115,7 @@ export const ProjectHeader = (project: ProjectType) => {
                   </div>
                   <div className="flex flex-col mt-9">
                     <p className={css.miniTitle}>Progress:</p>
-                    <p className={css.subTitle}>47 %</p>
+                    <p className={css.subTitle}>{percentage} %</p>
                   </div>
                   <div className="flex flex-col mt-9">
                     <p className={css.miniTitle}>Raised:</p>

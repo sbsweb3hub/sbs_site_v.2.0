@@ -57,6 +57,18 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({
     },
   };
 
+  const handlePrice = async () => {
+    
+    if (validId !== undefined) {
+      try {
+        console.log(getDataForProgressBar(validId))
+        // Дополнительные действия после успешного вызова, если нужно
+      } catch (err) {
+        console.error("Failed to become an angel:", err);
+      }
+    }
+  }
+
   const handleEthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (/^\d*\.?\d*$/.test(value)) {
@@ -134,9 +146,12 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({
 
   return (
     <div className={css.modal}>
-      <ToastContainer />
+      <ToastContainer style={{marginTop: '80px'}} />
       {isMainTab ? (
         <>
+          <button onClick={handlePrice} className="w-[100px] h-[50px] text-black bg-white">
+            getPrice
+          </button>
           <Button className="mr-40" onClick={onOpen}>
             BE AN ANGEL
           </Button>

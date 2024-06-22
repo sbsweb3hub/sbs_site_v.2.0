@@ -26,6 +26,7 @@ export const useBuildProject = () => {
   
   const buildProject = useCallback(
     async (args: (string | number | bigint | number[])[], id: string) => {
+      console.log('buildlog', args)
       setLoading(true);
       try {
         const projectOnchainId = await createProject(args, id);
