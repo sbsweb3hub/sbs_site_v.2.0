@@ -20,7 +20,10 @@ import {
   getDataForProgressBar,
   claimTokens,
   refundEth,
+  getAvailableToClaimTokensByUser
 } from "@/services/onchain/onchain-service";
+import { useAccount } from "wagmi";
+
 
 interface BeAngelModalProps {
   onChainId: number | undefined;
@@ -42,10 +45,14 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({
   const [ethValue, setEthValue] = useState<string>("");
   const [tokenAmount, setTokenAmount] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [claimable, setClaimable] = useState<string>('0')
+
 
   const tokenSymbol = symbol ?? "n/a";
   const validId = onChainId ?? 0;
   const price = tokenPrice ?? 0;
+
+  const account = useAccount()
 
   const toastOptions: ToastOptions = {
     style: {
@@ -82,6 +89,23 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({
       setError("");
       return;
     }
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const claimSize = await getAvailableToClaimTokensByUser(validId, account.address!)
+          setClaimable(claimSize.toString())
+              
+        } catch (error) {
+            console.log(error)
+        }
+              
+        fetchData();
+        const interval = setInterval(fetchData, 30000)
+        return () => clearInterval(interval)
+      
+      }
+    }, [validId, account]);
 
     const ethValueNumber = parseFloat(ethValue);
     const parseResult = ethSchema.safeParse(ethValueNumber);
@@ -233,7 +257,8 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({
                     id="frst"
                     type="text"
                     className={css.inputFrst}
-                    defaultValue="650,000"
+                    defaultValue={claimable}
+                    readOnly
                   />
                   <label htmlFor="frst" className={css.labelFrst}>
                     {tokenSymbol}

@@ -29,6 +29,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
     const [raised, setRaised] = useState<string>("0");
     const [percentage, setPercentage] = useState<number>(0);
     const [label, setLabel] = useState<string>(`0 / ${maxCap}`)
+    const [timeRemaining, setTimeRemaining] = useState<string>('0 hours 0 minutes 0 seconds');
+    const [daysRemaining, setDaysRemaining] = useState<string>('0')
+
+    const padWithZero = (number: number) => {
+        return number.toString().padStart(2, '0');
+    };
     
 
   
@@ -55,6 +61,38 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
         return () => clearInterval(interval)
         
     }, [project.onchainId, project.maxTokenForSeed, validPrice, maxCap]);
+
+    useEffect(() => {
+        const calculateTimeRemaining = () => {
+          const endDate = new Date(new Date(project.startDate!).getTime() + project.seedDuration! * 24 * 60 * 60 * 1000);
+          const now = new Date();
+          const timeDiff = endDate.getTime() - now.getTime();
+    
+          if (timeDiff <= 0) {
+            setTimeRemaining('0 : 0 : 0 ');
+            setDaysRemaining ('0')
+            return;
+          }
+    
+          if (Number(raised) === calculateCap(validPrice, project.maxTokenForSeed!)){
+            setTimeRemaining('0 : 0 : 0 ');
+            setDaysRemaining ('0')
+            return;
+          }
+    
+          const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+    
+          setTimeRemaining(`${padWithZero(hours)} : ${padWithZero(minutes)} : ${padWithZero(seconds)}`);
+          setDaysRemaining(`${days}`)
+        };
+    
+        calculateTimeRemaining();
+        const interval = setInterval(calculateTimeRemaining, 1000);
+        return () => clearInterval(interval);
+      }, [project.startDate, project.seedDuration, validPrice, project.maxTokenForSeed, raised]);
 
     function formatUrl(url: string): string {
         if (!url.startsWith('http://') && !url.startsWith('https://')) {
@@ -500,10 +538,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
                             Ends in :
                         </p>
                         <p className="text-[17px] text-[#FFFFFF] font-medium">
-                            20 <span className='text-[#FFFFFF80]'>days</span>
+                            {daysRemaining} <span className='text-[#FFFFFF80]'>days</span>
                         </p>
                         <p className="text-[14px] text-[#FFFFFF] font-medium">
-                            16 : 00 : 00
+                            {timeRemaining}
                         </p>
                     </div>
                 </div>

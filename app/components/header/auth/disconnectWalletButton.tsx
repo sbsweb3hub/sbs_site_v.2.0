@@ -33,6 +33,9 @@ export function DisconnectWalletButton({ address, points }: { address: string, p
                 </p>
                 <div className='flex items-center justify-end w-[65px] 
                     h-[24px] text-[16px] font-bold text-[#FFF] rounded-[5px] border-[1px] border-white'>
+                        <p className='text-[14px] text-[#FFFFFF80] mr-[5px]'>
+                            Soon
+                        </p>
                 </div>
             </div>
             {address && (

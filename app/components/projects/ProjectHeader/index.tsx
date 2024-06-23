@@ -21,6 +21,10 @@ export const ProjectHeader = (project: ProjectType) => {
   const [invest, setInvest] = useState<string>('0')
   const [ordered, setOrdered] = useState<string>('0')
   const [claimable, setClaimable] = useState<string>('0')
+  const [timeRemaining, setTimeRemaining] = useState<string>('0 hours 0 minutes 0 seconds');
+  const [daysRemaining, setDaysRemaining] = useState<string>('0')
+
+
 
   const account = useAccount()
 
@@ -46,6 +50,10 @@ export const ProjectHeader = (project: ProjectType) => {
     const price = tokenPrice ?? 0;
     const tokens = tokenForSeed ?? 0;
     return price * tokens;
+  };
+
+  const padWithZero = (number: number) => {
+    return number.toString().padStart(2, '0');
   };
 
   useEffect(() => {
@@ -100,6 +108,38 @@ export const ProjectHeader = (project: ProjectType) => {
     
   }, [project.onchainId, project.maxTokenForSeed, project.minTokenForSeed, validPrice, account]);
 
+  useEffect(() => {
+    const calculateTimeRemaining = () => {
+      const endDate = new Date(new Date(project.startDate!).getTime() + project.seedDuration! * 24 * 60 * 60 * 1000);
+      const now = new Date();
+      const timeDiff = endDate.getTime() - now.getTime();
+
+      if (timeDiff <= 0) {
+        setTimeRemaining('0 : 0 : 0 ');
+        setDaysRemaining ('0')
+        return;
+      }
+
+      if (Number(raised) === calculateCap(validPrice, project.maxTokenForSeed!)){
+        setTimeRemaining('0 : 0 : 0 ');
+        setDaysRemaining ('0')
+        return;
+      }
+
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+      setTimeRemaining(`${padWithZero(hours)} : ${padWithZero(minutes)} : ${padWithZero(seconds)}`);
+      setDaysRemaining(`${days}`)
+    };
+
+    calculateTimeRemaining();
+    const interval = setInterval(calculateTimeRemaining, 1000);
+    return () => clearInterval(interval);
+  }, [project.startDate, project.seedDuration, validPrice, project.maxTokenForSeed, raised]);
+
 
   return (
     <div className={css.main}>
@@ -149,7 +189,10 @@ export const ProjectHeader = (project: ProjectType) => {
                   <div className="flex flex-col">
                     <p className={css.miniTitle}>Ends in:</p>
                     <p className={css.subTitle}>
-                    35 <span className={css.day}>days</span>
+                      {daysRemaining} <span className={css.day}>days</span>
+                    </p>
+                    <p className={css.subTitle} style={{width: '160px', fontSize: '30px'}}>
+                      {timeRemaining}
                     </p>
                   </div>
                   <div className="flex flex-col mt-9">
