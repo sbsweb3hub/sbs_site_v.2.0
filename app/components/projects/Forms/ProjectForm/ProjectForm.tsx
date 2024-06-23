@@ -45,33 +45,33 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
         },
     };
 
-    const handleTranche = async () => {
-        if (project?.onchainId !== undefined) {
-            try {
-                await getTranсhe(project.onchainId);
-                toast.success("Transaction successful!", toastOptions);
-            } catch (err) {
-                console.error("Failed to get tranche", err);
-                toast.error("Failed to get a tranche.", toastOptions);
-            }
-        } else {
-            console.error("onChainId is undefined");
-        }
-    };
+    // const handleTranche = async () => {
+    //     if (project?.onchainId !== undefined) {
+    //         try {
+    //             await getTranсhe(project.onchainId);
+    //             toast.success("Transaction successful!", toastOptions);
+    //         } catch (err) {
+    //             console.error("Failed to get tranche", err);
+    //             toast.error("Failed to get a tranche.", toastOptions);
+    //         }
+    //     } else {
+    //         console.error("onChainId is undefined");
+    //     }
+    // };
 
-    const handleClaimAll = async () => {
-        if (project?.onchainId !== undefined) {
-            try {
-                await claimAllProjectTokens(project.onchainId);
-                toast.success("Transaction successful!", toastOptions);
-            } catch (err) {
-                console.error("Failed to claim all tokens:", err);
-                toast.error("Failed to claim all tokens.", toastOptions);
-            }
-        } else {
-            console.error("onChainId is undefined");
-        }
-    };
+    // const handleClaimAll = async () => {
+    //     if (project?.onchainId !== undefined) {
+    //         try {
+    //             await claimAllProjectTokens(project.onchainId);
+    //             toast.success("Transaction successful!", toastOptions);
+    //         } catch (err) {
+    //             console.error("Failed to claim all tokens:", err);
+    //             toast.error("Failed to claim all tokens.", toastOptions);
+    //         }
+    //     } else {
+    //         console.error("onChainId is undefined");
+    //     }
+    // };
 
     return (
         <div className="light bg-[#FFF]">
@@ -259,7 +259,7 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                             return (<>
                                 <p className="text-black w-[100%] min-[1728px]:w-[1728px] ml-[117px] text-[24px] font-semibold">Your project is successfully started!</p>
                                 <div className='flex items-center w-[100%] min-[1728px]:w-[1728px] ml-[117px] mt-[30px] gap-[30px]'>
-                                    <Button
+                                    {/* <Button
                                         onPress={handleTranche}
                                         style={{
                                             background: "url(/startbutton.svg) no-repeat",
@@ -271,8 +271,8 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                                         <div className='flex items-center justify-center text-black text-[22px] font-semibold w-[100%] h-[60%] bg-[#FCFC03]'>
                                             GET TRANCHE
                                         </div>
-                                    </Button>
-                                    <Button
+                                    </Button> */}
+                                    {/* <Button
                                         onPress={handleClaimAll}
                                         style={{
                                             width: "158px",
@@ -283,7 +283,7 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                                         className="text-[16px] text-black font-light tracking-[1.6px] mb-[48px]"
                                     >
                                         Claim All
-                                    </Button>
+                                    </Button> */}
                                 </div>
                             </>)
                         default:
