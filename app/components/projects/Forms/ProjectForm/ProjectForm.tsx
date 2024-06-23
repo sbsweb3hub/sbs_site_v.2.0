@@ -272,8 +272,8 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                                             GET TRANCHE
                                         </div>
                                     </Button>
-                                    {/* <Button
-                                        onPress={handleClaimAll}
+                                    <Button
+                                        onPress={async () => await claimAllProjectTokens(project.onchainId!)}
                                         style={{
                                             width: "158px",
                                             height: "42px",
@@ -283,7 +283,7 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                                         className="text-[16px] text-black font-light tracking-[1.6px] mb-[48px]"
                                     >
                                         Claim All
-                                    </Button> */}
+                                    </Button>
                                 </div>
                             </>)
                         default:
