@@ -47,7 +47,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
               setRaised(data.raised);
               const raisedValue = parseFloat(data.raised);
               const percentageValue = project.maxTokenForSeed ? (raisedValue / (project.maxTokenForSeed * validPrice)) * 100 : 0;
-              setPercentage(percentageValue);
+              if (!isNaN(percentageValue)) {
+                setPercentage(parseFloat(percentageValue.toFixed(0)));
+              } else {
+                setPercentage(0);
+              }
               setLabel(`${data.raised} / ${maxCap}`)
     
             } catch (error) {
