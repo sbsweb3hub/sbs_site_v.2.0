@@ -37,45 +37,45 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
 
     const toastOptions: ToastOptions = {
         style: {
-          backgroundColor: "#272726",
-          color: "#FFF", 
+            backgroundColor: "#272726",
+            color: "#FFF",
         },
         progressStyle: {
-          backgroundColor: "#FCFC03",
+            backgroundColor: "#FCFC03",
         },
-      };
+    };
 
     const handleTranche = async () => {
         if (project?.onchainId !== undefined) {
-          try {
-            await getTranсhe(project.onchainId);
-            toast.success("Transaction successful!", toastOptions);
-          } catch (err) {
-            console.error("Failed to get tranche", err);
-            toast.error("Failed to get a tranche.", toastOptions);
-          }
+            try {
+                await getTranсhe(project.onchainId);
+                toast.success("Transaction successful!", toastOptions);
+            } catch (err) {
+                console.error("Failed to get tranche", err);
+                toast.error("Failed to get a tranche.", toastOptions);
+            }
         } else {
-          console.error("onChainId is undefined");
+            console.error("onChainId is undefined");
         }
     };
 
     const handleClaimAll = async () => {
         if (project?.onchainId !== undefined) {
-          try {
-            await claimAllProjectTokens(project.onchainId);
-            toast.success("Transaction successful!", toastOptions);
-          } catch (err) {
-            console.error("Failed to claim all tokens:", err);
-            toast.error("Failed to claim all tokens.", toastOptions);
-          }
+            try {
+                await claimAllProjectTokens(project.onchainId);
+                toast.success("Transaction successful!", toastOptions);
+            } catch (err) {
+                console.error("Failed to claim all tokens:", err);
+                toast.error("Failed to claim all tokens.", toastOptions);
+            }
         } else {
-          console.error("onChainId is undefined");
+            console.error("onChainId is undefined");
         }
     };
 
     return (
         <div className="light bg-[#FFF]">
-            <ToastContainer style={{marginTop: '80px'}}/>
+            <ToastContainer style={{ marginTop: '80px' }} />
             <form action={formAction} className="flex flex-col items-center">
                 <AddImage imageUrl={project?.imageUrl!} disabled={disabled!} backgroundImageUrl={project?.backgroundImageUrl!} />
                 <div className="flex flex-col w-[100%] min-[1728px]:w-[1728px] mt-[-20px] mb-[85px]">
@@ -154,7 +154,6 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                             </>)
                         case ProjectStatusEnum.APPROVED:
                             const stepsInSeconds = project.steps.map(step => step.duration! * 86400)
-                            console.log('tokenPrice', project.tokenPrice, typeof project.tokenPrice)
                             const args: (string | number | bigint | number[])[] = [
                                 project.projectName,
                                 project.tokenSymbol!,
