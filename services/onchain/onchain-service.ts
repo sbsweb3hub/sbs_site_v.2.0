@@ -307,7 +307,7 @@ export const getUserOrderedTokens = async (
       args: [id, address],
     })) as number;
     console.log('DATA FROM getUserOrderedTokens: ', data);
-    return data;
+    return (data);
   } catch (err) {
     console.log(err);
     throw new Error('Fail to get data for progress bar');

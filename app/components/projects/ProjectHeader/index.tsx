@@ -7,6 +7,7 @@ import css from "./index.module.scss";
 import { ProjectStatusEnum, ProjectType } from "@/types";
 import { getDataForProgressBar, getUserOrderedTokens, getAvailableToClaimTokensByUser } from "@/services/onchain/onchain-service";
 import { useAccount } from "wagmi";
+import { formatEther } from "viem";
 
 const isLaunchTime = false;
 const isSeedTime = true;
@@ -64,7 +65,11 @@ export const ProjectHeader = (project: ProjectType) => {
           setRaised(data.raised);
           const raisedValue = parseFloat(data.raised);
           const percentageValue = project.maxTokenForSeed ? (raisedValue / (project.maxTokenForSeed * validPrice)) * 100 : 0;
-          setPercentage(percentageValue);
+          if (!isNaN(percentageValue)) {
+            setPercentage(parseFloat(percentageValue.toFixed(0)));
+          } else {
+            setPercentage(0);
+          }
 
           const minTokenForSeed = project.minTokenForSeed;
           const maxTokenForSeed = project.maxTokenForSeed;
@@ -79,7 +84,7 @@ export const ProjectHeader = (project: ProjectType) => {
 
           if (account.address !== undefined) {
             const tokenSizeBig = await getUserOrderedTokens (project.onchainId, account.address)
-            const tokenSize = Number(tokenSizeBig)
+            const tokenSize = Number(tokenSizeBig) / (10 ** 18)
             const investValue = validPrice * tokenSize
             setInvest(investValue.toString())
             setOrdered(tokenSize.toString())
