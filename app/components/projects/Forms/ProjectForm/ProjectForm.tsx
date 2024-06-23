@@ -259,8 +259,8 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                             return (<>
                                 <p className="text-black w-[100%] min-[1728px]:w-[1728px] ml-[117px] text-[24px] font-semibold">Your project is successfully started!</p>
                                 <div className='flex items-center w-[100%] min-[1728px]:w-[1728px] ml-[117px] mt-[30px] gap-[30px]'>
-                                    {/* <Button
-                                        onPress={handleTranche}
+                                    <Button
+                                        onPress={async () => await getTranсhe(project.onchainId!)}
                                         style={{
                                             background: "url(/startbutton.svg) no-repeat",
                                             width: "318px",
@@ -271,7 +271,7 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                                         <div className='flex items-center justify-center text-black text-[22px] font-semibold w-[100%] h-[60%] bg-[#FCFC03]'>
                                             GET TRANCHE
                                         </div>
-                                    </Button> */}
+                                    </Button>
                                     {/* <Button
                                         onPress={handleClaimAll}
                                         style={{
