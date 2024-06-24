@@ -25,27 +25,11 @@ export const ProjectHeader = (project: ProjectType) => {
   const [timeRemaining, setTimeRemaining] = useState<string>('0 hours 0 minutes 0 seconds');
   const [daysRemaining, setDaysRemaining] = useState<string>('0')
 
-
-
   const account = useAccount()
-
-
-
 
   const validPrice = project.tokenPrice ?? 0
   const validId = project.onchainId ?? 0
 
-  // const handleUserTokens = async () => {
-    
-  //   if (validId !== undefined && account.address!== undefined) {
-  //     try {
-  //       console.log(getAvailableToClaimTokensByUser(validId, account.address))
-  //       // Дополнительные действия после успешного вызова, если нужно
-  //     } catch (err) {
-  //       console.error("Failed to become an angel:", err);
-  //     }
-  //   }
-  // }
 
   const calculateCap = (tokenPrice: number | undefined , tokenForSeed: number | undefined) => {
     const price = tokenPrice ?? 0;
