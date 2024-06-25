@@ -66,8 +66,7 @@ const validateEmail = (value: string) => {
 };
 
 const validateTelegram = (value: string) => {
-  const telegramRegex = /^@[A-Z0-9._%+-]{1,31}$/i;
-
+  const telegramRegex = /^https:\/\/t\.me\/[a-zA-Z0-9_]{1,32}$/;
   return telegramRegex.test(value);
 };
 
@@ -94,7 +93,7 @@ const validateTwitter = (value: string) => {
   return twitterRegex.test(value);
 };
 const validateDiscord = (value: string) => {
-  const discordRegex = /^[A-Za-z0-9._-]{2,32}$/;
+  const discordRegex = /^https:\/\/discord\.gg\/[a-zA-Z0-9_]{1,32}$/;
   return discordRegex.test(value);
 };
 
