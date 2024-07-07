@@ -70,7 +70,7 @@ export const ProjectHeader = (project: ProjectType) => {
             const tokenSizeBig = await getUserOrderedTokens (project.onchainId, account.address)
             const tokenSize = Number(tokenSizeBig) / (10 ** 18)
             const investValue = validPrice * tokenSize
-            setInvest(investValue.toString())
+            setInvest(investValue.toFixed(3).toString())
             setOrdered(tokenSize.toString())
             
             try {

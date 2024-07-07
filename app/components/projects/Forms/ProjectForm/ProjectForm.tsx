@@ -28,12 +28,16 @@ import { getTranсhe, claimAllProjectTokens } from '@/services/onchain/onchain-s
 import { ToastContainer, toast, ToastOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { parseEther } from 'viem';
+import { useGetTranche } from '@/services/hooks/useGetTranche';
+import { useClaimAll } from '@/services/hooks/useClaimAll';
 
 const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: ProjectType }) => {
     const [state, formAction] = useFormState(project ? patchProject : addProject, { errors: [] });
     const { isLoading, buildProject } = useBuildProject();
     const { isLoadingStart, startProject } = useStartProject();
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const { isLoadingTranche, tranche } = useGetTranche()
+    const { isLoadingClaimAll, claimAll } = useClaimAll()
 
     const toastOptions: ToastOptions = {
         style: {
@@ -260,7 +264,8 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                                 <p className="text-black w-[100%] min-[1728px]:w-[1728px] ml-[117px] text-[24px] font-semibold">Your project is successfully started!</p>
                                 <div className='flex items-center w-[100%] min-[1728px]:w-[1728px] ml-[117px] mt-[30px] gap-[30px]'>
                                     <Button
-                                        onPress={async () => await getTranсhe(project.onchainId!)}
+                                        disabled={isLoadingTranche}
+                                        onPress={() => tranche(project.onchainId!)}
                                         style={{
                                             background: "url(/startbutton.svg) no-repeat",
                                             width: "318px",
@@ -269,11 +274,12 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                                         }}
                                     >
                                         <div className='flex items-center justify-center text-black text-[22px] font-semibold w-[100%] h-[60%] bg-[#FCFC03]'>
-                                            GET TRANCHE
+                                            {isLoadingTranche ? <Spinner color='default' size='md' /> : 'GET TRANCHE'}
                                         </div>
                                     </Button>
                                     <Button
-                                        onPress={async () => await claimAllProjectTokens(project.onchainId!)}
+                                        disabled={isLoadingClaimAll}
+                                        onPress={() => claimAll(project.onchainId!)}
                                         style={{
                                             width: "158px",
                                             height: "42px",
@@ -282,7 +288,7 @@ const ProjectForm = ({ disabled, project }: { disabled?: boolean, project?: Proj
                                         }}
                                         className="text-[16px] text-black font-light tracking-[1.6px] mb-[48px]"
                                     >
-                                        Claim All
+                                        {isLoadingClaimAll ? <Spinner color='default' size='sm' /> : 'Claim All'}
                                     </Button>
                                 </div>
                             </>)

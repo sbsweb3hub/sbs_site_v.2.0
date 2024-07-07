@@ -45,7 +45,7 @@ export const useBuildProject = () => {
         setLoading(false);
       }
     },
-    [router]
+    [router, toastOptions]
   );
 
   return { buildProject, isLoading };
