@@ -1,4 +1,5 @@
 "use client";
+import React, {useState, useEffect} from "react";
 import {
   Divider,
   Tab,
@@ -15,10 +16,14 @@ import iconCopy from "@/public/copy-icon.svg";
 import css from "./index.module.scss";
 import { ProjectStatusEnum, ProjectType } from "@/types";
 import { Link } from "@nextui-org/react";
+import { useAccount } from "wagmi";
+import { getUserOrderedTokens } from "@/services/onchain/onchain-service";
 
 
 export const ProjectTabs = ({ project }: { project: ProjectType }) => {
   const { setIsMainTab, isMainTab } = useProjectStore();
+  const [votePower, setVotePower] = useState<string>('0')
+  const { address} = useAccount()
 
   const links = {
     web: project.web ? formatUrl(project.web) : null,
@@ -34,6 +39,22 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
     }
     return url;
   }
+
+  useEffect(() => {
+    const fetchVote = async () => {
+      try {
+        const voting = await getUserOrderedTokens(project.onchainId!, address!);
+        const formatVoting = Number(voting) / 10 ** 18;
+        setVotePower(formatVoting.toString());
+      } catch (error) {
+        console.error("Failed to fetch vote power", error);
+      }
+    };
+
+    fetchVote();
+    const interval = setInterval(fetchVote, 30000);
+    return () => clearInterval(interval);
+  }, [project.onchainId, address]);
 
   return (
     <div className={css.tabs}>
@@ -204,7 +225,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
             <div className="flex flex-col gap-7">
               <Input label="Token’s name" value={project.tokenName ?? 'n/a'} size="m" />
               <Input
-                label="Token’s price, $"
+                label="Token’s price, ETH"
                 value={project.tokenPrice?.toString() ?? 'n/a'}
                 size="m"
               />
@@ -341,6 +362,8 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
                 endDate="20 jul. 2024"
                 votes="5"
                 onChainId={project.onchainId}
+                tokenSymbol={project.tokenSymbol!}
+                votePower={votePower}
               />
               <Voting
                 status="live"
@@ -349,6 +372,8 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
                 endDate="20 aug. 2024"
                 votes="5"
                 onChainId={project.onchainId}
+                tokenSymbol={project.tokenSymbol!}
+                votePower={votePower}
               />
               <Voting
                 status="coming"
@@ -357,6 +382,8 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
                 endDate="20 sep. 2024"
                 votes=""
                 onChainId={project.onchainId}
+                tokenSymbol={project.tokenSymbol!}
+                votePower={votePower}
               />
             </div>
           </Tab>

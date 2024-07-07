@@ -52,7 +52,7 @@ export const useStartProject = () => {
         toast.error("Failed to start project", toastOptions)
       }
     },
-    [router]
+    [router, toastOptions]
   );
 
   return { isLoadingStart, startProject };

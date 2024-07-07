@@ -8,21 +8,17 @@ import {
   ModalBody,
   ModalFooter,
   useDisclosure,
+  Spinner
 } from "@nextui-org/react";
 import { Button } from "@/app/components/Button";
 import CustomModal from "../Forms/ProjectForm/Modals/CustomModal";
 import { useProjectStore } from "../_store/store";
 import css from "./index.module.scss";
-import {
-  beAnAngel,
-  readNewStartDateFromChain,
-  readTokenAddressFromChain,
-  getDataForProgressBar,
-  claimTokens,
-  refundEth,
-  getAvailableToClaimTokensByUser
-} from "@/services/onchain/onchain-service";
+import { getAvailableToClaimTokensByUser } from "@/services/onchain/onchain-service";
 import { useAccount } from "wagmi";
+import { useBeAngel } from "@/services/hooks/useBeAngel";
+import { useRefund } from "@/services/hooks/useRefund";
+import { useClaim } from "@/services/hooks/useClaim";
 
 
 interface BeAngelModalProps {
@@ -46,6 +42,10 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({
   const [tokenAmount, setTokenAmount] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [claimable, setClaimable] = useState<string>('0')
+  const {isLoadingAngel, beAngel} = useBeAngel()
+  const {isLoadingRefund, refund} = useRefund()
+  const {isLoadingClaim, claim} = useClaim()
+
 
 
   const tokenSymbol = symbol ?? "n/a";
@@ -110,52 +110,6 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({
     }
   }, [ethValue, price]);
 
-  const handleBeAnAngel = async () => {
-    if (validId !== undefined) {
-      try {
-        await beAnAngel(validId, ethValue);
-        toast.success("Transaction successful!", toastOptions);
-      } catch (err) {
-        console.error("Failed to become an angel:", err);
-        toast.error(
-          "Failed to become an angel. Please try again.",
-          toastOptions
-        );
-      }
-      onClose();
-    } else {
-      console.error("onChainId is undefined");
-    }
-  };
-
-  const handelClaim = async () => {
-    if (validId !== undefined) {
-      try {
-        await claimTokens(validId);
-        toast.success("Claim successful!", toastOptions);
-      } catch (err) {
-        console.error("Failed to claim", err);
-        toast.error("Failed to claim.", toastOptions);
-      }
-      onClose();
-    } else {
-      console.error("onChainId is undefined");
-    }
-  };
-
-  const handleRefund = async () => {
-    if (validId !== undefined) {
-      try {
-        await refundEth(validId);
-        toast.success("Refund successful!", toastOptions);
-      } catch (err) {
-        console.error("Failed to refund", err);
-        toast.error("Failed to make a refund.", toastOptions);
-      }
-    } else {
-      console.error("onChainId is undefined");
-    }
-  };
 
   return (
     <div className={css.modal}>
@@ -208,9 +162,18 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({
                 <Button
                   size="s"
                   className="ml-2 scale-85"
-                  onClick={handleBeAnAngel}
+                  disabled={isLoadingAngel}
+                  onClick={() => beAngel(validId, ethValue, onClose)}
                 >
-                  Let’s DO it
+                  {isLoadingAngel ? 
+                    <Spinner 
+                      size='md' 
+                      classNames={{
+                        circle2: 'border-b-[#FCFC03]', 
+                        circle1: 'border-b-[#FCFC03]'
+                      }} 
+                    /> : 'Let’s DO it'
+                  }
                 </Button>
               </ModalFooter>
             </>
@@ -223,12 +186,20 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({
               CLAIM TOKENS
             </Button>
             <Button
-              disabled={false}
+              disabled={isLoadingRefund}
               size="s"
               className="ml-14"
-              onClick={handleRefund}
+              onClick={() => refund(validId)}
             >
-              REFUND ETH
+              {isLoadingRefund ? 
+                <Spinner 
+                  size='md' 
+                  classNames={{
+                    circle2: 'border-b-[#FCFC03]',
+                    circle1: 'border-b-[#FCFC03]'
+                  }} 
+                /> : 'REFUND ETH'
+              }
             </Button>
           </div>
           <CustomModal isOpen={isOpen} onClose={onClose}>
@@ -255,8 +226,16 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({
                 <Button size="xs" onClick={onClose} className={css.btnLater}>
                   later
                 </Button>
-                <Button size="s" className="ml-4" onClick={handelClaim}>
-                  Yes, i need my tokens
+                <Button size="s" className="ml-4" disabled={isLoadingClaim} onClick={() => claim(validId, onClose)}>
+                  {isLoadingClaim ? 
+                    <Spinner 
+                      size='md' 
+                      classNames={{
+                        circle2: 'border-b-[#FCFC03]',
+                        circle1: 'border-b-[#FCFC03]'
+                      }} 
+                    /> : 'Yes, i need my tokens'
+                  }
                 </Button>
               </ModalFooter>
             </>

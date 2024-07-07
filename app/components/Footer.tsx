@@ -62,7 +62,7 @@ const Footer = () => {
                 <div className="relative flex items-center">
                     <div className="absolute left-[0px]">
                         <Image
-                            src="forgelogo.png"
+                            src="/forgelogo.png"
                             width={90}
                             height={90}
                             radius="none"
@@ -80,25 +80,21 @@ const Footer = () => {
                 </NavbarBrand>
                 <NavbarContent justify="center" className="flex flex-col sm:flex-row gap-6">
                     <NavbarItem>
-                        <Link
-                            isDisabled 
-                            isExternal 
-                            href="#"
+                        <Link 
+                            href="/privacy_policy"
                             className="text-[24px]"
                             color="foreground"
                         >
-                            Privacy Statement
+                            Privacy Policy
                         </Link>
                     </NavbarItem>
                     <NavbarItem>
-                        <Link
-                            isDisabled
-                            isExternal 
-                            href="#"
+                        <Link 
+                            href="/terms"
                             className="text-[24px]"
                             color="foreground"
                         >
-                            Cookie Policy
+                            Terms & Conditions
                         </Link>
                     </NavbarItem>
                 </NavbarContent>

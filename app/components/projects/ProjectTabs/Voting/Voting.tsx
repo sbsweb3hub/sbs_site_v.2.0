@@ -1,11 +1,12 @@
 'use client'
 import '@/app/components/WelcomePage/WelcomePageContent/index.css'
 import React from "react";
-import { Chip, Button, useDisclosure } from "@nextui-org/react";
+import { Chip, Button, useDisclosure, Spinner } from "@nextui-org/react";
 import CustomModal from "../../Forms/ProjectForm/Modals/CustomModal";
 import { negativeVote } from '@/services/onchain/onchain-service';
 import { ToastContainer, toast, ToastOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useVote } from '@/services/hooks/useVote';
 
 interface VotingCardProps {
     status: 'live' | 'finished' | 'coming'
@@ -14,11 +15,14 @@ interface VotingCardProps {
     endDate: string
     votes: string
     onChainId: number | undefined
+    tokenSymbol: string
+    votePower: string
 }
 
-const Voting: React.FC<VotingCardProps> = ({status, index, startDate, endDate, votes, onChainId}) => {
+const Voting: React.FC<VotingCardProps> = ({status, index, startDate, endDate, votes, onChainId, tokenSymbol, votePower}) => {
     
     const {isOpen, onOpen, onClose} = useDisclosure();
+    const {isLoadingVote, vote} = useVote()
     const validId = onChainId ?? 0
 
     const toastOptions: ToastOptions = {
@@ -164,7 +168,7 @@ const Voting: React.FC<VotingCardProps> = ({status, index, startDate, endDate, v
                             You dont need to vote if you continue to believe in the project,  otherwise You can do it.
                        </p>
                        <p className="w-[85%] text-[18px] text-[#EDE4B5] font-bold mt-[20px]">
-                             Your voting power is 56,000 $FRST
+                             Your voting power is {votePower} ${tokenSymbol}
                        </p>
                        <div className='flex items-center mt-[0px]'>
                             <Button
@@ -175,9 +179,15 @@ const Voting: React.FC<VotingCardProps> = ({status, index, startDate, endDate, v
                             </Button>
                             <Button
                                 className='svg-button text-lg font-semibold scale-[0.6]'
-                                onPress={handleVote}
+                                disabled={isLoadingVote}
+                                onPress={() => vote(validId, onClose)}
                             >
-                                I want to Vote
+                                {isLoadingVote ? 
+                                    <Spinner 
+                                    size='md' 
+                                    color='default'
+                                    /> : 'I want to Vote'
+                                }
                             </Button>
                        </div>
                     </CustomModal>
