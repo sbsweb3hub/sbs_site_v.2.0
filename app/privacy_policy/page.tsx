@@ -139,7 +139,7 @@ export default function PrivacyPolicy() {
                     </p>
                     <br/>
                     <p className="text-[18px]">
-                        The Company uses the User's personal information to:
+                        The Company uses the User&apos;s personal information to:
                     </p>
                     <br/>
                     <ul className="list-disc text-[18px] ml-[40px]">
@@ -155,7 +155,7 @@ export default function PrivacyPolicy() {
                     </ul>
                     <br/>
                     <p className="text-[18px]">
-                        The Company may transfer personal information with the User's consent in the following cases:
+                        The Company may transfer personal information with the User&apos;s consent in the following cases:
                     </p>
                     <br/>
                     <ul className="list-disc text-[18px] ml-[40px]">

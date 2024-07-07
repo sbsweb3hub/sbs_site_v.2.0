@@ -15,7 +15,7 @@ export default function Terms() {
                         No information contained in this document should be construed as a recommendation or advice and does not serve as a guide to action. Any actions based on the information contained in this document are performed at your own risk and based on your own judgment. The Company and its affiliates bear no responsibility for the consequences of such actions.
                         <br/>
                         <br/>
-                        Please note that the use of the AngelForge service is provided on an "as is" basis. In the event of partial or complete inoperability of AngelForge and its components at any time, or if you are unable to access the AngelForge system or incur any (direct and/or indirect) costs due to these circumstances, the AngelForge service administration bears no responsibility towards you.
+                        Please note that the use of the AngelForge service is provided on an &quot;as is&quot; basis. In the event of partial or complete inoperability of AngelForge and its components at any time, or if you are unable to access the AngelForge system or incur any (direct and/or indirect) costs due to these circumstances, the AngelForge service administration bears no responsibility towards you.
                         <br/>
                         <br/>
                         The AngelForge platform can be used by each participant (User) independently, but based on the goals and objectives stated on the website https://sbs.fund and in the White Paper.
@@ -27,7 +27,7 @@ export default function Terms() {
                         This website and the services on it cannot be used without full acceptance of this Agreement.
                         <br/>
                         <br/>
-                        This website and the services on it are not intended for citizens (residents) of the United States, the People's Republic of China, South Korea, Singapore, and other jurisdictions where participation in the seed round (initial token offering) is prohibited or restricted under certain conditions (considering the inability of the User to comply with the specified conditions).
+                        This website and the services on it are not intended for citizens (residents) of the United States, the People&#39;s Republic of China, South Korea, Singapore, and other jurisdictions where participation in the seed round (initial token offering) is prohibited or restricted under certain conditions (considering the inability of the User to comply with the specified conditions).
                         <br/>
                         <br/>
                         The parties to the Agreement are the AngelForge service (hereinafter also - the Service, the Company) and the User (Participant).
@@ -75,13 +75,13 @@ export default function Terms() {
                         <br/> 
                         <span className="font-semibold">2.8.1.</span> Technical (in the operation of blockchain systems and other technological systems);
                         <br/> 
-                        <span className="font-semibold">2.8.2.</span> Qualification (the User must understand the work of crypto accounts and the general scheme of p2p systems, including blockchain protocols, including functioning, storage, transmission of tokens, and others, including but not limited to, the Service's website);
+                        <span className="font-semibold">2.8.2.</span> Qualification (the User must understand the work of crypto accounts and the general scheme of p2p systems, including blockchain protocols, including functioning, storage, transmission of tokens, and others, including but not limited to, the Service&#39;s website);
                         <br/> 
                         <span className="font-semibold">2.8.3.</span> General legal (the User must have the necessary legal capacity to perform all necessary actions; the User must not violate any laws of their jurisdiction and act in accordance with rules established by generally recognized principles and norms of law);
                         <br/> 
                         <span className="font-semibold">2.8.4.</span> Security (the User guarantees that their computer does not contain any malicious software, including but not limited to, viruses, trojans, keyloggers, and other types of malware: otherwise, the User independently bears all risks of asset loss);
                         <br/> 
-                        <span className="font-semibold">2.9.</span> The User accepts that the Service and Services are provided "as is," meaning that no one can guarantee their complete stable operation and uninterrupted functioning.
+                        <span className="font-semibold">2.9.</span> The User accepts that the Service and Services are provided &quot;as is,&quot; meaning that no one can guarantee their complete stable operation and uninterrupted functioning.
                     </p>
                     <br/>
                     <p className="text-center text-[18px] font-semibold">
@@ -101,7 +101,7 @@ export default function Terms() {
                         <br/> 
                         <span className="font-semibold">3.2.4.</span> Any actions of third parties listed on the website; 
                         <br/> 
-                        <span className="font-semibold">3.2.5.</span> Unauthorized access to the User's data on the Service; 
+                        <span className="font-semibold">3.2.5.</span> Unauthorized access to the User&#39;s data on the Service; 
                         <br/> 
                         <span className="font-semibold">3.2.6.</span> Other circumstances of using the website, Service, and/or Services by the User. 
                         <br/> 
@@ -139,7 +139,7 @@ export default function Terms() {
                     <p className="text-[18px]">
                         <span className="font-semibold">5.1.</span> Acceptance means full, unconditional acceptance of ALL provisions of the Agreement, including all Attachments.
                         <br/> 
-                        <span className="font-semibold">5.2.</span> Acceptance is made by conclusive actions by ticking the checkbox during registration on the Service's website, as well as by the User activating any section of the AngelForge system, which means expressing their agreement with the proposals set out in this document, equivalent to the acceptance of this offer.
+                        <span className="font-semibold">5.2.</span> Acceptance is made by conclusive actions by ticking the checkbox during registration on the Service&#39;s website, as well as by the User activating any section of the AngelForge system, which means expressing their agreement with the proposals set out in this document, equivalent to the acceptance of this offer.
                     </p>
                     <br/>
                     <h1 className="text-center text-[22px] font-semibold">Appendix No. 1<br/>Token Purchase Agreement</h1>
@@ -151,7 +151,7 @@ export default function Terms() {
                     <p className="text-[18px]">
                         This token sale agreement is part of the Agreement and inseparable from it. 
                         Please read this agreement carefully, as it defines your rights to crypto assets (tokens) provided by the Service, as well as related rights and obligations. 
-                        Tokens may not be purchased by citizens of any countries where initial token offerings are prohibited (People's Republic of China, South Korea), as well as citizens of Singapore and the USA.
+                        Tokens may not be purchased by citizens of any countries where initial token offerings are prohibited (People&#39;s Republic of China, South Korea), as well as citizens of Singapore and the USA.
                     </p>
                     <br/>
                     <p className="text-center text-[18px] font-semibold">
@@ -225,7 +225,7 @@ export default function Terms() {
                     </p>
                     <br/>
                     <p className="text-[18px]">
-                        <span className="font-semibold">4.1.</span> Tokens are sold "as is," that is, with all possible shortcomings and defects related to the imperfection of the blockchain.
+                        <span className="font-semibold">4.1.</span> Tokens are sold &quot;as is,&quot; that is, with all possible shortcomings and defects related to the imperfection of the blockchain.
                         <br/> 
                         <span className="font-semibold">4.2.</span> The Buyer fully understands and accepts article 4.1. by accepting this Agreement.
                     </p>
