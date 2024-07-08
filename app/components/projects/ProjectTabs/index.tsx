@@ -17,12 +17,13 @@ import css from "./index.module.scss";
 import { ProjectStatusEnum, ProjectType } from "@/types";
 import { Link } from "@nextui-org/react";
 import { useAccount } from "wagmi";
-import { getUserOrderedTokens } from "@/services/onchain/onchain-service";
+import { getUserOrderedTokens, getDataForProgressBar } from "@/services/onchain/onchain-service";
 
 
 export const ProjectTabs = ({ project }: { project: ProjectType }) => {
   const { setIsMainTab, isMainTab } = useProjectStore();
   const [votePower, setVotePower] = useState<string>('0')
+  const [soldTokens, setSoldTokens] = useState<string>('0')
   const { address} = useAccount()
 
   const links = {
@@ -41,7 +42,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
   }
 
   useEffect(() => {
-    const fetchVote = async () => {
+    const fetchData = async () => {
       try {
         const voting = await getUserOrderedTokens(project.onchainId!, address!);
         const formatVoting = Number(voting) / 10 ** 18;
@@ -49,10 +50,17 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
       } catch (error) {
         console.error("Failed to fetch vote power", error);
       }
+
+      try {
+        const data = await getDataForProgressBar(project.onchainId!)
+        setSoldTokens(data.totalSupply)
+      } catch (error) {
+          console.error("Failed to fetch sold tokens", error);
+      }
     };
 
-    fetchVote();
-    const interval = setInterval(fetchVote, 30000);
+    fetchData();
+    const interval = setInterval(fetchData, 30000);
     return () => clearInterval(interval);
   }, [project.onchainId, address]);
 
@@ -243,7 +251,7 @@ export const ProjectTabs = ({ project }: { project: ProjectType }) => {
               />
               <Input
                 label="Sold tokens"
-                value='0'
+                value={soldTokens}
                 size="s"
               />
             </div>
