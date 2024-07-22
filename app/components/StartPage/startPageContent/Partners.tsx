@@ -26,6 +26,7 @@ export default function Partners() {
     { title: "BitOK", img: "/bitok.svg", price: "AML", link: "https://bitok.org/" },
     { title: "GuideDAO", img: "/guidedao.svg", price: "School", link: "https://www.guidedao.xyz/" },
     { title: "Botanica", img: "/botanica.png", price: "School", link: "https://botanicaschool.com/" },
+    { title: "White Pirate", img: "/whitePirate.svg", price: "", link: "https://whitepirates.xyz/en/"}
    /*  { title: "0xScore", img: "/0xScore.png", price: "Score" },
     { title: "Chainalysis", img: "/chainalysis.svg", price: "AML" }, */
   ];

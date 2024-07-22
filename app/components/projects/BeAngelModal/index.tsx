@@ -75,19 +75,21 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const claimSize = await getAvailableToClaimTokensByUser(validId, account.address!)
-        setClaimable(claimSize.toString())
-            
+        if (validId && account.address) {
+          const claimSizeBig = await getAvailableToClaimTokensByUser(validId, account.address);
+          const claimSize = claimSizeBig / (10 ** 18)
+          setClaimable(claimSize.toString());
+        }
       } catch (error) {
-          console.log(error)
+        console.error(error);
+        setClaimable("n/a")
       }
-            
-      fetchData();
-      const interval = setInterval(fetchData, 30000)
-      return () => clearInterval(interval)
-    
-    }
-  }, [validId, account]);
+    };
+
+    fetchData();
+    const interval = setInterval(fetchData, 30000);
+    return () => clearInterval(interval);
+  }, [validId, account.address]);
 
   useEffect(() => {
     if (ethValue === "") {

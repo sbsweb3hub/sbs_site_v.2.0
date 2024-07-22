@@ -58,7 +58,7 @@ const Links = ({ disabled, project }: { disabled?: boolean, project?: ProjectTyp
                     className="w-[346px] h-[41px] text-[#000]"
                     isInvalid={isInvalid.twitter}
                     color={isInvalid.twitter ? "danger" : "success"}
-                    errorMessage={isInvalid.twitter && "Twitter name should be less than 15 digits"}
+                    errorMessage={isInvalid.twitter && "Twitter link should be less than 15 digits"}
                     onValueChange={handleChange("projectName")}
                     {...(disabled && { isDisabled: true })}
                     defaultValue={project?.twitter}
@@ -73,7 +73,7 @@ const Links = ({ disabled, project }: { disabled?: boolean, project?: ProjectTyp
                     className="w-[346px] h-[41px] text-[#000]"
                     isInvalid={isInvalid.discord}
                     color={isInvalid.discord ? "danger" : "success"}
-                    errorMessage={isInvalid.discord && "Project name should be less than 10 digits"}
+                    errorMessage={isInvalid.discord && "Discord link should be less than 32 digits"}
                     onValueChange={handleChange("discord")}
                     {...(disabled && { isDisabled: true })}
                     defaultValue={project?.discord}

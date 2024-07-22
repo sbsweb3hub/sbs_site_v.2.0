@@ -74,7 +74,8 @@ export const ProjectHeader = (project: ProjectType) => {
             setOrdered(tokenSize.toString())
             
             try {
-            const claimSize = await getAvailableToClaimTokensByUser(project.onchainId, account.address)
+            const claimSizeBig = await getAvailableToClaimTokensByUser(project.onchainId, account.address)
+            const claimSize = claimSizeBig / (10 ** 18)
             setClaimable(claimSize.toString())
             
             } catch (error) {

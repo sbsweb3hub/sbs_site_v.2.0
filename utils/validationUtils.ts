@@ -72,13 +72,13 @@ const validateTelegram = (value: string) => {
 
 const validateProjectName = (value: string) => {
   const minLength = 1;
-  const maxLength = 10;
+  const maxLength = 100;
   return value.length >= minLength && value.length <= maxLength;
 };
 
 const validateContactName = (value: string) => {
   const minLength = 1;
-  const maxLength = 10;
+  const maxLength = 100;
   return value.length >= minLength && value.length <= maxLength;
 };
 

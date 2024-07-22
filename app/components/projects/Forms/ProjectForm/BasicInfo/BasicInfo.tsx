@@ -43,7 +43,7 @@ const BasicInfo = ({ disabled, project }: { disabled?: boolean, project?: Projec
                 className="w-[256px] h-[41px] text-[#000]"
                 isInvalid={isInvalid.projectName}
                 color={isInvalid.projectName ? "danger" : "success"}
-                errorMessage={isInvalid.projectName && "Project name should be less than 10 digits"}
+                errorMessage={isInvalid.projectName && "Project name should be less than 100 digits"}
                 onValueChange={handleChange("projectName")}
                 {...(disabled && { isDisabled: true })}
                 defaultValue={project?.projectName}
@@ -58,7 +58,7 @@ const BasicInfo = ({ disabled, project }: { disabled?: boolean, project?: Projec
                     name='contactName'
                     isInvalid={isInvalid.contactName}
                     color={isInvalid.contactName ? "danger" : "success"}
-                    errorMessage={isInvalid.contactName && "Contact name should be less than 10 degits"}
+                    errorMessage={isInvalid.contactName && "Contact name should be less than 100 digits"}
                     onValueChange={handleChange("contactName")}
                     className="w-[256px] h-[41px] text-[#000]"
                     {...(disabled && { isDisabled: true })}
@@ -69,7 +69,7 @@ const BasicInfo = ({ disabled, project }: { disabled?: boolean, project?: Projec
                     variant="faded"
                     labelPlacement="outside"
                     label="Contact Telegram Handle"
-                    placeholder="e.g. @elon_musk"
+                    placeholder="e.g. https://t.me/sergeyfund"
                     type='string'
                     name='contactTelegram'
                     isInvalid={isInvalid.contactTelegram}
