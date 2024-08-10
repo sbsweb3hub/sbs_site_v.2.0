@@ -10,7 +10,7 @@ import {
 
 const Footer = () => {
     return (
-        <div className="relative flex flex-col w-[100%] justify-end items-center h-[170px] sm:h-[120px] bg-[#000] mt-[0px]">
+        <div className="relative flex flex-col w-[100%] justify-center items-center h-[170px] sm:h-[180px] bg-[#000] mt-[0px]">
             <div className="flex items-center max-[500px]:w-full max-[500px]:justify-end gap-[10px] top-[21px] max-[500px]:mr-[40px]">
                 <Link isExternal href="https://twitter.com/angel_forge_">
                     <Image 
@@ -99,9 +99,21 @@ const Footer = () => {
                     </NavbarItem>
                 </NavbarContent>
                 <NavbarContent justify="end">
-
+        
                 </NavbarContent>
             </Navbar>
+            <div className="absolute top-[20px] right-[20px] z-[50]">
+                <Link
+                    href='https://solidityscan.com/published-report/project/a13965e63034021b'
+                    target="blank"
+                >
+                    <Image 
+                        src="/solidityscan.svg"
+                        height={300}
+                        width={320}
+                    />
+                </Link>
+            </div>
         </div>
     )
 }
