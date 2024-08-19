@@ -77,7 +77,7 @@ export const BeAngelModal: React.FC<BeAngelModalProps> = ({
       try {
         if (validId && account.address) {
           const claimSizeBig = await getAvailableToClaimTokensByUser(validId, account.address);
-          const claimSize = claimSizeBig / (10 ** 18)
+          const claimSize = Number(claimSizeBig) / (10 ** 18)
           setClaimable(claimSize.toString());
         }
       } catch (error) {
