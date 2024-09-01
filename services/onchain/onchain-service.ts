@@ -21,14 +21,14 @@ import {
   startFundsAbi,
   votingAbi,
 } from './abi';
-import { blastSepolia } from './chains';
+import { blastMain } from './chains';
 
 const publicClient = createPublicClient({
-  chain: blastSepolia,
+  chain: blastMain,
   transport: http(),
 });
 export const walletClient = createWalletClient({
-  chain: blastSepolia,
+  chain: blastMain,
   transport: custom(window.ethereum),
 }).extend(publicActions);
 export const writeContract = async ({
@@ -41,7 +41,7 @@ export const writeContract = async ({
   try {
     const [account] = await walletClient.getAddresses();
     console.log('account', account);
-    await walletClient.switchChain({ id: blastSepolia.id });
+    await walletClient.switchChain({ id: blastMain.id });
     const { request } = await walletClient.simulateContract({
       address,
       abi,
@@ -76,7 +76,7 @@ export const readContract = async ({
   args,
 }: IReadContractParams) => {
   try {
-    await walletClient.switchChain({ id: blastSepolia.id });
+    await walletClient.switchChain({ id: blastMain.id });
     const dataFromChain = await walletClient.readContract({
       address,
       abi,

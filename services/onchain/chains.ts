@@ -24,3 +24,26 @@ export const blastSepolia = defineChain({
     default: { name: 'Explorer', url: 'https://sepolia.blastscan.io/' },
   },
 });
+
+export const blastMain = defineChain({
+  id: 81457,
+  name: 'Blast Mainnet',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Ether',
+    symbol: 'ETH',
+  },
+  rpcUrls: {
+    default: {
+      http: [
+        'https://rpc.ankr.com/blast',
+        'https://blast.din.dev/rpc',
+        'https://blastl2-mainnet.public.blastapi.io',
+        'https://blast.blockpi.network/v1/rpc/public',
+      ],
+    },
+  },
+  blockExplorers: {
+    default: { name: 'Explorer', url: 'https://blastscan.io' },
+  },
+})
