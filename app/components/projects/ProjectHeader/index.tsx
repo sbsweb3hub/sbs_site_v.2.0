@@ -164,13 +164,13 @@ export const ProjectHeader = (project: ProjectType) => {
                     <div className="flex flex-col mr-14">
                       <p className={css.miniTitle}>Soft cap:</p>
                       <p className={css.subTitle}>
-                      {calculateCap(project.tokenPrice, project.minTokenForSeed)} <span className={css.day}>ETH</span>
+                      {calculateCap(project.tokenPrice, project.minTokenForSeed).toFixed(3)} <span className={css.day}>ETH</span>
                       </p>
                     </div>
                     <div className="flex flex-col">
                       <p className={css.miniTitle}>Hard cap:</p>
                       <p className={css.subTitle}>
-                      {calculateCap(project.tokenPrice, project.maxTokenForSeed)} <span className={css.day}>ETH</span>
+                      {calculateCap(project.tokenPrice, project.maxTokenForSeed).toFixed(3)} <span className={css.day}>ETH</span>
                       </p>
                     </div>
                   </div>
