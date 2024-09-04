@@ -53,7 +53,7 @@ const LiveProject = ({ projects }: { projects: Array<ProjectType> }) => {
                         </div>
                     </div>
                     <div className="flex flex-col items-center max-[1400px]:hidden">
-                        <ProjectCard status="live" project={projects[8]} />
+                        <ProjectCard status="live" project={projects[14]} />
                         <div className="mt-[20px] scale-85">
                             <CardLine />
                         </div>
@@ -94,7 +94,7 @@ const LiveProject = ({ projects }: { projects: Array<ProjectType> }) => {
                         <ProjectCard status="live" project={projects[7]} />
                     </div>
                     <div className="max-[1400px]:hidden">
-                        <ProjectCard status="live" project={projects[8]} />
+                        <ProjectCard status="live" project={projects[14]} />
                     </div>
                 </div>
             </div>
