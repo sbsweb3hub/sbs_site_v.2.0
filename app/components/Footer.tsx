@@ -30,7 +30,7 @@ const Footer = () => {
                         alt="telegramm"
                     />
                 </Link>
-                <Link isExternal href="https://sbsweb3hubs-organization.gitbook.io/light-paper">
+                <Link isExternal href="https://sbsweb3hubs-organization.gitbook.io/angelforge-white-paper/">
                     <Image 
                         width={22}
                         height={22}

@@ -48,7 +48,7 @@ const WelcomePage = () => {
                 <MainVision/>
             </div>
             <Button
-                href="https://sbsweb3hubs-organization.gitbook.io/light-paper"
+                href="https://sbsweb3hubs-organization.gitbook.io/angelforge-white-paper/"
                 target="blank"
                 as={Link}
                 variant="bordered"
