@@ -270,10 +270,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
                                         {project?.tokenPrice}
                                     </p>
                                     <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                        {calculateCap(project.tokenPrice, project.maxTokenForSeed)}
+                                        {calculateCap(project.tokenPrice, project.maxTokenForSeed).toFixed(4)}
                                     </p>
                                     <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                        {calculateCap(project.tokenPrice, project.minTokenForSeed)} 
+                                        {calculateCap(project.tokenPrice, project.minTokenForSeed).toFixed(4)} 
                                     </p>
                                     <p className="text-[15px] text-[#FFFFFF] font-normal">
                                         {raised}
@@ -449,10 +449,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
                                     {project?.tokenPrice}
                                 </p>
                                 <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                    {calculateCap(project.tokenPrice, project.maxTokenForSeed)}
+                                    {calculateCap(project.tokenPrice, project.maxTokenForSeed).toFixed(4)}
                                 </p>
                                 <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                    {calculateCap(project.tokenPrice, project.minTokenForSeed)}
+                                    {calculateCap(project.tokenPrice, project.minTokenForSeed).toFixed(4)}
                                 </p>
                             </div>
                         </div>
@@ -626,10 +626,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
                                         {project?.tokenPrice}
                                     </p>
                                     <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                        {calculateCap(project.tokenPrice, project.maxTokenForSeed)}
+                                        {calculateCap(project.tokenPrice, project.maxTokenForSeed).toFixed(4)}
                                     </p>
                                     <p className="text-[15px] text-[#FFFFFF] font-normal">
-                                        {calculateCap(project.tokenPrice, project.minTokenForSeed)}
+                                        {calculateCap(project.tokenPrice, project.minTokenForSeed).toFixed(4)}
                                     </p>
                                 </div>
                             </div>
