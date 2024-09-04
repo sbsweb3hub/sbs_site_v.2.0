@@ -10,8 +10,8 @@ const chakraPetch = Chakra_Petch({ weight: '600', subsets: ['latin'] })
 const EnterAppButton = () => {
     return (
         <div className={chakraPetch.className}>
-            <Button isDisabled className="svg-button">
-                App Soon
+            <Button className="svg-button" href='/app'>
+                Launch App
             </Button>
 
         </div>

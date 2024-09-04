@@ -92,8 +92,8 @@ const StartPageHeader = () => {
                         fontSize: '20px',
                     }}
                 >
-                    <a target="blank" href="https://docs.google.com/forms/d/e/1FAIpQLSf6hXqYqZDl-cdcpmmBznE9DpN3E7_siSZRRtiEc1JHwhT1qA/viewform">
-                        Join Beta
+                    <a target="blank" href='/app'>
+                        Start App
                     </a>
                 </Button>
             </NavbarContent>
