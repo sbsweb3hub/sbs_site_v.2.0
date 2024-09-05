@@ -37,7 +37,7 @@ const ComingSoon = ({ projects }: { projects: Array<ProjectType> }) => {
                 <div className="">
                     <ProjectCard status="coming" project={projects[0]} />
                 </div>
-                <div className="max-[900px]:hidden">
+                {/* <div className="max-[900px]:hidden">
                     <ProjectCard status="coming" project={projects[1]} />
                 </div>
                 <div className="max-[1400px]:hidden">
@@ -51,7 +51,7 @@ const ComingSoon = ({ projects }: { projects: Array<ProjectType> }) => {
                 </div>
                 <div className="max-[2800px]:hidden">
                     <ProjectCard status="coming" project={projects[5]} />
-                </div>
+                </div> */}
             </div>
         </div>
     )

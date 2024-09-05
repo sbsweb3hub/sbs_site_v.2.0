@@ -41,12 +41,12 @@ const LiveProject = ({ projects }: { projects: Array<ProjectType> }) => {
                 </div>
                 <div className="flex justify-center items-center scale-100 max-[500px]:scale-[0.8] ml-[40px] gap-[-20px]">
                     <div className="flex flex-col items-center">
-                        <ProjectCard status="live" project={projects[6]} />
+                        <ProjectCard status="live" project={projects[11]} />
                         <div className="mt-[20px] scale-85">
                             <CardLine />
                         </div>
                     </div>
-                    <div className="flex flex-col items-center max-[900px]:hidden">
+                    {/* <div className="flex flex-col items-center max-[900px]:hidden">
                         <ProjectCard status="live" project={projects[7]} />
                         <div className="mt-[20px] scale-85">
                             <CardLine />
@@ -57,7 +57,7 @@ const LiveProject = ({ projects }: { projects: Array<ProjectType> }) => {
                         <div className="mt-[20px] scale-85">
                             <CardLine />
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <div className="flex flex-col min-[1401px]:hidden w-full mt-[40px] mb-[20px]">
@@ -88,14 +88,14 @@ const LiveProject = ({ projects }: { projects: Array<ProjectType> }) => {
                 </div>
                 <div className="flex justify-center items-center gap-[60px] scale-85 max-[500px]:scale-[0.8] ml-[40px]">
                     <div className="">
-                        <ProjectCard status="live" project={projects[6]} />
+                        <ProjectCard status="live" project={projects[11]} />
                     </div>
-                    <div className="max-[900px]:hidden">
+                    {/* <div className="max-[900px]:hidden">
                         <ProjectCard status="live" project={projects[7]} />
                     </div>
                     <div className="max-[1400px]:hidden">
                         <ProjectCard status="live" project={projects[8]} />
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

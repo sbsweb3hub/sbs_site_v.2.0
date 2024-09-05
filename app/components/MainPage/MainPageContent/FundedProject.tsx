@@ -44,15 +44,15 @@ const FundedProject = ({ projects }: { projects: Array<ProjectType> }) => {
                 <div className="max-[1400px]:hidden">
                     <ProjectCard status="funded" project={projects[8]} />
                 </div>
-                <div className="max-[1850px]:hidden">
+                {/* <div className="max-[1850px]:hidden">
                     <ProjectCard status="funded" project={projects[9]} />
                 </div>
                 <div className="max-[2200px]:hidden">
                     <ProjectCard status="funded" project={projects[10]} />
                 </div>
                 <div className="max-[2800px]:hidden">
-                    <ProjectCard status="funded" project={projects[11]} />
-                </div>
+                    <ProjectCard status="funded" project={projects[10]} />
+                </div> */}
             </div>
         </div>
     )
