@@ -1,5 +1,6 @@
 import { ReactNode } from "react"
 import Header from "../components/header/header"
+import MobileBlock from "../components/MobileBlock"
 export const dynamic = 'force-dynamic'
 
 export default function AppLayout({
@@ -8,11 +9,16 @@ export default function AppLayout({
     children: ReactNode
 }) {
     return (
-        <section>
-            <Header />
+        <>
+            <section className="max-[750px]:hidden">
+                <Header />
 
-            {children}
+                {children}
 
-        </section>
+            </section>
+            <section className="min-[751px]:hidden">
+                <MobileBlock />
+            </section>
+        </>
     )
 }

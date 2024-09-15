@@ -7,6 +7,7 @@ import {
     Image,
     Link
 } from '@nextui-org/react'
+import '@/app/components/footer.css'
 
 const Footer = () => {
     return (
@@ -102,15 +103,27 @@ const Footer = () => {
         
                 </NavbarContent>
             </Navbar>
-            <div className="absolute top-[20px] right-[20px] z-[50]">
+            <div className="absolute hidden lg:block top-[20px] right-[20px] z-[50]">
                 <Link
                     href='https://solidityscan.com/published-report/project/a13965e63034021b'
                     target="blank"
                 >
                     <Image 
                         src="/solidityscan.svg"
-                        height={300}
-                        width={320}
+                        height={250}
+                        width={270}
+                    />
+                </Link>
+            </div>
+            <div className="solidityscan absolute lg:hidden top-[20px] max-[500px]:top-[100px] right-[20px] z-[50]">
+                <Link
+                    href='https://solidityscan.com/published-report/project/a13965e63034021b'
+                    target="blank"
+                >
+                    <Image
+                        src="/solidityscanmb.svg"
+                        height={103}
+                        width={103}
                     />
                 </Link>
             </div>
