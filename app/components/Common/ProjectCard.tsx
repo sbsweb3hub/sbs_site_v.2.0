@@ -284,7 +284,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
                         <Tab key='description' title='Description'>
                             <div className="flex flex-col items-start ml-[10px] mt-[25px]">
                                 <p>
-                                    {project?.description}
+                                    {project?.shortDescription}
                                 </p>
                             </div>
                         </Tab>
@@ -460,7 +460,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
                     <Tab key='description' title='Description'>
                         <div className="flex flex-col items-start ml-[10px] mt-[25px]">
                             <p>
-                                {project?.description}
+                                {project?.shortDescription}
                             </p>
                         </div>
                     </Tab>
@@ -637,7 +637,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ status, project }) => {
                         <Tab key='description' title='Description'>
                             <div className="flex flex-col items-start ml-[10px] mt-[25px]">
                                 <p>
-                                    {project?.description}
+                                    {project?.shortDescription}
                                 </p>
                             </div>
                         </Tab>
